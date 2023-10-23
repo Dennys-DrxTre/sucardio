@@ -19,7 +19,7 @@ class Usuario(models.Model):
 	direccion = models.TextField(null=True, blank=True)
 
 	# DATOS PERSONAL
-	cargo = models.CharField(max_length=100)
+	cargo = models.CharField(max_length=100, null=True, blank=True)
 	fecha_ingreso = models.DateField(auto_created=False, auto_now=False, null=True, blank=True)
 
 	# DATOS DEL MEDICO

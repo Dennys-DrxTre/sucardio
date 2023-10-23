@@ -29,6 +29,9 @@ INSTALLED_APPS = [
     'apps.anuncios',
     'apps.citas',
     'apps.presupuestos',
+
+    # librerias
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
