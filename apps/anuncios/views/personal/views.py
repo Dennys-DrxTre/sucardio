@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from ...forms import PersonalForm
 from django.views.generic import (
     TemplateView,
     ListView
@@ -22,16 +23,10 @@ class ListadoPersonal(LoginRequiredMixin, ListView):
 
 class RegistrarPersonal(LoginRequiredMixin, TemplateView):
     template_name = 'pages/personal/registrar_personal.html'
-    
-    def get(self, request, *args, **kwargs):
-        context = {}
-        context["title"] = "Personal"
-        context["sub_title"] = "Registrar personal"
-
-        return render(request, self.template_name, context)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Personal"
         context["sub_title"] = "Registrar personal"
+        context["form"] = PersonalForm()
         return context
