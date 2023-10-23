@@ -1,28 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+from apps.anuncios.models import Usuario
 
-class Usuario(models.Model):
-    # DATOS GENERALES
-    nombre_pac = models.CharField(max_length=50, null=False, blank=False)
-    apellido_pac = models.CharField(max_length=50, null=False, blank=False)
-    cedula_pac = models.CharField(max_length=10, null=False, blank=False)
-    telefono = models.CharField(max_length=16, null=False, blank=False)
-    telefono2 = models.CharField(max_length=16, null=True, blank=True)
-    direccion = models.TextField(null=False, blank=False)
-
-    # DATOS DEL MEDICO
-    profesion = models.CharField(max_length=100, null=True, blank=True)
-    especialidad = models.CharField(max_length=100, null=True, blank=True)
-    horario = models.CharField(max_length=150, null=True, blank=True)
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.cedula_pac
-    
-    class Meta:
-        verbose_name = 'Cliente'
-        verbose_name_plural = 'Clientes'
 
 class Cita(models.Model):
     control_pac = models.BooleanField(default=False)

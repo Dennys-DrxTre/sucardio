@@ -1,8 +1,11 @@
 from django.urls import path
-from .views import Base
+from apps.anuncios.views.personal.views import (
+    ListadoPersonal
+)
 
 APP_NAME = 'anuncio'
 
 urlpatterns = [
-    path('base/', Base.as_view(), name='base'),
+
+    path('listado-de-personal/', ListadoPersonal.as_view(), name='listado_personal'),
 ]

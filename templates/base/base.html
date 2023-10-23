@@ -3,7 +3,7 @@
 <html lang="es">
 
 <head>
-	<title>{% block title %} {% endblock %} | SUCADIO</title>
+	<title>{{ sub_title }} | SUCADIO</title>
 	<!-- [Meta] -->
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
@@ -67,6 +67,18 @@
 				</div>
 
 				<ul class="pc-navbar">
+
+					<li class="pc-item">
+						<a href="#" class="pc-link">
+							<span class="pc-micon">
+								<svg class="pc-icon">
+									<use xlink:href="#custom-home"></use>
+								</svg>
+							</span>
+							<span class="pc-mtext">Inicio</span>
+						</a>
+					</li>
+
 					<li class="pc-item pc-caption">
 						<label>CITAS</label>
 						<i class="ti ti-chart-arcs"></i>
@@ -75,32 +87,21 @@
 						<a href="#" class="pc-link">
 							<span class="pc-micon">
 								<svg class="pc-icon">
-									<use xlink:href="#custom-story"></use>
+									<use xlink:href="#custom-document"></use>
 								</svg>
 							</span>
-							<span class="pc-mtext">Titulo</span>
-						</a>
-					</li>
-					<!-- <li class="pc-item">
-						<a href="../widget/w_data.html" class="pc-link">
-							<span class="pc-micon">
-								<svg class="pc-icon">
-									<use xlink:href="#custom-fatrows"></use>
-								</svg>
-							</span>
-							<span class="pc-mtext">Data</span>
+							<span class="pc-mtext">Citas</span>
 						</a>
 					</li>
 					<li class="pc-item">
-						<a href="../widget/w_chart.html" class="pc-link">
+						<a href="#" class="pc-link">
 							<span class="pc-micon">
 								<svg class="pc-icon">
-									<use xlink:href="#custom-presentation-chart"></use>
+									<use xlink:href="#custom-user"></use>
 								</svg>
 							</span>
-							<span class="pc-mtext">Chart</span></a>
+							<span class="pc-mtext">Personal</span></a>
 					</li>
-					-->
 					<li class="pc-item pc-caption">
 						<label>ANUNCIOS</label>
 						<i class="ti ti-chart-arcs"></i>
@@ -112,7 +113,7 @@
 									<use xlink:href="#custom-presentation-chart"></use>
 								</svg>
 							</span>
-							<span class="pc-mtext">Titulo</span></a>
+							<span class="pc-mtext">Anuncios</span></a>
 					</li>
 
 					<li class="pc-item pc-caption">
@@ -123,10 +124,34 @@
 						<a href="#" class="pc-link">
 							<span class="pc-micon">
 								<svg class="pc-icon">
-									<use xlink:href="#custom-presentation-chart"></use>
+									<use xlink:href="#custom-layer"></use>
 								</svg>
 							</span>
-							<span class="pc-mtext">Titulo</span></a>
+							<span class="pc-mtext">Servicios</span></a>
+					</li>
+					<li class="pc-item">
+						<a href="#" class="pc-link">
+							<span class="pc-micon">
+								<svg class="pc-icon">
+									<use xlink:href="#custom-graph"></use>
+								</svg>
+							</span>
+							<span class="pc-mtext">Presupuesto</span></a>
+					</li>
+
+					
+					<li class="pc-item pc-caption">
+						<label>USUARIOS</label>
+						<i class="ti ti-chart-arcs"></i>
+					</li>
+					<li class="pc-item">
+						<a href="#" class="pc-link">
+							<span class="pc-micon">
+								<svg class="pc-icon">
+									<use xlink:href="#custom-profile-2user-outline"></use>
+								</svg>
+							</span>
+							<span class="pc-mtext">Usuarios</span></a>
 					</li>
 				</ul>
 			</div>
@@ -163,32 +188,21 @@
 						<div class="col-md-12">
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item">
-									<a href="#">Inicio</a>
+									<a href="#">SUCARDIO</a>
 								</li>
 								<li class="breadcrumb-item">
-									<a href="javascript: void(0)">{{sub_tittle}}</a>
+									{{title}}
 								</li>
-								<li class="breadcrumb-item" aria-current="page">{{title}}</li>
+								<li class="breadcrumb-item" aria-current="page">{{sub_title}}</li>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<div class="row">
-				<!-- [ sample-page ] start -->
-				<div class="col-sm-12">
-					<div class="card">
-						<div class="card-header">
-							{% block head_datatable %} {% endblock head_datatable %}
-						</div>
+			{% block content %}
 
-						<div class="card-body">
-							{% block content_datatable %} {% endblock content_datatable %}
-						</div>
-					</div>
-				</div>
-			</div>
+			{% endblock content %}
 		</div>
 	</div>
 	<!-- [ Main Content ] end -->

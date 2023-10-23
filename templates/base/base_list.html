@@ -1,0 +1,51 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block link %}
+	<!--Data table-->
+	<link rel="stylesheet" href="{% static 'assets/css/buttons.bootstrap5.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/dataTables.bootstrap5.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/responsive.bootstrap5.min.css' %}">
+    
+    {% block page_css %}
+    {% endblock page_css %}
+        
+{% endblock link %}
+
+{% block content %}
+
+    <div class="row">
+        <!-- Zero config table start -->
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    {% block head_datatable %}
+                    {% endblock head_datatable %}
+                </div>
+                <div class="card-body">
+                    <div class="dt-responsive table-responsive">
+                        
+                        {% block content_datatable %}
+                            
+                        {% endblock content_datatable %}
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Zero config table end -->
+    </div>
+
+{% endblock content %}
+    
+{% block js %}
+	<!--Data table-->
+	<script src="{% static 'assets/js/plugins/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'assets/js/plugins/dataTables.bootstrap5.min.js' %}"></script>
+	<script src="{% static 'assets/js/plugins/dataTables.responsive.min.js' %}"></script>
+	<script src="{% static 'assets/js/plugins/responsive.bootstrap5.min.js' %}"></script>
+	<script src="{% static 'assets/js/plugins/responsive.bootstrap5.min.js' %}"></script>
+	<script src="{% static 'assets/js/plugins/responsive.bootstrap5.min.js' %}"></script>
+	<script src="{% static 'js/listados.js' %}"></script>
+        
+{% endblock js %}
