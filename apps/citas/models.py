@@ -24,7 +24,6 @@ class Usuario(models.Model):
         verbose_name = 'Cliente'
         verbose_name_plural = 'Clientes'
 
-# Create your models here.
 class Cita(models.Model):
     control_pac = models.BooleanField(default=False)
     fecha_cita = models.DateField(auto_created=False, auto_now=False, null=True, blank=True)
