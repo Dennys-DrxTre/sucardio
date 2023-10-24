@@ -9,7 +9,7 @@ from ...models import Usuario
 from django.contrib.auth.models import User
 
 
-class ListadoPersonal(LoginRequiredMixin, ListView):
+class ListadoPersonal( ListView):
 	context_object_name = 'personal_list'
 	template_name = 'pages/personal/listado_personal.html'
 	ordering = ['nombre']
@@ -23,7 +23,7 @@ class ListadoPersonal(LoginRequiredMixin, ListView):
 		context["sub_title"] = "Listado de personal"
 		return context
 
-class RegistrarPersonal(LoginRequiredMixin, TemplateView):
+class RegistrarPersonal(TemplateView):
 	template_name = 'pages/personal/registrar_personal.html'
 
 	def post(self, request, *args, **kwargs):
