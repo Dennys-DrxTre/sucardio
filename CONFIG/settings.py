@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'apps.anuncios',
     'apps.citas',
     'apps.presupuestos',
+    'apps.landingpage',
 
     # librerias
     'widget_tweaks',

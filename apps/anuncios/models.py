@@ -3,12 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Usuario(models.Model):
-
-	class Permission(models.TextChoices):
-		ADMIN = 'AD', 'Admin'
-		MEDICO = 'ME', 'Medico'
-		CLIENTE = 'CL', 'Cliente'
+class Persona(models.Model):
 
 	# DATOS GENERALES
 	nombre = models.CharField(max_length=50, null=False, blank=False)
@@ -18,15 +13,20 @@ class Usuario(models.Model):
 	telefono2 = models.CharField(max_length=16, null=True, blank=True)
 	direccion = models.TextField(null=True, blank=True)
 
-	# DATOS PERSONAL
-	cargo = models.CharField(max_length=100, null=True, blank=True)
-	fecha_ingreso = models.DateField(auto_created=False, auto_now=False, null=True, blank=True)
+	def __str__(self):
+		return self.cedula
 
-	# DATOS DEL MEDICO
-	especialidad = models.CharField(max_length=100, null=True, blank=True)
-	horario_inicio = models.TimeField(null=True, blank=True)
-	horario_final = models.TimeField(null=True, blank=True)
+	class Meta:
+		abstract = True
 
+class Usuario(Persona):
+
+	class Permission(models.TextChoices):
+		ADMIN = 'AD', 'Admin'
+		MEDICO = 'SE', 'Secretaria'
+		CLIENTE = 'CL', 'Cliente'
+
+	fecha_registro = models.DateField(auto_created=True, null=True, blank=True)
 	tipo_usuario = models.CharField(max_length=2, choices=Permission.choices, default=Permission.CLIENTE)
 	user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
 
