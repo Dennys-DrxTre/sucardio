@@ -80,30 +80,29 @@
 					</li>
 
 					<li class="pc-item pc-caption">
-						<label>CITAS</label>
+						<label>SECCION MEDICA</label>
 						<i class="ti ti-chart-arcs"></i>
 					</li>
-					<li class="pc-item">
-						<a href="#" class="pc-link">
+					<li class="pc-item pc-hasmenu">
+						<a href="#!" class="pc-link">
 							<span class="pc-micon">
 								<svg class="pc-icon">
-									<use xlink:href="#custom-document"></use>
+									<use xlink:href="#custom-element-plus"></use>
 								</svg>
 							</span>
-							<span class="pc-mtext">Citas</span>
-						</a>
-					</li>
-					<li class="pc-item">
-						<a href="{% url 'listado_personal' %}" class="pc-link">
-							<span class="pc-micon">
-								<svg class="pc-icon">
-									<use xlink:href="#custom-user"></use>
-								</svg>
-							</span>
-							<span class="pc-mtext">Personal</span></a>
+							<span class="pc-mtext">Citas y Medicos</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+						<ul class="pc-submenu">
+							<li class="pc-item">
+								<a href="{% url 'listado_personal' %}" class="pc-link">
+									<span class="pc-mtext">Medicos</span></a>
+							</li>
+							<li class="pc-item">
+								<a class="pc-link" href="../forms/form_floating.html">Citas</a>
+							</li>
+						</ul>
 					</li>
 					<li class="pc-item pc-caption">
-						<label>ANUNCIOS</label>
+						<label>SECCION ANUNCIOS</label>
 						<i class="ti ti-chart-arcs"></i>
 					</li>
 					<li class="pc-item">
@@ -115,33 +114,30 @@
 							</span>
 							<span class="pc-mtext">Anuncios</span></a>
 					</li>
-
 					<li class="pc-item pc-caption">
-						<label>PRESUPUESTOS</label>
+						<label>SECCION SERVICIOS</label>
 						<i class="ti ti-chart-arcs"></i>
 					</li>
-					<li class="pc-item">
-						<a href="#" class="pc-link">
+					<li class="pc-item pc-hasmenu">
+						<a href="#!" class="pc-link">
 							<span class="pc-micon">
 								<svg class="pc-icon">
-									<use xlink:href="#custom-layer"></use>
+									<use xlink:href="#custom-element-plus"></use>
 								</svg>
 							</span>
-							<span class="pc-mtext">Servicios</span></a>
+							<span class="pc-mtext">Servicios y Presupuesto</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+						<ul class="pc-submenu">
+							<li class="pc-item">
+								<a href="#" class="pc-link">
+									<span class="pc-mtext">Servicios</span></a>
+							</li>
+							<li class="pc-item">
+								<a class="pc-link" href="#">Presupuestos</a>
+							</li>
+						</ul>
 					</li>
-					<li class="pc-item">
-						<a href="#" class="pc-link">
-							<span class="pc-micon">
-								<svg class="pc-icon">
-									<use xlink:href="#custom-graph"></use>
-								</svg>
-							</span>
-							<span class="pc-mtext">Presupuesto</span></a>
-					</li>
-
-					
 					<li class="pc-item pc-caption">
-						<label>USUARIOS</label>
+						<label>SECCION USUARIOS</label>
 						<i class="ti ti-chart-arcs"></i>
 					</li>
 					<li class="pc-item">
@@ -152,6 +148,33 @@
 								</svg>
 							</span>
 							<span class="pc-mtext">Usuarios</span></a>
+					</li>
+					<li class="pc-item pc-caption">
+						<label>SECCION PAGINA FRONTAL</label>
+						<i class="ti ti-chart-arcs"></i>
+					</li>
+					<li class="pc-item">
+						<a href="#" class="pc-link">
+							<span class="pc-micon">
+								<svg class="pc-icon">
+									<use xlink:href="#custom-setting-2"></use>
+								</svg>
+							</span>
+							<span class="pc-mtext">Configuracion</span></a>
+					</li>
+
+					<li class="pc-item pc-caption">
+						<label>SECCION SISTEMA</label>
+						<i class="ti ti-chart-arcs"></i>
+					</li>
+					<li class="pc-item">
+						<a href="#" class="pc-link">
+							<span class="pc-micon">
+								<svg class="pc-icon">
+									<use xlink:href="#custom-setting-outline"></use>
+								</svg>
+							</span>
+							<span class="pc-mtext">Configuracion</span></a>
 					</li>
 				</ul>
 			</div>
