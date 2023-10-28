@@ -1,0 +1,47 @@
+
+Lading Page ---------
+
+-Inicio
+  -- imagenes de los anuncios y eventos
+  -- descripcion de la organizacion y sus servicios
+  -- galeria  (no)
+  -- ubicacion
+  -- footer
+	-- rif
+	-- horario
+	-- direccion
+	-- telefono
+	-- fax
+- Quienes Somos
+  -- historia
+  -- descripcion
+  -- mision
+  -- vision
+- Noticias (Anuncios?)
+- Contacto
+
+
+(Dennys)
+- Usuarios (CRUD)
+- servicios (CRUD)
+- presupuesto (CRUD)
+
+(Jose)
+- Medico (CRUD)
+- Citas (CRUD)
+
+(Pendientes)
+- cambiar contrasenas
+- anuncios
+- lading page
+- recuperar contrasena
+- filtrados
+- reportes
+- seguridad
+
+
+
+
+
+
+
