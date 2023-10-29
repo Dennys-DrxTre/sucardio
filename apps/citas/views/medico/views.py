@@ -22,12 +22,23 @@ class ListadoMedico( ListView):
 	ordering = ['nombre']
 
 	def get_queryset(self):
-		return Medico.objects.filter(estado=Medico.Estado.HABILITADO)
+		estado = self.request.GET.get('estado', None)
+		if estado:
+			return Medico.objects.filter(estado=estado)
+		else:
+			return Medico.objects.all()
 	
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
+		nombre_estado = {
+			None:'Todos',
+			'AC':'Habilitados',
+			'DE':'Deshabilitados'
+		}
+		estado = self.request.GET.get('estado', None)
 		context["title"] = "Medicos"
 		context["sub_title"] = "Listado de medicos"
+		context['nombre_estado'] = nombre_estado[estado]
 		return context
 
 class RegistrarMedico(SuccessMessageMixin, CreateView):

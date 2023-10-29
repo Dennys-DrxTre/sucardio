@@ -2,11 +2,16 @@
 {% load static %}
     
 {% block head_datatable %}
-    <h5 id="page_title">{{ sub_title }}</h5>
-    <div class="cart-tools">
-        <!-- <a href="#" id="btn_filter" class="btn btn-icon btn-light-dark ml-10" rel="btn_open_modal_report" data-bs-toggle="tooltip" data-bs-placement="top" title="Reportes">
-            <i class="fas fa-file-pdf"></i>
-        </a> -->
+    <h5 id="page_title">{{ sub_title }} ({{nombre_estado}})</h5>
+    <div class="card-tools d-flex justify-content-end">
+
+        <select class="form-select form-select-sm w-auto me-4" id="select_filter_list_medicos">
+            <option value="">Selecciona</option>
+            <option value="all">Todos</option>
+            <option value="AC">Habilitados</option>
+            <option value="DE">Deshabilitados</option>
+        </select>
+        
         <a href="{% url 'registrar_medico' %}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar medico">
             <i class="fas fa-plus"></i>
         </a>
@@ -14,7 +19,7 @@
 
 {% endblock head_datatable %}
 
-    {% block content_datatable %}
+{% block content_datatable %}
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
