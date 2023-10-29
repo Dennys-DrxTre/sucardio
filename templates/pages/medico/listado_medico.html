@@ -2,20 +2,27 @@
 {% load static %}
     
 {% block head_datatable %}
-    <h5 id="page_title"></h5>
+    <h5 id="page_title">{{ sub_title }}</h5>
     <div class="cart-tools">
         <!-- <a href="#" id="btn_filter" class="btn btn-icon btn-light-dark ml-10" rel="btn_open_modal_report" data-bs-toggle="tooltip" data-bs-placement="top" title="Reportes">
             <i class="fas fa-file-pdf"></i>
         </a> -->
-        <a href="{% url 'registrar_personal' %}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar personal">
+        <a href="{% url 'registrar_medico' %}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar personal">
             <i class="fas fa-plus"></i>
         </a>
     </div>
 
 {% endblock head_datatable %}
 
-{% block content_datatable %}
-    
+    {% block content_datatable %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+        {% endfor %}
+    {% endif %}
     <table id="listado" class="table table-striped table-hover table-bordered nowrap">
         <thead>
             <tr>
@@ -23,23 +30,23 @@
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Numero Telefonico</th>
-                <th>Cargo</th>
+                <th>especialidad</th>
                 <th>Opciones</th>
               </tr>
         </thead>
         <tbody>
-            {% for personal in personal_list %}
+            {% for medico in medico_list %}
                 <tr>
-                    <td>{{personal.cedula}}</td>
-                    <td>{{personal.nombre}}</td>
-                    <td>{{personal.apellido}}</td>
-                    <td>{{personal.telefono}}</td>
-                    <td>{{personal.cargo}}</td>
+                    <td>{{medico.cedula}}</td>
+                    <td>{{medico.nombre}}</td>
+                    <td>{{medico.apellido}}</td>
+                    <td>{{medico.telefono}}</td>
+                    <td>{{medico.especialidad}}</td>
                     <td>
-                        <a href="#" rel="detail" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle del personal">
+                        <a href="{% url 'detalle_medico' medico.pk %}" rel="detail" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle del personal">
                             <svg class="pc-icon"><use xlink:href="#custom-document-text"></use></svg>
                         </a>
-                        <a href="#" rel="edit" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar personal">
+                        <a href="{% url 'editar_medico' medico.pk %}" rel="edit" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar personal">
                             <i class="fas fa-edit"></i>
                         </a>
                         <a href="#" rel="status" class="btn btn-icon btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Deshabilitar personal">
