@@ -1,13 +1,18 @@
+from multiselectfield import MultiSelectField
+
 from django.db import models
 from apps.anuncios.models import Usuario, Persona, ModeloBaseEstado
 from .choices import especialidades
 
 class Medico(Persona):
-	# DATOS PERSONAL
-	fecha_ingreso = models.DateField(auto_created=False, auto_now=False, null=True, blank=True)
 
-	# DATOS DEL MEDICO
-	especialidad = models.CharField(max_length=100, choices=especialidades,null=False, blank=False)
+	class Estado(models.TextChoices):
+		HABILITADO = 'AC', 'Habilitado'
+		DESHABILITADO = 'DE', 'Deshabilitado'
+
+	estado = models.CharField(max_length=2, choices=Estado.choices, default=Estado.HABILITADO, null=True, blank=True)
+	fecha_ingreso = models.DateField(auto_created=False, auto_now=False, null=True, blank=True)
+	especialidad = MultiSelectField(choices=especialidades)
 	horario_inicio = models.TimeField(null=True, blank=True)
 	horario_final = models.TimeField(null=True, blank=True)
 

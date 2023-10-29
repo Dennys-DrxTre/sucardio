@@ -11,44 +11,38 @@
       <div class="row">
         <!-- [ sample-page ] start -->
         <div class="col-sm-12">
+          {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+          {% endif %}
           <div class="card">
             <div class="card-body py-0">
-              <ul class="nav nav-tabs profile-tabs" id="myTab" role="tablist">
+              <ul class="nav nav-tabs profile-tabs">
                 <li class="nav-item">
-                  <a class="nav-link active" id="profile-tab-1" data-bs-toggle="tab" href="#profile-1" role="tab"
-                    aria-selected="true">
-                    <i class="ti ti-user me-2"></i>Profile
+                  <a class="nav-link" id="profile-tab-1">
+                    <i class="ti ti-user me-2"></i>Informacion
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="profile-tab-2" data-bs-toggle="tab" href="#profile-2" role="tab"
-                    aria-selected="true">
-                    <i class="ti ti-file-text me-2"></i>Personal Details
+                  <a class="nav-link text-warning" href="{% url 'editar_medico' medico.pk %}">
+                    <i class="ti ti-edit-circle me-2"></i>Editar este medico
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="profile-tab-3" data-bs-toggle="tab" href="#profile-3" role="tab"
-                    aria-selected="true">
-                    <i class="ti ti-id me-2"></i>My Account
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="profile-tab-4" data-bs-toggle="tab" href="#profile-4" role="tab"
-                    aria-selected="true">
-                    <i class="ti ti-lock me-2"></i>Change Password
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="profile-tab-5" data-bs-toggle="tab" href="#profile-5" role="tab"
-                    aria-selected="true">
-                    <i class="ti ti-users me-2"></i>Role
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="profile-tab-6" data-bs-toggle="tab" href="#profile-6" role="tab"
-                    aria-selected="true">
-                    <i class="ti ti-settings me-2"></i>Settings
-                  </a>
+                  {% if medico.estado == 'AC' %}
+                    <a class="nav-link text-danger" id="profile-tab-3" href="{% url 'cambiar_estado_medico' medico.pk %}">
+                      <i class="ti ti-eye-off me-2"></i>Deshabilitar Medico
+                    </a>
+                  {% elif medico.estado == 'DE' %}
+                    <a class="nav-link text-info" id="profile-tab-3" href="{% url 'cambiar_estado_medico' medico.pk %}">
+                      <i class="ti ti-eye me-2"></i>Habilitar Medico
+                    </a>
+                  {% endif %}
+                    
                 </li>
               </ul>
             </div>
@@ -59,49 +53,107 @@
                 <div class="col-lg-12 col-xxl-12">
                   <div class="card">
                     <div class="card-header">
-                      <h5>Personal Details</h5>
+                      <h5>Datos personales</h5>
                     </div>
                     <div class="card-body">
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item px-0 pt-0">
                           <div class="row">
                             <div class="col-md-6">
-                              <p class="mb-1 text-muted">Full Name</p>
-                              <p class="mb-0">Anshan Handgun</p>
+                              <p class="mb-1 text-muted">Nombre</p>
+                              <p class="mb-0">{{ medico.nombre }}</p>
                             </div>
                             <div class="col-md-6">
-                              <p class="mb-1 text-muted">Father Name</p>
-                              <p class="mb-0">Mr. Deepen Handgun</p>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item px-0">
-                          <div class="row">
-                            <div class="col-md-6">
-                              <p class="mb-1 text-muted">Phone</p>
-                              <p class="mb-0">(+1-876) 8654 239 581</p>
-                            </div>
-                            <div class="col-md-6">
-                              <p class="mb-1 text-muted">Country</p>
-                              <p class="mb-0">New York</p>
+                              <p class="mb-1 text-muted">Apellido</p>
+                              <p class="mb-0">{{ medico.apellido }}</p>
                             </div>
                           </div>
                         </li>
                         <li class="list-group-item px-0">
                           <div class="row">
                             <div class="col-md-6">
-                              <p class="mb-1 text-muted">Email</p>
-                              <p class="mb-0">anshan.dh81@gmail.com</p>
+                              <p class="mb-1 text-muted">Cedula</p>
+                              <p class="mb-0">{{ medico.cedula }}</p>
                             </div>
                             <div class="col-md-6">
-                              <p class="mb-1 text-muted">Zip Code</p>
-                              <p class="mb-0">956 754</p>
+                              <p class="mb-1 text-muted">Telefono</p>
+                              <p class="mb-0">{{ medico.telefono }}</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item px-0">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Telefono 2</p>
+                              <p class="mb-0">
+                                {% if medico.telefono2 %}
+                                  {{ medico.telefono2 }}
+                                {% else %}
+                                  Vacio
+                                {% endif %}
+                              </p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Fecha de ingreso</p>
+                              <p class="mb-0">
+                                {% if medico.fecha_ingreso %}
+                                  {{ medico.fecha_ingreso }}
+                                {% else %}
+                                  Vacio
+                                {% endif %}
+                              </p>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item px-0">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Horario inicial</p>
+                              <p class="mb-0">
+                                {% if medico.horario_inicio %}
+                                  {{ medico.horario_inicio }}
+                                {% else %}
+                                  Vacio
+                                {% endif %}
+                              </p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Horario final</p>
+                              <p class="mb-0">
+                                {% if medico.horario_final %}
+                                  {{ medico.horario_final }}
+                                {% else %}
+                                  Vacio
+                                {% endif %}
+                              </p>
                             </div>
                           </div>
                         </li>
                         <li class="list-group-item px-0 pb-0">
-                          <p class="mb-1 text-muted">Address</p>
-                          <p class="mb-0">Street 110-B Kalians Bag, Dewan, M.P. New York</p>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Especialidad</p>
+                              <p class="mb-0">{{ medico.especialidad }}</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Direccion</p>
+                              <p class="mb-0">
+                                {% if medico.direccion %}
+                                  {{ medico.direccion }}
+                                {% else %}
+                                  Vacio
+                                {% endif %}
+                              </p>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item px-0 pb-0">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Estado</p>
+                              <p class="mb-0">{{ medico.get_estado_display }}</p>
+                            </div>
+                          </div>
                         </li>
                       </ul>
                     </div>

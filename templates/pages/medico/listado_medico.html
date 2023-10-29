@@ -7,7 +7,7 @@
         <!-- <a href="#" id="btn_filter" class="btn btn-icon btn-light-dark ml-10" rel="btn_open_modal_report" data-bs-toggle="tooltip" data-bs-placement="top" title="Reportes">
             <i class="fas fa-file-pdf"></i>
         </a> -->
-        <a href="{% url 'registrar_medico' %}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar personal">
+        <a href="{% url 'registrar_medico' %}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar medico">
             <i class="fas fa-plus"></i>
         </a>
     </div>
@@ -15,12 +15,12 @@
 {% endblock head_datatable %}
 
     {% block content_datatable %}
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ message }}.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         {% endfor %}
     {% endif %}
     <table id="listado" class="table table-striped table-hover table-bordered nowrap">
@@ -43,15 +43,23 @@
                     <td>{{medico.telefono}}</td>
                     <td>{{medico.especialidad}}</td>
                     <td>
-                        <a href="{% url 'detalle_medico' medico.pk %}" rel="detail" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle del personal">
-                            <svg class="pc-icon"><use xlink:href="#custom-document-text"></use></svg>
+                        <a href="{% url 'detalle_medico' medico.pk %}" rel="detail" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle del medico">
+                            <i class="ti ti-file-info"></i>
                         </a>
-                        <a href="{% url 'editar_medico' medico.pk %}" rel="edit" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar personal">
-                            <i class="fas fa-edit"></i>
+                        <a href="{% url 'editar_medico' medico.pk %}" rel="edit" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar medico">
+                            <i class="ti ti-edit"></i>
                         </a>
-                        <a href="#" rel="status" class="btn btn-icon btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Deshabilitar personal">
-                            <i class="fas fa-eye-slash"></i>
-                        </a>
+                        
+                        {% if medico.estado == 'AC' %}
+                            <a href="{% url 'cambiar_estado_medico' medico.pk %}" rel="status" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Deshabilitar medico">
+                                <i class="ti ti-eye-off"></i>
+                            </a>
+                        {% elif medico.estado == 'DE' %}
+                            <a href="{% url 'cambiar_estado_medico' medico.pk %}" rel="status" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Habilitar medico">
+                                <i class="ti ti-eye"></i>
+                            </a>
+                        {% endif %}
+                            
                     </td>
                 </tr>
             {% endfor %}
