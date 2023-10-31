@@ -2,8 +2,8 @@
 Lading Page ---------
 
 -Inicio
-  -- imagenes de los anuncios y eventos
   -- descripcion de la organizacion y sus servicios
+  -- imagenes de los anuncios y eventos
   -- galeria  (no)
   -- ubicacion
   -- footer

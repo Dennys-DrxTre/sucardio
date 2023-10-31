@@ -3,10 +3,13 @@ from apps.anuncios.models import Usuario, Persona, ModeloBaseEstado
 from .choices import especialidades, metodos_pago
 
 class Medico(Persona):
-	# DATOS PERSONAL
-	fecha_ingreso = models.DateField(auto_created=False, auto_now=False, null=True, blank=True)
 
-	# DATOS DEL MEDICO
+	class Estado(models.TextChoices):
+		HABILITADO = 'AC', 'Habilitado'
+		DESHABILITADO = 'DE', 'Deshabilitado'
+
+	estado = models.CharField(max_length=2, choices=Estado.choices, default=Estado.HABILITADO, null=True, blank=True)
+	fecha_ingreso = models.DateField(auto_created=False, auto_now=False, null=True, blank=True)
 	especialidad = models.CharField(max_length=100, choices=especialidades,null=False, blank=False)
 	horario_inicio = models.TimeField(null=True, blank=True)
 	horario_final = models.TimeField(null=True, blank=True)
