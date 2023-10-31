@@ -6,6 +6,11 @@ from apps.citas.views.medico.views import (
     DetalleMedico
 )
 
+from apps.citas.views.citas.views import (
+    ListadoCita,
+    RegistrarCita
+)
+
 APP_NAME = 'citas'
 
 urlpatterns = [
@@ -13,4 +18,8 @@ urlpatterns = [
     path('registrar-medico/', RegistrarMedico.as_view(), name='registrar_medico'),
     path('editar-medico/<int:pk>/', EditarMedico.as_view(), name='editar_medico'),
     path('detalle-del-medico/<int:pk>/', DetalleMedico.as_view(), name='detalle_medico'),
+
+    #citas
+    path('listado-de-citas/', ListadoCita.as_view(), name='listado_citas'),
+    path('registrar-cita/', RegistrarCita.as_view(), name='registrar_cita'),
 ]
