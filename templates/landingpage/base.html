@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="utf-8">
@@ -20,35 +20,10 @@
     <header class="wrapper bg-soft-primary">
       <nav class="navbar navbar-expand-lg extended navbar-light navbar-bg-light caret-none">
         <div class="container flex-lg-column">
-          <div class="topbar d-flex flex-row w-100 justify-content-between align-items-center">
-            <div class="navbar-brand"><a href="index.html"><img src="{% static 'img/logo2.png' %}" alt="" /></a></div>
 
-            <div class="navbar-other ms-auto">
-              <ul class="navbar-nav flex-row align-items-center">
-                <li class="nav-item"><a class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-info"><i class="uil uil-info-circle"></i></a></li>
-                
-                {% if user.is_authenticated %}
-                  <li class="nav-item dropdown language-select text-uppercase">
-                    <a class="nav-link dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil uil-user"></i></a>
-                    <ul class="dropdown-menu">
-                      <li class="nav-item"><a class="dropdown-item" href="#">Perfil</a></li>
-                      <li class="nav-item"><a class="dropdown-item" href="#">Mis Citas</a></li>
-                      <li class="nav-item"><a class="dropdown-item" href="#">Cambiar contresena</a></li>
-                      <li class="nav-item"><a class="dropdown-item" href="#">Salir</a></li>
-                    </ul>
-                  </li>
-                {% endif %}
-                  
-                <li class="nav-item d-lg-none">
-                  <button class="hamburger offcanvas-nav-btn"><span></span></button>
-                </li>
-              </ul>
-              <!-- /.navbar-nav -->
-            </div>
-            <!-- /.navbar-other -->
-          </div>
           <!-- /.d-flex -->
           <div class="navbar-collapse-wrapper bg-white d-flex flex-row align-items-center">
+            <div class=""><a href="index.html"><img src="{% static 'img/logo2.png' %}" alt="" height="60px" /></a></div>
             <div class="navbar-collapse offcanvas offcanvas-nav offcanvas-start">
               <div class="offcanvas-header d-lg-none">
                 <h3 class="text-white fs-30 mb-0">Sandbox</h3>
@@ -88,18 +63,28 @@
                 </ul>
                 <!-- /.navbar-nav -->
                 <div class="offcanvas-footer d-lg-none">
-                  <div>
-                    <a href="mailto:first.last@email.com" class="link-inverse">info@email.com</a>
-                    <br /> 00 (123) 456 78 90 <br />
-                    <nav class="nav social social-white mt-4">
-                      <a href="#"><i class="uil uil-twitter"></i></a>
-                      <a href="#"><i class="uil uil-facebook-f"></i></a>
-                      <a href="#"><i class="uil uil-dribbble"></i></a>
-                      <a href="https://instagram.com/clinicasucardio?igshid=MW5sMTBxbDFyemQyNQ=="><i class="uil uil-instagram"></i></a>
-                      <a href="#"><i class="uil uil-youtube"></i></a>
-                    </nav>
-                    <!-- /.social -->
-                  </div>
+                  <div class="navbar-other ms-auto">
+              <ul class="navbar-nav flex-row align-items-center">
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-info"><i class="uil uil-info-circle"></i></a></li>
+                
+                {% if user.is_authenticated %}
+                  <li class="nav-item dropdown language-select text-uppercase">
+                    <a class="nav-link dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil uil-user"></i></a>
+                    <ul class="dropdown-menu">
+                      <li class="nav-item"><a class="dropdown-item" href="#">Perfil</a></li>
+                      <li class="nav-item"><a class="dropdown-item" href="#">Mis Citas</a></li>
+                      <li class="nav-item"><a class="dropdown-item" href="#">Cambiar contresena</a></li>
+                      <li class="nav-item"><a class="dropdown-item" href="#">Salir</a></li>
+                    </ul>
+                  </li>
+                {% endif %}
+                  
+                <li class="nav-item d-lg-none">
+                  <button class="hamburger offcanvas-nav-btn"><span></span></button>
+                </li>
+              </ul>
+              <!-- /.navbar-nav -->
+            </div>
                 </div>
                 <!-- /.offcanvas-footer -->
               </div>
@@ -107,10 +92,28 @@
             <!-- /.navbar-collapse -->
             <div class="navbar-other ms-auto w-100 d-none d-lg-block">
               <nav class="nav social social-muted justify-content-end text-end">
-                <a href="#"><i class="uil uil-twitter"></i></a>
-                <a href="#"><i class="uil uil-facebook-f"></i></a>
-                <a href="#"><i class="uil uil-dribbble"></i></a>
-                <a href="https://instagram.com/clinicasucardio?igshid=MW5sMTBxbDFyemQyNQ==" target="_blank"><i class="uil uil-instagram"></i></a>
+                <div class="navbar-other ms-auto">
+              <ul class="navbar-nav flex-row align-items-center">
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-info"><i class="uil uil-info-circle"></i></a></li>
+                
+                {% if user.is_authenticated %}
+                  <li class="nav-item dropdown language-select text-uppercase">
+                    <a class="nav-link dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil uil-user"></i></a>
+                    <ul class="dropdown-menu">
+                      <li class="nav-item"><a class="dropdown-item" href="#">Perfil</a></li>
+                      <li class="nav-item"><a class="dropdown-item" href="#">Mis Citas</a></li>
+                      <li class="nav-item"><a class="dropdown-item" href="#">Cambiar contresena</a></li>
+                      <li class="nav-item"><a class="dropdown-item" href="#">Salir</a></li>
+                    </ul>
+                  </li>
+                {% endif %}
+                  
+                <li class="nav-item d-lg-none">
+                  <button class="hamburger offcanvas-nav-btn"><span></span></button>
+                </li>
+              </ul>
+              <!-- /.navbar-nav -->
+            </div>
               </nav>
               <!-- /.social -->
             </div>
