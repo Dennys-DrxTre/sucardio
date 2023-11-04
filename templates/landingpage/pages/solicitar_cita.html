@@ -1,0 +1,39 @@
+{% extends 'landingpage/base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <section class="wrapper bg-soft-primary">
+        <div class="container pt-10 pb-15 pt-md-14 pb-md-20">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 id="page_title">{{ sub_title }}</h5>
+                        <div class="card-tools d-flex justify-content-end">
+                    
+                            <a href="#" onClick="javascript:history.go(-1);" class="btn btn-icon btn-primary">
+                                Mis citas
+                            </a>
+                        
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-6 form-floating">
+                                <input id="textInputExample" type="text" class="form-control" placeholder="Text Input">
+                                <label for="textInputExample">Text Input</label>
+                            </div>
+                            <div class="col-md-6 form-floating">
+                                <input id="textInputExample" type="text" class="form-control" placeholder="Text Input">
+                                <label for="textInputExample">Text Input</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </section>
+{% endblock content %}
+    
