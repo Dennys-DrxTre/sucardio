@@ -11,8 +11,10 @@
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos aliquid dolorem delectus reiciendis sequi itaque accusamus alias! Voluptas natus modi</p>
 
             <div class="d-flex justify-content-center justify-content-lg-start" data-cues="slideInDown" data-group="page-title-buttons" data-delay="900">
-                <span><a class="btn btn-primary rounded me-2">Registrarse</a></span>
-                <span><a class="btn btn-yellow rounded">Ingresar</a></span>
+                {% if not  user.is_authenticated %}
+                    <span><a class="btn btn-primary rounded me-2">Registrarse</a></span>
+                    <span><a class="btn btn-yellow rounded">Ingresar</a></span>
+                {% endif %}
             </div>
             </div>
             <!-- /column -->
