@@ -40,3 +40,13 @@ especialidades = [
     ('Medico cirujano especialista en manos','Medico cirujano especialista en manos'),
     ('Medico traumatologo','Medico traumatologo'),
 ]
+
+metodos_pago = (
+    ('Pago móvil', 'Pago móvil'), 
+    ('Transferencia', 'Transferencia'), 
+    ('Zelle', 'Zelle'), 
+    ('Débito', 'Débito'),
+    ('Efectivo BS', 'Efectivo BS'),
+    ('Efectivo Dólares', 'Efectivo Dólares'), 
+    ('Efectivo Euros', 'Efectivo Euros'),
+)

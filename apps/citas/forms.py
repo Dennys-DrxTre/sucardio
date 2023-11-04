@@ -1,6 +1,6 @@
 from typing import Any
 from django import forms
-from apps.citas.models import Medico
+from apps.citas.models import Medico, Cita
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
@@ -26,6 +26,11 @@ class MedicoEditForm(forms.ModelForm):
 		if qs.exists():
 			raise forms.ValidationError('El Medico ya existe.')
 		return data
+
+class CitasForm(forms.ModelForm):
+	class Meta:
+		model = Cita
+		exclude = ('fecha_cita', 'estado',)
 
 # class PersonalForm(forms.ModelForm):
 #     class Meta:

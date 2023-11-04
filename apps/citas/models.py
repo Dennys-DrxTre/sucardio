@@ -1,6 +1,6 @@
 from django.db import models
 from apps.anuncios.models import Usuario, Persona, ModeloBaseEstado
-from .choices import especialidades
+from .choices import especialidades, metodos_pago
 
 class Medico(Persona):
 
@@ -23,10 +23,18 @@ class Medico(Persona):
 		verbose_name_plural = 'Medicos'
 
 class Cita(ModeloBaseEstado):
+
+	class Estado(models.TextChoices):
+		PENDIENTE = 'PE', 'Pendiente'
+		APROBADO = 'AP', 'Aprobado'
+		RECHAZADO = 'RE', 'Rechazado'
+
 	control_pac = models.BooleanField(default=False)
 	fecha_cita = models.DateField(auto_created=False, auto_now=False, null=True, blank=True)
 	motivo_consulta = models.TextField(null=False, blank=False)
-	metodo_pago = models.CharField(max_length=20, null=False, blank=False)
+	metodo_pago = models.CharField(max_length=30, null=False, blank=False, choices=metodos_pago)
+	estado = models.CharField(max_length=20, null=False, blank=False, choices=Estado.choices, default=Estado.PENDIENTE)
+	cliente = models.ForeignKey(Usuario, on_delete=models.PROTECT, null=False, blank=False)
 	medico = models.ForeignKey(Medico ,on_delete=models.PROTECT, blank=False, null=False)
 
 	def __str__(self):
