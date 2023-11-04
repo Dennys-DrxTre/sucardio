@@ -7,32 +7,44 @@ from django.views.generic import (
 	DetailView
 )
 from .models import Anuncios
-from .forms import CitasForm
-"""
-class ListadoCita( ListView):
-	context_object_name = 'anuncio_list'
-	template_name = 'pages/citas/listado_citas.html'
-	ordering = ['-id']
+from .forms import AnunciosForm
 
-	def get_queryset(self):
-		return Cita.objects.all()
+class ListadoAnuncioAdmin(ListView):
+	context_object_name = 'anuncio_list'
+	template_name = 'pages/anuncios/lista_de_anuncios.html'
+	model= Anuncios
+	ordering = ['-id']
 	
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context["title"] = "Citas"
-		context["sub_title"] = "Listado de citas"
+		context["title"] = "Anuncios"
+		context["sub_title"] = "Listado de anuncios"
 		return context
 
-class RegistrarCita(SuccessMessageMixin, CreateView):
-	template_name = 'pages/citas/registrar_cita.html'
-	model = Cita
-	form_class = CitasForm
-	success_url = '/listado-de-citas/'
-	success_message = "Solicitud para cita creada exitosamente, se le estará notificando el estado de la misma"
+class ListadoAnuncios( ListView):
+	context_object_name = 'anuncio_list'
+	template_name = 'landingpage/pages/listado_de_anuncios.html'
+	model= Anuncios
+	ordering = ['-id']
+	
+	def get_queryset(self):
+		return Anuncios.objects.filter(estado='AC').order_by('-id')
+	
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context["title"] = "Anuncios"
+		context["sub_title"] = "Listado de anuncios"
+		return context
+
+class RegistrarAnuncio(SuccessMessageMixin, CreateView):
+	template_name = 'pages/anuncios/crear_anuncio.html'
+	model = Anuncios
+	form_class = AnunciosForm
+	success_url = '/listado-de-anuncios/'
+	success_message = "El anuncio se ha creado exitosamente."
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context["title"] = "Citas"
-		context["sub_title"] = "Registrar citas"
+		context["title"] = "Anuncios"
+		context["sub_title"] = "Registrar anuncio"
 		return context
-"""

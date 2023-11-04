@@ -61,7 +61,7 @@ class Anuncios(ModeloBaseEstado):
 	autor = models.ForeignKey(Usuario, on_delete=models.PROTECT, blank=False, null=False)
 
 	def __str__(self):
-		return self.id
+		return self.titulo
 	
 	class Meta:
 		permissions = []
