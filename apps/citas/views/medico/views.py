@@ -2,7 +2,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.core.exceptions import ValidationError
 from ...forms import MedicoForm, MedicoEditForm
 from django.views.generic import (
 	UpdateView,

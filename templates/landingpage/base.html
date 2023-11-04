@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,11 +8,11 @@
   <meta name="description" content="Clinica sucardio">
   <meta name="keywords" content="sucardio, clinica, medicos, medicina, guanare">
   <meta name="author" content="anonimo">
-  <title>Sandbox - Modern & Multipurpose Bootstrap 5 Template</title>
-  <link rel="shortcut icon" href="./assets/img/favicon.png">
-  <link rel="stylesheet" href="./assets/css/plugins.css">
-  <link rel="stylesheet" href="./assets/css/style.css">
-  <link rel="stylesheet" href="./assets/css/colors/green.css">
+  <title>{{ title }} | SUCARDIO</title>
+  <link rel="shortcut icon" href="{% static 'assets_landing_page/img/favicon.png' %}">
+  <link rel="stylesheet" href="{% static 'assets_landing_page/css/plugins.css' %}">
+  <link rel="stylesheet" href="{% static 'assets_landing_page/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'assets_landing_page/css/colors/green.css' %}">
 </head>
 
 <body>
@@ -20,20 +21,24 @@
       <nav class="navbar navbar-expand-lg extended navbar-light navbar-bg-light caret-none">
         <div class="container flex-lg-column">
           <div class="topbar d-flex flex-row w-100 justify-content-between align-items-center">
-            <div class="navbar-brand"><a href="./index.html"><img src="./assets/img/logo-dark.png" srcset="./assets/img/logo-dark@2x.png 2x" alt="" /></a></div>
+            <div class="navbar-brand"><a href="index.html"><img src="{% static 'img/logo2.png' %}" alt="" /></a></div>
 
             <div class="navbar-other ms-auto">
               <ul class="navbar-nav flex-row align-items-center">
                 <li class="nav-item"><a class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-info"><i class="uil uil-info-circle"></i></a></li>
-                <li class="nav-item dropdown language-select text-uppercase">
-                  <a class="nav-link dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil uil-user"></i></a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-item"><a class="dropdown-item" href="#">Perfil</a></li>
-                    <li class="nav-item"><a class="dropdown-item" href="#">Citas</a></li>
-                    <li class="nav-item"><a class="dropdown-item" href="#">Cambiar contresena</a></li>
-                    <li class="nav-item"><a class="dropdown-item" href="#">Salir</a></li>
-                  </ul>
-                </li>
+                
+                {% if user.is_authenticated %}
+                  <li class="nav-item dropdown language-select text-uppercase">
+                    <a class="nav-link dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil uil-user"></i></a>
+                    <ul class="dropdown-menu">
+                      <li class="nav-item"><a class="dropdown-item" href="#">Perfil</a></li>
+                      <li class="nav-item"><a class="dropdown-item" href="#">Mis Citas</a></li>
+                      <li class="nav-item"><a class="dropdown-item" href="#">Cambiar contresena</a></li>
+                      <li class="nav-item"><a class="dropdown-item" href="#">Salir</a></li>
+                    </ul>
+                  </li>
+                {% endif %}
+                  
                 <li class="nav-item d-lg-none">
                   <button class="hamburger offcanvas-nav-btn"><span></span></button>
                 </li>
@@ -64,15 +69,22 @@
                   <li class="nav-item ">
                     <a class="nav-link" href="#">Contacto</a>
                   </li>
-                  <li class="nav-item ">
-                    <a class="nav-link" href="#">Citas</a>
-                  </li>
-                  <li class="nav-item ">
-                    <a class="nav-link" href="#">Registrarse</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Acceder</a>
-                  </li>
+                  
+                  {% if user.is_authenticated %}
+                    <li class="nav-item ">
+                      <a class="nav-link" href="#">Mis Citas</a>
+                    </li>
+                  {% endif %}
+                    
+                  
+                  {% if not user.is_authenticated %}
+                    <li class="nav-item ">
+                      <a class="nav-link" href="#">Registrarse</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Ingresar</a>
+                    </li>
+                  {% endif %}
                 </ul>
                 <!-- /.navbar-nav -->
                 <div class="offcanvas-footer d-lg-none">
@@ -153,323 +165,15 @@
       <!-- /.offcanvas -->
     </header>
     <!-- /header -->
-
-    <section class="wrapper bg-soft-primary">
-      <div class="container pt-10 pb-15 pt-md-14 pb-md-20">
-        <div class="row gx-lg-8 gx-xl-12 gy-10 mb-5 align-items-center">
-          <div class="col-md-10 offset-md-1 offset-lg-0 col-lg-5 text-center text-lg-start order-2 order-lg-0" data-cues="slideInDown" data-group="page-title" data-delay="600">
-            <h1 class="display-1 mb-5 mx-md-n5 mx-lg-0">Sucardio</h1>
-            <div class="d-flex justify-content-center justify-content-lg-start" data-cues="slideInDown" data-group="page-title-buttons" data-delay="900">
-              <span><a class="btn btn-primary rounded me-2">Registrarse</a></span>
-              <span><a class="btn btn-yellow rounded">Acceder</a></span>
-            </div>
-          </div>
-          <!-- /column -->
-          <div class="col-lg-7" data-cue="slideInDown">
-            <figure><img class="w-auto" src="./assets/img/illustrations/i6.png" srcset="./assets/img/illustrations/i6@2x.png 2x" alt="" /></figure>
-          </div>
-          <!-- /column -->
-        </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container -->
-    </section>
-    <!-- /section -->
-    <section class="wrapper bg-light mb-0">
-      <div class="container py-14 py-md-16 pb-md-17">
-        <div class="row gx-md-5 gy-5 mt-n18 mt-md-n21 mb-14 mb-md-17">
-          <div class="col-md-6 col-xl-3">
-            <div class="card shadow-lg card-border-bottom border-soft-green">
-              <div class="card-body">
-                <img src="./assets/img/icons/lineal/browser.svg" class="svg-inject icon-svg icon-svg-md text-yellow mb-3" alt="" />
-                <h4>Content Marketing</h4>
-                <p class="mb-2">Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida at eget metus cras justo.</p>
-              </div>
-              <!--/.card-body -->
-            </div>
-            <!--/.card -->
-          </div>
-          <!--/column -->
-          <div class="col-md-6 col-xl-3">
-            <div class="card shadow-lg card-border-bottom border-soft-green">
-              <div class="card-body">
-                <img src="./assets/img/icons/lineal/chat-2.svg" class="svg-inject icon-svg icon-svg-md text-green mb-3" alt="" />
-                <h4>Social Engagement</h4>
-                <p class="mb-2">Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida at eget metus cras justo.</p>
-              </div>
-              <!--/.card-body -->
-            </div>
-            <!--/.card -->
-          </div>
-          <!--/column -->
-          <div class="col-md-6 col-xl-3">
-            <div class="card shadow-lg card-border-bottom border-soft-green">
-              <div class="card-body">
-                <img src="./assets/img/icons/lineal/id-card.svg" class="svg-inject icon-svg icon-svg-md text-orange mb-3" alt="" />
-                <h4>Identity & Branding</h4>
-                <p class="mb-2">Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida at eget metus cras justo.</p>
-              </div>
-              <!--/.card-body -->
-            </div>
-            <!--/.card -->
-          </div>
-          <!--/column -->
-          <div class="col-md-6 col-xl-3">
-            <div class="card shadow-lg card-border-bottom border-soft-green">
-              <div class="card-body">
-                <img src="./assets/img/icons/lineal/gift.svg" class="svg-inject icon-svg icon-svg-md text-blue mb-3" alt="" />
-                <h4>Product Design</h4>
-                <p>Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida at eget metus cras justo.</p>
-              </div>
-              <!--/.card-body -->
-            </div>
-            <!--/.card -->
-          </div>
-          <!--/column -->
-        </div>
-
-        <!--/.row -->
-      </div>
-      <!-- /.container -->
-    </section>
-    <!-- /section -->
-    <!-- /section -->
-    <section class="wrapper bg-light">
-      <div class="overflow-hidden">
-        <div class="container pb-9 pb-md-14">
-          <div class="row">
-            <div class="col-lg-9 col-xl-8 col-xxl-7 mx-auto text-center">
-              <h3 class="display-4 mb-8">Anuncios</h3>
-            </div>
-            <!-- /column -->
-          </div>
-          <!-- /.row -->
-          <div class="swiper-container grid-view nav-bottom nav-color mb-14" data-margin="30" data-dots="false" data-nav="true" data-items-md="2" data-items-xs="1">
-            <div class="swiper overflow-visible">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <figure class="rounded"><img src="./assets/img/photos/pp17.jpg" alt="" /><a class="item-link" href="./single-project.html"><i class="uil uil-link"></i></a></figure>
-                </div>
-                <!--/.swiper-slide -->
-                <div class="swiper-slide">
-                  <figure class="rounded"><img src="./assets/img/photos/pp18.jpg" alt="" /><a class="item-link" href="./single-project2.html"><i class="uil uil-link"></i></a></figure>
-                </div>
-                <!--/.swiper-slide -->
-                <div class="swiper-slide">
-                  <figure class="rounded"><img src="./assets/img/photos/pp19.jpg" alt="" /><a class="item-link" href="./single-project3.html"><i class="uil uil-link"></i></a></figure>
-                </div>
-                <!--/.swiper-slide -->
-                <div class="swiper-slide">
-                  <figure class="rounded"><img src="./assets/img/photos/pp20.jpg" alt="" /><a class="item-link" href="./single-project.html"><i class="uil uil-link"></i></a></figure>
-                </div>
-                <!--/.swiper-slide -->
-                <div class="swiper-slide">
-                  <figure class="rounded"><img src="./assets/img/photos/pp21.jpg" alt="" /><a class="item-link" href="./single-project2.html"><i class="uil uil-link"></i></a></figure>
-                </div>
-                <!--/.swiper-slide -->
-                <div class="swiper-slide">
-                  <figure class="rounded"><img src="./assets/img/photos/pp22.jpg" alt="" /><a class="item-link" href="./single-project3.html"><i class="uil uil-link"></i></a></figure>
-                </div>
-                <!--/.swiper-slide -->
-              </div>
-              <!--/.swiper-wrapper -->
-            </div>
-            <!--/.swiper -->
-          </div>
-          <!-- /.swiper-container -->
-        </div>
-        <!-- /.container -->
-      </div>
-      <!-- /.swiper-container -->
-    </section>
-    <!-- /section -->
-    <section class="wrapper bg-light">
-      <div class="swiper-container dots-closer blog grid-view mb-8" data-margin="0" data-dots="true" data-items-md="2" data-items-xs="1">
-        <div class="swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <div class="item-inner">
-                <article>
-                  <div class="card">
-                    <div class="card-header">
-                      18/10/22  
-                    </div>
-                    <div class="card-body">
-                      ...
-                    </div>
-                    <!--/.card-body -->
-                  </div>
-                  <!-- /.card -->
-                </article>
-                <!-- /article -->
-              </div>
-              <!-- /.item-inner -->
-            </div>
-            <!--/.swiper-slide -->
-            <div class="swiper-slide">
-              <div class="item-inner">
-                <article>
-                  <div class="card">
-                    <div class="card-header">
-                      18/10/22  
-                    </div>
-                    <div class="card-body">
-                      ...
-                    </div>
-                    <!--/.card-body -->
-                  </div>
-                  <!-- /.card -->
-                </article>
-                <!-- /article -->
-              </div>
-              <!-- /.item-inner -->
-            </div>
-            <!--/.swiper-slide -->
-            <div class="swiper-slide">
-              <div class="item-inner">
-                <article>
-                  <div class="card">
-                    <div class="card-header">
-                      18/10/22  
-                    </div>
-                    <div class="card-body">
-                      ...
-                    </div>
-                    <!--/.card-body -->
-                  </div>
-                  <!-- /.card -->
-                </article>
-                <!-- /article -->
-              </div>
-              <!-- /.item-inner -->
-            </div>
-            <!--/.swiper-slide -->
-            <div class="swiper-slide">
-              <div class="item-inner">
-                <article>
-                  <div class="card">
-                    <div class="card-header">
-                      18/10/22  
-                    </div>
-                    <div class="card-body">
-                      ...
-                    </div>
-                    <!--/.card-body -->
-                  </div>
-                  <!-- /.card -->
-                </article>
-                <!-- /article -->
-              </div>
-              <!-- /.item-inner -->
-            </div>
-            <!--/.swiper-slide -->
-          </div>
-          <!--/.swiper-wrapper -->
-        </div>
-        <!-- /.swiper -->
-      </div>
-      <!-- /.container -->
-    </section>
-    <!-- /section -->
-
-    <section class="wrapper bg-soft-primary">
-      <div class="overflow-hidden">
-        <div class="container pb-9 pb-md-14">
-          <div class="row">
-            <div class="col-lg-9 col-xl-8 col-xxl-7 mx-auto text-center">
-              <h3 class="display-4 mt-6 mb-8">Galeria</h3>
-            </div>
-            <!-- /column -->
-          </div>
-          <div class="swiper-container blog grid-view mb-17 mb-md-19" data-margin="30" data-nav="true" data-dots="true" data-items-xxl="3" data-items-md="2" data-items-xs="1">
-            <div class="swiper">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <figure class="rounded"><img src="./assets/img/photos/pp10.jpg" alt="" /></figure>
-                </div>
-                <!--/.swiper-slide -->
-                <div class="swiper-slide">
-                  <figure class="rounded"><img src="./assets/img/photos/pp11.jpg" alt="" /></figure>
-                </div>
-                <!--/.swiper-slide -->
-                <div class="swiper-slide">
-                  <figure class="rounded"><img src="./assets/img/photos/pp12.jpg" alt="" /></figure>
-                </div>
-                <!--/.swiper-slide -->
-                <div class="swiper-slide">
-                  <figure class="rounded"><img src="./assets/img/photos/pp13.jpg" alt="" /></figure>
-                </div>
-                <!--/.swiper-slide -->
-                <div class="swiper-slide">
-                  <figure class="rounded"><img src="./assets/img/photos/pp14.jpg" alt="" /></figure>
-                </div>
-                <!--/.swiper-slide -->
-                <div class="swiper-slide">
-                  <figure class="rounded"><img src="./assets/img/photos/pp15.jpg" alt="" /></figure>
-                </div>
-                <!--/.swiper-slide -->
-                <div class="swiper-slide">
-                  <figure class="rounded"><img src="./assets/img/photos/pp16.jpg" alt="" /></figure>
-                </div>
-                <!--/.swiper-slide -->
-              </div>
-              <!--/.swiper-wrapper -->
-            </div>
-            <!-- /.swiper -->
-          </div>
-        </div>
-      </div>
-      <!-- /.swiper-container -->
-    </section>
+    
+    {% block content %}
+    {% endblock content %}
+      
   </div>
   <!-- /.content-wrapper -->
-  <footer class="bg-light">
-    <div class="container py-13 py-md-15">
-      <div class="row gy-6 gy-lg-0">
-        <div class="col-md-4 col-lg-3">
-          <div class="widget">
-            <img class="mb-4" src="./assets/img/logo-dark.png" srcset="./assets/img/logo-dark@2x.png 2x" alt="" />
-            <p class="mb-4">© 2023 Sucardio. <br class="d-none d-lg-block" />Todos los derechos reservados.</p>
-            <nav class="nav social ">
-              <a href="#"><i class="uil uil-twitter"></i></a>
-              <a href="#"><i class="uil uil-facebook-f"></i></a>
-              <a href="#"><i class="uil uil-dribbble"></i></a>
-              <a href="#"><i class="uil uil-instagram"></i></a>
-              <a href="#"><i class="uil uil-youtube"></i></a>
-            </nav>
-            <!-- /.social -->
-          </div>
-          <!-- /.widget -->
-        </div>
-        <!-- /column -->
-        <div class="col-md-4 col-lg-3">
-          <div class="widget">
-            <h4 class="widget-title  mb-3">Ponte en contacto</h4>
-            <address> Av. 23 de Enero, Local Nº. 94 <br />  Centro, Guanare </address>
-            <a href="mailto:#" class="link-body">info@email.com</a><br /> 00 (123) 456 78 90
-          </div>
-          <!-- /.widget -->
-        </div>
-        <!-- /column -->
-        <div class="col-md-4 col-lg-3">
-          <div class="widget">
-            <h4 class="widget-title  mb-3">Más información</h4>
-            <ul class="list-unstyled text-reset mb-0">
-              <li><a href="#">¿Quienes Somos?</a></li>
-              <li><a href="#">Contacto</a></li>
-              <li><a href="#">Anuncios</a></li>
-              <li><a href="#">Condiciones de uso</a></li>
-              <li><a href="#">Política de privacidad</a></li>
-            </ul>
-          </div>
-          <!-- /.widget -->
-        </div>
-        <!-- /column -->
-      </div>
-      <!--/.row -->
-    </div>
-    <!-- /.container -->
-  </footer>
+  
+  {% include 'landingpage/pages/footer.html' %}
+    
 
   <div class="modal fade" id="modal-02" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-md">
@@ -478,7 +182,7 @@
           <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           <div class="row">
             <div class="col-md-10 offset-md-1">
-              <figure class="mb-6"><img src="./assets/img/illustrations/i7.png" srcset="./assets/img/illustrations/i7@2x.png 2x" alt="" /></figure>
+              <figure class="mb-6"><img src="{% static 'assets_landing_page/img/illustrations/i7.png' %}" alt="" /></figure>
             </div>
             <!-- /column -->
           </div>
@@ -527,8 +231,8 @@
       <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
     </svg>
   </div>
-  <script src="./assets/js/plugins.js"></script>
-  <script src="./assets/js/theme.js"></script>
+  <script src="{% static 'assets_landing_page/js/plugins.js' %}"></script>
+  <script src="{% static 'assets_landing_page/js/theme.js' %}"></script>
 </body>
 
 </html>
