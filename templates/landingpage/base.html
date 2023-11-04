@@ -102,16 +102,16 @@
 										<a class="nav-link" href="#">¿Quienes Somos?</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="#">Anuncios</a>
+										<a class="nav-link" href="{% url 'anuncios' %}">Anuncios</a>
 										<!--/.dropdown-menu -->
 									</li>
 									<li class="nav-item ">
-										<a class="nav-link" href="#">Contacto</a>
+										<a class="nav-link" href="{% url 'contactanos' %}">Contacto</a>
 									</li>
 
 									{% if user.is_authenticated %}
 										<li class="nav-item ">
-										<a class="nav-link" href="#">Mis Citas</a>
+										<a class="nav-link" href="{% url 'mis_citas' %}">Mis Citas</a>
 										</li>
 									{% endif %}
 										
@@ -174,7 +174,7 @@
 									<a class="nav-link dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil uil-user"></i></a>
 									<ul class="dropdown-menu">
 									<li class="nav-item"><a class="dropdown-item" href="#">Perfil</a></li>
-									<li class="nav-item"><a class="dropdown-item" href="#">Mis Citas</a></li>
+									<li class="nav-item"><a class="dropdown-item" href="{% url 'mis_citas' %}">Mis Citas</a></li>
 									<li class="nav-item"><a class="dropdown-item" href="#">Cambiar contresena</a></li>
 									<li class="nav-item"><a class="dropdown-item" href="#">Salir</a></li>
 									</ul>
@@ -224,7 +224,7 @@
 					<li><a href="#">Nuestra historia</a></li>
 					<li><a href="#">Terminos de uso</a></li>
 					<li><a href="#">Política de privacidad</a></li>
-					<li><a href="#">Contactanos</a></li>
+					<li><a href="{% url 'contactanos' %}">Contactanos</a></li>
 				</ul>
 			</div>
 			<!-- /.widget -->
