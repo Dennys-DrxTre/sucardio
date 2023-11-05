@@ -3,6 +3,9 @@
 {% load widget_tweaks %}
 
 {% block link %}
+    <!-- select2 -->
+    <link rel="stylesheet" href="{% static 'assets/css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/select2-bootstrap4.min.css' %}">
 {% endblock link %}
 
 {% block content %}
@@ -29,73 +32,41 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-label" for="id_nombre">Nombre</label>
-                                {{ form.nombre|add_class:'form-control'|attr:'placeholder:Introduzca el nombre' }}
+                                <label class="form-label" for="id_nombre_serv">Nombre</label>
+                                {{ form.nombre_serv|add_class:'form-control'|attr:'placeholder:Introduzca el nombre' }}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-label" for="id_apellido">Apellido</label>
-                                {{ form.apellido|add_class:'form-control'|attr:'placeholder:Introduzca el apellido' }}
+                                <label class="form-label" for="id_precio_serv">Precio</label>
+                                {{ form.precio_serv|add_class:'form-control'|attr:'placeholder:Introduzca el precio' }}
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-label" for="id_cedula">Cedula</label>
-                                {{ form.cedula|add_class:'form-control'|attr:'placeholder:Introduzca la cedula'|attr:'maxlength:8' }}
+                                <label class="form-label" for="id_medico">Medico</label>
+                                {{ form.medico|add_class:'form-control' }}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-label" for="id_telefono">Telefono</label>
-                                {{ form.telefono|add_class:'form-control'|attr:'placeholder:Introduzca el telefono'|attr:'type:number' }}
+                                <label class="form-label" for="id_descripcion">Descripcion</label>
+                                {{ form.descripcion|add_class:'form-control'|attr:'placeholder:Introduzca la descripcion'|attr:'rows:4' }}
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-label" for="id_telefono2">Telefono 2</label>
-                                {{ form.telefono2|add_class:'form-control'|attr:'placeholder:Introduzca el telefono 2'|attr:'type:number' }}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label" for="id_fecha_ingreso">Fecha de ingreso</label>
-                                {{ form.fecha_ingreso|add_class:'form-control'|attr:'type:date' }}
+                                <label class="form-label" for="id_estado">Estado</label>
+                                {{ form.estado|add_class:'form-control' }}
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label" for="id_horario_inicio">Horario inicial</label>
-                                {{ form.horario_inicio|add_class:'form-control'|attr:'type:time' }}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label" for="id_horario_final">Horario final</label>
-                                {{ form.horario_final|add_class:'form-control'|attr:'type:time' }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label" for="id_especialidad">Especialidad</label>
-                                {{ form.especialidad|add_class:'form-control'|attr:'placeholder:Introduzca la especialidad' }}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label" for="id_direccion">Direccion</label>
-                                {{ form.direccion|add_class:'form-control'|attr:'placeholder:Introduzca la direccion'|attr:'rows:4' }}
-                            </div>
-                        </div>
-                    </div>
+
                     <!-- <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -123,4 +94,15 @@
 {% endblock %}
 
 {% block js %}
+
+    <script src="{% static 'assets/js/plugins/i18n/es.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/select2.min.js' %}"></script>
+
+    <script>
+        $('#id_medico').select2({
+            theme: 'bootstrap4',
+            language: 'es',
+            placeholder: 'Selecionar Medico',
+        });
+    </script>
 {% endblock js %}

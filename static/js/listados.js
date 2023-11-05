@@ -7,7 +7,7 @@ $(function() {
 		autoWidth: false,
 		destroy: true,
 		deferRender: true,
-		ordering: true,
+		ordering: false,
 		searching: true,
 		paging: true,
 		"language": {

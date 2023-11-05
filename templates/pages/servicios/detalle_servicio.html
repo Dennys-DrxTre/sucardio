@@ -1,0 +1,107 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block link %}
+{% endblock link %}
+
+{% block content %}
+
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-sm-12">
+          {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+          {% endif %}
+          <div class="card">
+            <div class="card-body py-0">
+              <ul class="nav nav-tabs profile-tabs">
+                <li class="nav-item">
+                  <a class="nav-link" id="profile-tab-1">
+                    <i class="ti ti-user me-2"></i>Informacion
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-warning" href="{% url 'editar_servicio' servicio.pk %}">
+                    <i class="ti ti-edit-circle me-2"></i>Editar este servicio
+                  </a>
+                </li>
+                <li class="nav-item">
+                  {% if servicio.estado == 'AC' %}
+                    <a class="nav-link text-danger" id="profile-tab-3" href="{% url 'cambiar_estado_servicio' servicio.pk %}">
+                      <i class="ti ti-eye-off me-2"></i>Deshabilitar Servicio
+                    </a>
+                  {% elif servicio.estado == 'DE' %}
+                    <a class="nav-link text-info" id="profile-tab-3" href="{% url 'cambiar_estado_servicio' servicio.pk %}">
+                      <i class="ti ti-eye me-2"></i>Habilitar Servicio
+                    </a>
+                  {% endif %}
+                    
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="tab-content">
+            <div class="tab-pane show active" id="profile-1" role="tabpanel" aria-labelledby="profile-tab-1">
+              <div class="row">
+                <div class="col-lg-12 col-xxl-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5>Datos personales</h5>
+                    </div>
+                    <div class="card-body">
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item px-0 pt-0">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Nombre</p>
+                              <p class="mb-0">{{ servicio.nombre_serv }}</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Precio</p>
+                              <p class="mb-0">${{ servicio.precio_serv }}</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item px-0">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Medico</p>
+                              <p class="mb-0">{{ servicio.medico }}</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Descripcion</p>
+                              <p class="mb-0">{{ servicio.descripcion }}</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item px-0 pb-0">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Estado</p>
+                              <p class="mb-0">{{ servicio.get_estado_display }}</p>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- [ sample-page ] end -->
+      </div>
+      <!-- [ Main Content ] end -->
+
+{% endblock %}
+
+{% block js %}
+{% endblock js %}
