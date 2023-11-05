@@ -12,8 +12,6 @@ from django.views.generic import (
 )
 from django.views.generic.detail import SingleObjectMixin
 from ...models import Medico
-from django.contrib.auth.models import User
-
 
 class ListadoMedico( ListView):
 	context_object_name = 'medico_list'

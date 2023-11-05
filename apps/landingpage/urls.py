@@ -4,7 +4,7 @@ from .views import Inicio, MisCitas, SolicitarCita, DetalleMiCita, Anuncios, Con
 APP_NAME = 'landingpage'
 
 urlpatterns = [
-    path('', Inicio.as_view(), name='inicio'),
+    path('', Inicio.as_view(), name=''),
     path('mis-citas/', MisCitas.as_view(), name='mis_citas'),
     path('solicitar-cita/', SolicitarCita.as_view(), name='registrar_cita_cliente'),
     path('detalle-de-mi-cita/<int:pk>/', DetalleMiCita.as_view(), name='detalle_cita_cliente'),

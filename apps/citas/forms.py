@@ -1,8 +1,5 @@
-from typing import Any
 from django import forms
 from apps.citas.models import Medico, Cita
-from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
 
 class MedicoForm(forms.ModelForm):
 	class Meta:

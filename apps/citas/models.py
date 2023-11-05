@@ -1,6 +1,7 @@
 from django.db import models
 from apps.anuncios.models import Usuario, Persona, ModeloBaseEstado
-from .choices import especialidades, metodos_pago
+from .choices import especialidades
+from apps.presupuestos.choices import metodos_pago
 
 class Medico(Persona):
 

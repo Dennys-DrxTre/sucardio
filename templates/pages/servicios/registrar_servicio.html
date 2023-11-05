@@ -1,0 +1,126 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block link %}
+{% endblock link %}
+
+{% block content %}
+<!-- [ Main Content ] start -->
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>{{ sub_title }}</h5>
+                </div>
+                <div class="card-body">
+                    {% if form.errors %}
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>{{ field.label }}! </strong> {{ error }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="id_nombre">Nombre</label>
+                                {{ form.nombre|add_class:'form-control'|attr:'placeholder:Introduzca el nombre' }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="id_apellido">Apellido</label>
+                                {{ form.apellido|add_class:'form-control'|attr:'placeholder:Introduzca el apellido' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="id_cedula">Cedula</label>
+                                {{ form.cedula|add_class:'form-control'|attr:'placeholder:Introduzca la cedula'|attr:'maxlength:8' }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="id_telefono">Telefono</label>
+                                {{ form.telefono|add_class:'form-control'|attr:'placeholder:Introduzca el telefono'|attr:'type:number' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="id_telefono2">Telefono 2</label>
+                                {{ form.telefono2|add_class:'form-control'|attr:'placeholder:Introduzca el telefono 2'|attr:'type:number' }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="id_fecha_ingreso">Fecha de ingreso</label>
+                                {{ form.fecha_ingreso|add_class:'form-control'|attr:'type:date' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="id_horario_inicio">Horario inicial</label>
+                                {{ form.horario_inicio|add_class:'form-control'|attr:'type:time' }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="id_horario_final">Horario final</label>
+                                {{ form.horario_final|add_class:'form-control'|attr:'type:time' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="id_especialidad">Especialidad</label>
+                                {{ form.especialidad|add_class:'form-control'|attr:'placeholder:Introduzca la especialidad' }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="id_direccion">Direccion</label>
+                                {{ form.direccion|add_class:'form-control'|attr:'placeholder:Introduzca la direccion'|attr:'rows:4' }}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Contrasena</label>
+                                {{ form.password1|add_class:'form-control'|attr:'placeholder:Introduzca la contrasena'|attr:'type:password' }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Confirmar Contrasena</label>
+                                {{ form.password2|add_class:'form-control'|attr:'placeholder:Confirma la contrasena'|attr:'type:password' }}
+                            </div>
+                        </div>
+                    </div> -->
+                    <button type="submit" class="btn btn-info mt-2 mb-4">Guardar</button>
+                    <a href="#" class="btn btn-dark mt-2 mb-4" onClick="javascript:history.go(-1);">Cancelar</a>
+                </div>
+                
+            </div>
+        </div>
+        <!-- [ form-element ] end -->
+    </div>
+</form>
+
+{% endblock %}
+
+{% block js %}
+{% endblock js %}
