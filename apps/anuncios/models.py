@@ -25,7 +25,7 @@ class ModeloBaseEstado(models.Model):
 		HABILITADO = 'AC', 'Habilitado'
 		DESABILITADO = 'DE', 'Desabilitado'
 
-	estado = models.CharField(max_length=2, choices=Estado.choices, default=Estado.HABILITADO)
+	estado = models.CharField(max_length=2, choices=Estado.choices, default=Estado.HABILITADO, null=True, blank=True)
 
 	def __str__(self):
 		return self.pk

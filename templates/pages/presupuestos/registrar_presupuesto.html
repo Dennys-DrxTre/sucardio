@@ -1,0 +1,137 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block link %}
+    <!-- select2 -->
+    <link rel="stylesheet" href="{% static 'assets/css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/select2-bootstrap4.min.css' %}">
+{% endblock link %}
+
+{% block content %}
+<!-- [ Main Content ] start -->
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>{{ sub_title }}</h5>
+                </div>
+                <div class="card-body">
+                    {% if form.errors %}
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>{{ field.label }}! </strong> {{ error }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label" for="id_cliente">Cliente</label>
+                                {{ form.cliente|add_class:'form-control' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label" for="id_metodo_pago">M. Pago</label>
+                                {{ form.metodo_pago|add_class:'form-control' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label" for="id_total">Total</label>
+                                {{ form.total|add_class:'form-control' }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-info mt-2 mb-4">Guardar</button>
+                    <a href="#" class="btn btn-dark mt-2 mb-4" onClick="javascript:history.go(-1);">Cancelar</a>
+                </div>
+                
+            </div>
+        </div>
+        <!-- [ form-element ] end -->
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Detalle</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label" for="id_servicios">Servicios</label>
+                                {{ form.servicios|add_class:'form-control' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive">
+                                <div class="dataTable-wrapper dataTable-loading no-footer searchable fixed-columns">
+                                    <div class="dataTable-container">
+                                        <table class="table table-hover dataTable-table" id="pc-dt-simple">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 10%;">id</th>
+                                                    <th style="width: 40%;">Servicio</th>
+                                                    <th style="width: 20%;">Total</th>
+                                                    <th style="width: 30%;">Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="content_services">
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td >Medicina General</td>
+                                                    <td>$500</td>
+                                                    <td class="f-w-600">
+                                                        <a rel="delete" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="eliminar">
+                                                            <i class="ti ti-trash"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block js %}
+
+    <script src="{% static 'assets/js/plugins/i18n/es.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/select2.min.js' %}"></script>
+
+    <script>
+        $('#id_cliente').select2({
+            theme: 'bootstrap4',
+            language: 'es',
+            placeholder: 'Selecionar Cliente',
+        });
+
+        $('#id_servicios').select2({
+            theme: 'bootstrap4',
+            language: 'es',
+            placeholder: 'Selecionar Servicios',
+        });
+    </script>
+{% endblock js %}

@@ -2,10 +2,17 @@
 {% load static %}
     
 {% block head_datatable %}
-    <h5 id="page_title">{{ sub_title }}</h5>
+    <h5 id="page_title">{{ sub_title }} ({{ nombre_estado }})</h5>
     <div class="card-tools d-flex justify-content-end">
         
-        <a href="{% url 'registrar_medico' %}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar servicio">
+        <select class="form-select form-select-sm w-auto me-4" id="select_filter_list_servicios">
+            <option value="">Selecciona</option>
+            <option value="all">Todos</option>
+            <option value="AC">Habilitados</option>
+            <option value="DE">Deshabilitados</option>
+        </select>
+
+        <a href="{% url 'registrar_servicio' %}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar servicio">
             <i class="fas fa-plus"></i>
         </a>
     </div>
@@ -28,22 +35,32 @@
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Medico</th>
-                <th>Descripcion</th>
                 <th>Opciones</th>
               </tr>
         </thead>
         <tbody>
-            {% for medico in servicio_list %}
+            {% for servicio in servicio_list %}
                 <tr>
-                    <td>{{medico.id}}</td>
-                    <td>{{medico.nombre_serv}}</td>
-                    <td>{{medico.precio_serv}}</td>
-                    <td>{{medico.medico.nombre}}</td>
-                    <td>{{medico.descripcion}}</td>
+                    <td>{{servicio.id}}</td>
+                    <td>{{servicio.nombre_serv}}</td>
+                    <td>${{servicio.precio_serv}}</td>
+                    <td>{{servicio.medico.nombre}}</td>
                     <td>
-                        <a href="{% url 'editar_medico' medico.pk %}" rel="edit" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar servicio">
+                        <a href="{% url 'detalle_servicio' servicio.pk %}" rel="detail" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle del servicio">
+                            <i class="ti ti-file-info"></i>
+                        </a>
+                        <a href="{% url 'editar_servicio' servicio.pk %}" rel="edit" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar servicio">
                             <i class="ti ti-edit"></i>
-                        </a>     
+                        </a>
+                        {% if servicio.estado == 'AC' %}
+                        <a href="{% url 'cambiar_estado_servicio' servicio.pk %}" rel="status" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Deshabilitar servicio">
+                            <i class="ti ti-eye-off"></i>
+                        </a>
+                    {% elif servicio.estado == 'DE' %}
+                        <a href="{% url 'cambiar_estado_servicio' servicio.pk %}" rel="status" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Habilitar servicio">
+                            <i class="ti ti-eye"></i>
+                        </a>
+                    {% endif %}     
                     </td>
                 </tr>
             {% endfor %}
@@ -54,7 +71,6 @@
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Medico</th>
-                <th>Descripcion</th>
                 <th>Opciones</th>
             </tr>
         </tfoot>
