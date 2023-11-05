@@ -15,9 +15,9 @@
                         <article class="item post col-md-4" style="position: absolute; left: 0%; top: 0px;">
                             <div class="card">
                                 {% if x.imagen %}
-                                    <figure class="card-img-top overlay overlay-1 hover-scale"><a href="#"> <img src="{{x.imagen.url}}" alt=""><span class="bg"></span></a>
+                                    <figure class="card-img-top overlay overlay-1 hover-scale"><a href="{% url 'detalle_anuncio_landing' x.pk %}"> <img src="{{x.imagen.url}}" alt=""><span class="bg"></span></a>
                                         <figcaption>
-                                            <h5 class="from-top mb-0">Leer mas</h5> <br>
+                                            <h5 class="from-top mb-0">Leer más</h5>
                                         </figcaption>
                                     </figure>
                                 {% endif %}
@@ -27,7 +27,7 @@
                                 </div>
                                 <!-- /.post-header -->
                                 <div class="post-content">
-                                    <p>{{x.descripcion}}</p>
+                                    <p>{{x.descripcion|truncatechars:50}}</p>
                                 </div>
                                 <div class="post-content">
                                     <p>Fecha de publicación: {{x.fecha_publicacion|date:'d/m/Y'}}</p>
