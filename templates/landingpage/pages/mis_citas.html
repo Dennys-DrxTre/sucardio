@@ -28,30 +28,31 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Motivo</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Metodo P.</th>
+                                        <th scope="col">Médico</th>
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for cita in cita_list %}
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
+                                        <th scope="row">{{cita.id}}</th>
+                                        <td>{{cita.motivo_consulta|truncatechars:30}}</td>
+                                        <td>{{cita.fecha_cita|date:'d-m-Y'}}</td>
+                                        <td>{{cita.metodo_pago}}</td>
+                                        <td>{{cita.medico.nombre}} {{cita.medico.apellido}}</td>
+                                        <td>{{cita.estado}}</td>
+                                        <td>
+                                            <a href="#" class="btn btn-icon btn-sm rounded-pill btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle de la cita">
+                                                <i class="uil uil-file-alt"></i>
+                                            </a>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td colspan="2">Larry the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>
