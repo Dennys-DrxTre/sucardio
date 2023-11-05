@@ -28,3 +28,6 @@ class Anuncios(TemplateView):
 
 class Contacto(TemplateView):
     template_name = 'landingpage/pages/contacto.html'
+
+class SobreNosotros(TemplateView):
+    template_name = 'landingpage/pages/sobre_nosotros.html'

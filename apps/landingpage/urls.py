@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Inicio, MisCitas, SolicitarCita, DetalleMiCita, Anuncios, Contacto
+from .views import Inicio, MisCitas, SolicitarCita, DetalleMiCita, Anuncios, Contacto, SobreNosotros
 
 APP_NAME = 'landingpage'
 
@@ -10,4 +10,5 @@ urlpatterns = [
     path('detalle-de-mi-cita/<int:pk>/', DetalleMiCita.as_view(), name='detalle_cita_cliente'),
     path('anuncios/', Anuncios.as_view(), name='anuncios'),
     path('contactanos/', Contacto.as_view(), name='contactanos'),
+    path('quienes-somos/', SobreNosotros.as_view(), name='sobre_nosotros'),
 ]
