@@ -39,7 +39,7 @@ class Cita(ModeloBaseEstado):
 	medico = models.ForeignKey(Medico ,on_delete=models.PROTECT, blank=False, null=False)
 
 	def __str__(self):
-		return self.id
+		return str(self.id)
 	
 	class Meta:
 		permissions = []
