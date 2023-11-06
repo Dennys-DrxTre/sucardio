@@ -27,7 +27,7 @@ class MedicoEditForm(forms.ModelForm):
 class CitasForm(forms.ModelForm):
 	class Meta:
 		model = Cita
-		exclude = ('fecha_cita', 'estado',)
+		exclude = ('fecha_cita', 'estado', 'cliente')
 
 # class PersonalForm(forms.ModelForm):
 #     class Meta:

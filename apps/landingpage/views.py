@@ -10,7 +10,7 @@ from django.views.generic import (
 	View,
 	TemplateView
 )
-from apps.citas.models import Cita
+from apps.citas.models import Cita, Usuario
 from apps.presupuestos.models import Presupuesto
 from apps.citas.forms import CitasForm
 
@@ -25,22 +25,35 @@ class MisCitas(ListView):
 	def get_queryset(self):
 		return Cita.objects.filter(cliente=self.request.user.pk).order_by('-id')
 
-class RegistrarCita(SuccessMessageMixin, CreateView):
+class RegistrarCita(SuccessMessageMixin, TemplateView):
 	template_name = 'landingpage/pages/solicitar_cita.html'
-	model = Cita
-	form_class = CitasForm
 	success_url = '/mis-citas/'
 	success_message = "Solicitud para cita creada exitosamente, se le estará notificando el estado de la misma"
 
-	# def form_valid(self, form):
-	# 	form.instance.cliente_id = self.request.user.pk
-	# 	messages.success(self.request, self.success_message)
-	# 	return super().form_valid(form)
+	def post(self, request, *args, **kwargs):
+		form = CitasForm(request.POST)
+		if form.is_valid():
+			cliente = Usuario.objects.filter(user=request.user.pk).first()
+			cita = Cita()
+			cita.cliente = cliente
+			cita.control_pac = form.cleaned_data['control_pac']
+			cita.motivo_consulta = form.cleaned_data['motivo_consulta']
+			cita.metodo_pago = form.cleaned_data['metodo_pago']
+			cita.medico = form.cleaned_data['medico']
+			cita.save()
+
+			messages.success(request, self.success_message)
+			return redirect(self.success_url)
+		else:
+			context = self.get_context_data(**kwargs)
+			context["form"] = form
+			return render(request, self.template_name, context)
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context["title"] = "Citas"
-		context["sub_title"] = "Registrar citas"
+		context["sub_title"] = "Solititar cita"
+		context['form'] = CitasForm()
 		return context  
 
 class ListadoPresupuesto(TemplateView):
