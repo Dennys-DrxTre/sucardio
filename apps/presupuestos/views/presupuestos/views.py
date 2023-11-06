@@ -12,7 +12,7 @@ from django.views.generic import (
 	View
 )
 from django.views.generic.detail import SingleObjectMixin
-from ...models import Presupuesto, Servicio
+from ...models import Presupuesto
 
 class ListadoPresupuesto(ListView):
 	context_object_name = 'presupuesto_list'

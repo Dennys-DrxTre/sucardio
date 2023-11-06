@@ -11,6 +11,7 @@ from django.views.generic import (
 	TemplateView
 )
 from apps.citas.models import Cita
+from apps.presupuestos.models import Presupuesto
 from apps.citas.forms import CitasForm
 
 class Inicio(TemplateView):
@@ -41,6 +42,19 @@ class RegistrarCita(SuccessMessageMixin, CreateView):
 		context["title"] = "Citas"
 		context["sub_title"] = "Registrar citas"
 		return context  
+
+class ListadoPresupuesto(TemplateView):
+	context_object_name = 'presupuesto_list'
+	template_name = 'landingpage/pages/presupuesto/mi_presupuesto.html'
+	ordering = ['-id']
+
+	def get(self, request, *args, **kwargs):
+		mi_presupuesto = Presupuesto.objects.filter(cliente=request.user.pk)
+		context = {}
+		context["title"] = "Presupuestos"
+		context["sub_title"] = "Listado de presupuestos"
+		context['presupuestos'] = mi_presupuesto
+		return render(request, self.template_name, context)
 
 class DetalleMiCita(TemplateView):
 	template_name = 'landingpage/pages/detalle_de_mi_cita.html'

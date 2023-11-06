@@ -1,0 +1,72 @@
+{% extends 'landingpage/base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <section class="wrapper bg-soft-primary">
+        <div class="container pt-5 pb-5 pt-md-10 pb-md-12">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 id="page_title">{{ sub_title }}</h5>
+                        <div class="card-tools d-flex justify-content-end">
+                    
+                            <!-- <select class="form-select form-select-sm w-auto me-4" id="select_filter_list_medicos">
+                                <option value="">Selecciona</option>
+                                <option value="all">Todos</option>
+                                <option value="AC">Habilitados</option>
+                                <option value="DE">Deshabilitados</option>
+                            </select> -->
+                            
+                            <a href="{% url 'registrar_cita_cliente' %}" class="btn btn-icon btn-primary">
+                                Registrar Presupuesto
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Cliente</th>
+                                        <th scope="col">Metodo de Pago</th>
+                                        <th scope="col">Servicio</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for presupuesto in presupuestos %}
+                                    <tr>
+                                        <th scope="row">{{presupuesto.id}}</th>
+                                        <td>{{presupuesto.cliente}}</td>
+                                        <td>{{presupuesto.metodo_pago}}</td>
+                                        <td>
+                                            
+                                            {% for servicio in presupuesto.servicio.all %}
+                                                <span class="badge bg-dark rounded-pill mr-2">{{ servicio }}</span>
+
+                                            {% endfor %}
+                                                
+                                        </td>
+                                        <td>${{presupuesto.total}}</td>
+                                        <td>
+                                            <a href="#" class="btn btn-icon btn-sm rounded-pill btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle del presupuesto">
+                                                <i class="uil uil-file-alt"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--/.card-body -->
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </section>
+{% endblock content %}
+    
