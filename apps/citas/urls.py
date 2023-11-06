@@ -9,7 +9,6 @@ from apps.citas.views.medico.views import (
 
 from apps.citas.views.citas.views import (
     ListadoCita,
-    RegistrarCita
 )
 
 APP_NAME = 'citas'
@@ -23,5 +22,5 @@ urlpatterns = [
 
     #citas
     path('listado-de-citas/', ListadoCita.as_view(), name='listado_citas'),
-    path('registrar-cita/', RegistrarCita.as_view(), name='registrar_cita'),
+    #path('registrar-cita/', RegistrarCita.as_view(), name='registrar_cita'),
 ]

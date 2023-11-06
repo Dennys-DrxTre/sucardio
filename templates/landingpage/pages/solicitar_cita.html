@@ -1,4 +1,5 @@
 {% extends 'landingpage/base.html' %}
+{% load widget_tweaks %}
 {% load static %}
 
 
@@ -6,31 +7,71 @@
     <section class="wrapper bg-soft-primary">
         <div class="container pt-10 pb-15 pt-md-14 pb-md-20">
             <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 id="page_title">{{ sub_title }}</h5>
-                        <div class="card-tools d-flex justify-content-end">
-                    
-                            <a href="#" onClick="javascript:history.go(-1);" class="btn btn-icon btn-primary">
-                                Mis citas
-                            </a>
+                <form action="" method="post">{% csrf_token %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 id="page_title">{{ sub_title }}</h5>
+                            <div class="card-tools d-flex justify-content-end">
                         
-                        </div>
-                    </div>
-                    <div class="card-body">
-
-                        <div class="row">
-                            <div class="col-md-6 form-floating">
-                                <input id="textInputExample" type="text" class="form-control" placeholder="Text Input">
-                                <label for="textInputExample">Text Input</label>
-                            </div>
-                            <div class="col-md-6 form-floating">
-                                <input id="textInputExample" type="text" class="form-control" placeholder="Text Input">
-                                <label for="textInputExample">Text Input</label>
+                                <a href="#" onClick="javascript:history.go(-1);" class="btn btn-icon btn-primary">
+                                    Mis citas
+                                </a>
+                            
                             </div>
                         </div>
+                        <div class="card-body">
+                            {% if form.errors %}
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>{{ field.label }}! </strong> {{ error }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
+                        {% endif %}
+                        <div class="row mb-2">
+                            <div class="col col-md-6">
+                                <label for="id_cliente" class="form-label">Cliente</label>
+                                {{form.cliente|add_class:'form-control'}}
+                            </div>
+                            <div class="col col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="id_control_pac">¿Está en control?</label>
+                                    <select name="control_pac" id="id_control_pac" class="form-select" required>
+                                        <option value="">-- Seleccione --</option>
+                                        <option value="True">Si</option>
+                                        <option value="False">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row mb-2">
+                            <div class="form-group">
+                                <label class="form-label" for="id_motivo_consulta">Motivo de la consulta</label>
+                                {{ form.motivo_consulta|add_class:'form-control'|attr:'placeholder:Introduzca el motivo'|attr:'style:resize:none'|attr:'rows:4' }}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="id_metodo_pago">Método de pago</label>
+                                    {{ form.metodo_pago|add_class:'form-control'}}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="id_medico">Médico a consultar</label>
+                                    {{ form.medico|add_class:'form-control' }}
+                                </div>
+                            </div>
+                        </div>
+    
+                        <button type="submit" class="btn btn-info mt-2 mb-4">Guardar</button>
+                        <a href="#" class="btn btn-dark mt-2 mb-4" onClick="javascript:history.go(-1);">Cancelar</a>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         <!-- /.container -->

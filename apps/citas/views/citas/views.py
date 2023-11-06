@@ -14,7 +14,6 @@ from ...models import Cita
 from ...forms import CitasForm
 
 
-
 class ListadoCita( ListView):
 	context_object_name = 'cita_list'
 	template_name = 'pages/citas/listado_citas.html'
@@ -29,18 +28,7 @@ class ListadoCita( ListView):
 		context["sub_title"] = "Listado de citas"
 		return context
 
-class RegistrarCita(SuccessMessageMixin, CreateView):
-	template_name = 'pages/citas/registrar_cita.html'
-	model = Cita
-	form_class = CitasForm
-	success_url = '/listado-de-citas/'
-	success_message = "Solicitud para cita creada exitosamente, se le estará notificando el estado de la misma"
 
-	def get_context_data(self, **kwargs):
-		context = super().get_context_data(**kwargs)
-		context["title"] = "Citas"
-		context["sub_title"] = "Registrar citas"
-		return context
 """
 class EditarMedico(SuccessMessageMixin, UpdateView):
 	template_name = 'pages/medico/registrar_medico.html'
