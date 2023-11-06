@@ -25,7 +25,6 @@ class ServicioEditForm(forms.ModelForm):
 		return data
 	
 class PresupuestoForm(forms.ModelForm):
-	servicios = forms.ModelChoiceField(queryset=Servicio.objects.all())
 	class Meta:
 		model = Presupuesto
 		fields = '__all__'

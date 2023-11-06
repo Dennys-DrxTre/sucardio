@@ -1,0 +1,93 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block link %}
+{% endblock link %}
+
+{% block content %}
+
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-sm-12">
+          {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+          {% endif %}
+          <div class="card">
+            <div class="card-body py-0">
+              <ul class="nav nav-tabs profile-tabs">
+                <li class="nav-item">
+                  <a class="nav-link" id="profile-tab-1">
+                    <i class="ti ti-user me-2"></i>Informacion
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-warning" href="{% url 'editar_presupuesto' presupuesto.pk %}">
+                    <i class="ti ti-edit-circle me-2"></i>Editar este presupuesto
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="tab-content">
+            <div class="tab-pane show active" id="profile-1" role="tabpanel" aria-labelledby="profile-tab-1">
+              <div class="row">
+                <div class="col-lg-12 col-xxl-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5>Datos personales</h5>
+                    </div>
+                    <div class="card-body">
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item px-0 pt-0">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Cliente</p>
+                              <p class="mb-0">{{ presupuesto.cliente }}</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Metodo de Pago</p>
+                              <p class="mb-0">{{ presupuesto.metodo_pago }}</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item px-0">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Servicios</p>
+                              <p class="mb-0">
+                                
+                                {% for s in presupuesto.servicio.all %}
+                                  <span class="badge bg-dark">{{ s }}</span>
+                                {% endfor %}
+                                  
+                              </p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Total</p>
+                              <p class="mb-0">${{ presupuesto.total }}</p>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- [ sample-page ] end -->
+      </div>
+      <!-- [ Main Content ] end -->
+
+{% endblock %}
+
+{% block js %}
+{% endblock js %}

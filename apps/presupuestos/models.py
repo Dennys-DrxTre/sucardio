@@ -21,8 +21,9 @@ class Servicio(ModeloBaseEstado):
 class Presupuesto(ModeloBaseEstado):
 	cliente = models.ForeignKey(Usuario, on_delete=models.PROTECT)
 	metodo_pago = models.CharField(max_length=50, choices=metodos_pago, null=False, blank=False, default='Pago móvil')
-	total = models.FloatField(default=0.00, null=False, blank=False)
+	total = models.FloatField(default=0.00, null=True, blank=True)
 	fecha = models.DateField(auto_now=False, auto_now_add=False, default=date.today, null=True, blank=True)
+	servicio = models.ManyToManyField(Servicio)
 
 	def __str__(self):
 		return str(self.id) + ' - ' + str(self.fecha)
@@ -31,16 +32,3 @@ class Presupuesto(ModeloBaseEstado):
 		permissions = []
 		verbose_name = 'Presupuesto'
 		verbose_name_plural = 'Presupuestos'
-
-class DetallePresupuesto(ModeloBaseEstado):
-	servicio = models.ForeignKey(Servicio, on_delete=models.PROTECT)
-	presupuesto = models.ForeignKey(Presupuesto, on_delete=models.PROTECT)
-	total = models.FloatField(default=0.00, null=False, blank=False)
-
-	def __str__(self):
-		return str(self.id)
-	
-	class Meta:
-		permissions = []
-		verbose_name = 'Detalle Presupuesto'
-		verbose_name_plural = 'Detalle Presupuestos'

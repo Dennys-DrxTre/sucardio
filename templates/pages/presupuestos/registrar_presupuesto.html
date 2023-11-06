@@ -13,7 +13,7 @@
 <form action="" method="post">
     {% csrf_token %}
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h5>{{ sub_title }}</h5>
@@ -30,15 +30,13 @@
                             {% endfor %}
                     {% endif %}
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="id_cliente">Cliente</label>
                                 {{ form.cliente|add_class:'form-control' }}
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="id_metodo_pago">M. Pago</label>
                                 {{ form.metodo_pago|add_class:'form-control' }}
@@ -48,8 +46,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="form-label" for="id_total">Total</label>
-                                {{ form.total|add_class:'form-control' }}
+                                <label class="form-label" for="id_cliente">Servicios</label>
+                                {{ form.servicio|add_class:'form-control' }}
                             </div>
                         </div>
                     </div>
@@ -61,56 +59,6 @@
             </div>
         </div>
         <!-- [ form-element ] end -->
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Detalle</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="form-label" for="id_servicios">Servicios</label>
-                                {{ form.servicios|add_class:'form-control' }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="table-responsive">
-                                <div class="dataTable-wrapper dataTable-loading no-footer searchable fixed-columns">
-                                    <div class="dataTable-container">
-                                        <table class="table table-hover dataTable-table" id="pc-dt-simple">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 10%;">id</th>
-                                                    <th style="width: 40%;">Servicio</th>
-                                                    <th style="width: 20%;">Total</th>
-                                                    <th style="width: 30%;">Opciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="content_services">
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td >Medicina General</td>
-                                                    <td>$500</td>
-                                                    <td class="f-w-600">
-                                                        <a rel="delete" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="eliminar">
-                                                            <i class="ti ti-trash"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
     </div>
 </form>
 
@@ -128,8 +76,7 @@
             placeholder: 'Selecionar Cliente',
         });
 
-        $('#id_servicios').select2({
-            theme: 'bootstrap4',
+        $('#id_servicio').select2({
             language: 'es',
             placeholder: 'Selecionar Servicios',
         });

@@ -41,10 +41,10 @@
                     <td>${{presupuesto.total}}</td>
                     <td>{{ presupuesto.fecha|date:'d-m-Y'}}</td>
                     <td>
-                        <a href="{% url 'detalle_servicio' presupuesto.pk %}" rel="detail" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle del servicio">
+                        <a href="{% url 'detalle_presupuesto' presupuesto.pk %}" rel="detail" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle del servicio">
                             <i class="ti ti-file-info"></i>
                         </a>
-                        <a href="{% url 'editar_servicio' presupuesto.pk %}" rel="edit" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar servicio">
+                        <a href="{% url 'editar_presupuesto' presupuesto.pk %}" rel="edit" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar servicio">
                             <i class="ti ti-edit"></i>
                         </a>   
                     </td>

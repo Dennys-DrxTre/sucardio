@@ -9,7 +9,9 @@ from apps.presupuestos.views.servicios.views import (
 
 from apps.presupuestos.views.presupuestos.views import (
     ListadoPresupuesto,
-    RegistrarPresupuesto
+    RegistrarPresupuesto,
+    DetallePresupuesto,
+    EditarPresupuesto
 )
 
 APP_NAME = 'presupuestos'
@@ -25,5 +27,7 @@ urlpatterns = [
     # PRESUPUESTO
     path('listado-de-presupuestos/', ListadoPresupuesto.as_view(), name='listado_presupuestos'),
     path('registrar-presupuesto/', RegistrarPresupuesto.as_view(), name='registrar_presupuesto'),
+    path('editar-presupuesto/<int:pk>/', EditarPresupuesto.as_view(), name='editar_presupuesto'),
+    path('detalle-presupuesto/<int:pk>/', DetallePresupuesto.as_view(), name='detalle_presupuesto'),
 
 ]
