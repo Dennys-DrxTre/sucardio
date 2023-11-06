@@ -8,11 +8,16 @@
 	<meta name="description" content="Clinica sucardio">
 	<meta name="keywords" content="sucardio, clinica, medicos, medicina, guanare">
 	<meta name="author" content="anonimo">
-	<title>{{ title }} | SUCARDIO</title>
+	<title>{{ sub_title }} | SUCARDIO</title>
 	<link rel="shortcut icon" href="{% static 'assets_landing_page/img/favicon.png' %}">
 	<link rel="stylesheet" href="{% static 'assets_landing_page/css/plugins.css' %}">
 	<link rel="stylesheet" href="{% static 'assets_landing_page/css/style.css' %}">
 	<link rel="stylesheet" href="{% static 'assets_landing_page/css/colors/green.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/jquery-ui.min.css' %}" />
+
+	{% block link_ladingpage %}
+	{% endblock link_ladingpage %}
+		
 </head>
 
 <body>
@@ -35,8 +40,8 @@
 							<ul class="dropdown-menu">
 							<li class="nav-item"><a class="dropdown-item" href="#">Perfil</a></li>
 							<li class="nav-item"><a class="dropdown-item" href="{% url 'mis_citas' %}">Mis Citas</a></li>
-							<li class="nav-item"><a class="dropdown-item" href="{% url 'mi_presupuesto' %}">Mi Presupues</a></li>
-							<li class="nav-item"><a class="dropdown-item" href="#">Salir</a></li>
+							<li class="nav-item"><a class="dropdown-item" href="{% url 'mi_presupuesto' %}">Mi Presupuesto</a></li>
+							<li class="nav-item"><a class="dropdown-item" href="{% url 'logout' %}">Salir</a></li>
 							</ul>
 						</li>
 						{% endif %}
@@ -87,7 +92,7 @@
 								<a class="nav-link" href="#">Registrarse</a>
 								</li>
 								<li class="nav-item">
-								<a class="nav-link" href="#">Ingresar</a>
+								<a class="nav-link" href="{% url 'ingresar' %}">Ingresar</a>
 								</li>
 							{% endif %}
 						</ul>
@@ -97,11 +102,11 @@
 							<a href="mailto:first.last@email.com" class="link-inverse">info@email.com</a>
 							<br /> 00 (123) 456 78 90 <br />
 							<nav class="nav social social-white mt-4">
-							  <a href="#"><i class="uil uil-twitter"></i></a>
+							  <!-- <a href="#"><i class="uil uil-twitter"></i></a>
 							  <a href="#"><i class="uil uil-facebook-f"></i></a>
-							  <a href="#"><i class="uil uil-dribbble"></i></a>
-							  <a href="https://instagram.com/clinicasucardio?igshid=MW5sMTBxbDFyemQyNQ=="><i class="uil uil-instagram"></i></a>
-							  <a href="#"><i class="uil uil-youtube"></i></a>
+							  <a href="#"><i class="uil uil-dribbble"></i></a> -->
+							  <a href="https://instagram.com/clinicasucardio?igshid=MW5sMTBxbDFyemQyNQ==" target="_blank"><i class="uil uil-instagram"></i></a>
+							  <!-- <a href="#"><i class="uil uil-youtube"></i></a> -->
 							</nav>
 							<!-- /.social -->
 						  </div>
@@ -112,9 +117,9 @@
 					<!-- /.navbar-collapse -->
 					<div class="navbar-other ms-auto w-100 d-none d-lg-block">
 					  <nav class="nav social social-muted justify-content-end text-end">
-						<a href="#"><i class="uil uil-twitter"></i></a>
+						<!-- <a href="#"><i class="uil uil-twitter"></i></a>
 						<a href="#"><i class="uil uil-facebook-f"></i></a>
-						<a href="#"><i class="uil uil-dribbble"></i></a>
+						<a href="#"><i class="uil uil-dribbble"></i></a> -->
 						<a href="https://instagram.com/clinicasucardio?igshid=MW5sMTBxbDFyemQyNQ==" target="_blank"><i class="uil uil-instagram"></i></a>
 					  </nav>
 					  <!-- /.social -->
@@ -151,13 +156,13 @@
 			<div class="widget mb-8">
 				<h4 class="widget-title text-white mb-3">Contacto</h4>
 				<address> Av. 23 de Enero, Local Nº. 94 <br /> Centro, Guanare </address>
-				<a href="mailto:first.last@email.com">sucardio11@gmail.com</a><br /> 00 (123) 456 78 90
+				<a href="mailto:first.last@email.com">ucemedcaja@gmail.com</a><br /> +58 0257-2516170
 			</div>
 			<!-- /.widget -->
 			<div class="widget mb-8">
 				<h4 class="widget-title text-white mb-3">Mas informacion</h4>
 				<ul class="list-unstyled">
-					<li><a href="#">Nuestra historia</a></li>
+					<li><a href="{% url 'sobre_nosotros' %}">¿Quienes Somos?</a></li>
 					<li><a href="#">Terminos de uso</a></li>
 					<li><a href="#">Política de privacidad</a></li>
 					<li><a href="{% url 'contactanos' %}">Contactanos</a></li>
@@ -167,12 +172,12 @@
 			<div class="widget">
 				<h4 class="widget-title text-white mb-3">Siguenos</h4>
 				<nav class="nav social social-white">
-					<a href="#"><i class="uil uil-twitter"></i></a>
+					<!-- <a href="#"><i class="uil uil-twitter"></i></a>
 					<a href="#"><i class="uil uil-facebook-f"></i></a>
-					<a href="#"><i class="uil uil-dribbble"></i></a>
-					<a href="https://instagram.com/clinicasucardio?igshid=MW5sMTBxbDFyemQyNQ=="><i
+					<a href="#"><i class="uil uil-dribbble"></i></a> -->
+					<a href="https://instagram.com/clinicasucardio?igshid=MW5sMTBxbDFyemQyNQ==" target="_blank"><i
 							class="uil uil-instagram"></i></a>
-					<a href="#"><i class="uil uil-youtube"></i></a>
+					<!-- <a href="#"><i class="uil uil-youtube"></i></a> -->
 				</nav>
 				<!-- /.social -->
 			</div>
@@ -262,8 +267,11 @@
 			<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
 		</svg>
 	</div>
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 	<script src="{% static 'assets_landing_page/js/plugins.js' %}"></script>
 	<script src="{% static 'assets_landing_page/js/theme.js' %}"></script>
+	{% block js_ladingpage %}
+	{% endblock js_ladingpage %}
 </body>
 
 </html>

@@ -28,3 +28,8 @@ class PresupuestoForm(forms.ModelForm):
 	class Meta:
 		model = Presupuesto
 		fields = '__all__'
+
+class MiPresupuestoForm(forms.ModelForm):
+	class Meta:
+		model = Presupuesto
+		exclude = ('cliente',)

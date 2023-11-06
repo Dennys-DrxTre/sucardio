@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.urls import reverse
 from django.views.generic import (
 	UpdateView,
 	ListView,
@@ -11,13 +12,14 @@ from django.views.generic import (
 	TemplateView
 )
 from apps.citas.models import Cita, Usuario
-from apps.presupuestos.models import Presupuesto
 from apps.citas.forms import CitasForm
+from apps.presupuestos.models import Presupuesto
+from apps.presupuestos.forms import MiPresupuestoForm
 
 class Inicio(TemplateView):
 	template_name = 'landingpage/pages/inicio.html'
 	
-class MisCitas(ListView):
+class MisCitas(LoginRequiredMixin, ListView):
 	template_name = 'landingpage/pages/mis_citas.html'
 	model = Cita
 	context_object_name = 'cita_list'
@@ -25,7 +27,12 @@ class MisCitas(ListView):
 	def get_queryset(self):
 		return Cita.objects.filter(cliente=self.request.user.pk).order_by('-id')
 
-class RegistrarCita(SuccessMessageMixin, TemplateView):
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context["sub_title"] = "Mis citas"
+		return context  
+
+class RegistrarCita(LoginRequiredMixin, SuccessMessageMixin, TemplateView):
 	template_name = 'landingpage/pages/solicitar_cita.html'
 	success_url = '/mis-citas/'
 	success_message = "Solicitud para cita creada exitosamente, se le estará notificando el estado de la misma"
@@ -56,24 +63,69 @@ class RegistrarCita(SuccessMessageMixin, TemplateView):
 		context['form'] = CitasForm()
 		return context  
 
-class ListadoPresupuesto(TemplateView):
+class ListadoMiPresupuesto(LoginRequiredMixin, TemplateView):
 	context_object_name = 'presupuesto_list'
 	template_name = 'landingpage/pages/presupuesto/mi_presupuesto.html'
-	ordering = ['-id']
 
 	def get(self, request, *args, **kwargs):
-		mi_presupuesto = Presupuesto.objects.filter(cliente=request.user.pk)
+		mi_presupuesto = Presupuesto.objects.filter(cliente=request.user.pk).order_by('-id')
 		context = {}
 		context["title"] = "Presupuestos"
-		context["sub_title"] = "Listado de presupuestos"
+		context["sub_title"] = "Mis presupuestos"
 		context['presupuestos'] = mi_presupuesto
 		return render(request, self.template_name, context)
 
+class RegistrarMiPresupuesto(LoginRequiredMixin, TemplateView):
+	template_name = 'landingpage/pages/presupuesto/registrar_mi_presupuesto.html'
+	object = None
+
+	def get_success_url(self):
+		return reverse('detalle_mi_presupuesto', kwargs={'pk': self.object.pk})
+
+	def post(self, request, *args, **kwargs):
+		form = MiPresupuestoForm(request.POST)
+		usuario = Usuario.objects.filter(user=request.user.pk).first()
+		if form.is_valid():
+			presupuesto = Presupuesto()
+			presupuesto.cliente = usuario
+			presupuesto.metodo_pago = form.cleaned_data['metodo_pago']
+			presupuesto.save()
+			for s in form.cleaned_data['servicio']:
+				presupuesto.servicio.add(s.pk)
+				presupuesto.total += s.precio_serv
+			presupuesto.save()
+			self.object = presupuesto
+			messages.success(request, 'El presupuesto se ha registrado correctamente')
+			return redirect(self.get_success_url())
+		else:
+			context = self.get_context_data(**kwargs)
+			context["form"] = form
+			return render(request, self.template_name, context)
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context["title"] = "Presupuestos"
+		context["sub_title"] = "Registrar mi presupuesto"
+		context["form"] = MiPresupuestoForm()
+		return context
+
+class DetalleMiPresupuesto(LoginRequiredMixin, TemplateView):
+	template_name = 'landingpage/pages/presupuesto/detalle_mi_presupuesto.html'
+
+	def get(self, request, pk,*args, **kwargs):
+		context = {}
+
+		usuario = Usuario.objects.filter(user = request.user.pk).first()
+		presupuesto = Presupuesto.objects.filter(pk=pk, cliente__cedula=usuario.cedula).first()
+		if presupuesto:
+			context['presupuesto'] = presupuesto
+			context["sub_title"] = "Detalle de mi presupuesto"
+			return render(request, self.template_name, context)
+		else:
+			return redirect('mi_presupuesto')
+
 class DetalleMiCita(TemplateView):
 	template_name = 'landingpage/pages/detalle_de_mi_cita.html'
-
-class Anuncios(TemplateView):
-	template_name = 'landingpage/pages/listado_de_anuncios.html'
 
 class Contacto(TemplateView):
 	template_name = 'landingpage/pages/contacto.html'

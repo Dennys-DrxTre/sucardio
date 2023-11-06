@@ -14,7 +14,7 @@ from django.views.generic import (
 from django.views.generic.detail import SingleObjectMixin
 from ...models import Presupuesto
 
-class ListadoPresupuesto(ListView):
+class ListadoPresupuesto(LoginRequiredMixin, ListView):
 	context_object_name = 'presupuesto_list'
 	template_name = 'pages/presupuestos/listado_presupuesto.html'
 	ordering = ['-id']
@@ -26,7 +26,7 @@ class ListadoPresupuesto(ListView):
 		context["sub_title"] = "Listado de presupuestos"
 		return context
 
-class RegistrarPresupuesto(TemplateView):
+class RegistrarPresupuesto(LoginRequiredMixin, TemplateView):
 	template_name = 'pages/presupuestos/registrar_presupuesto.html'
 	object = None
 
@@ -59,7 +59,7 @@ class RegistrarPresupuesto(TemplateView):
 		context["form"] = PresupuestoForm
 		return context
 
-class EditarPresupuesto(UpdateView):
+class EditarPresupuesto(LoginRequiredMixin, UpdateView):
 	template_name = 'pages/presupuestos/registrar_presupuesto.html'
 	object = None
 
@@ -95,7 +95,7 @@ class EditarPresupuesto(UpdateView):
 			form = PresupuestoForm(instance=self.object)
 			return render(request, self.template_name, context)
 	
-class DetallePresupuesto(SuccessMessageMixin, DetailView):
+class DetallePresupuesto(LoginRequiredMixin, SuccessMessageMixin, DetailView):
 	template_name = 'pages/presupuestos/detalle_presupuesto.html'
 	model = Presupuesto
 	context_object_name = 'presupuesto'

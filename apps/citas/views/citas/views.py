@@ -14,7 +14,7 @@ from ...models import Cita
 from ...forms import CitasForm
 
 
-class ListadoCita( ListView):
+class ListadoCita(ListView):
 	context_object_name = 'cita_list'
 	template_name = 'pages/citas/listado_citas.html'
 	ordering = ['-id']

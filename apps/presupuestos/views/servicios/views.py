@@ -13,7 +13,7 @@ from django.views.generic import (
 from django.views.generic.detail import SingleObjectMixin
 from ...models import Servicio
 
-class ListadoServicio(ListView):
+class ListadoServicio(LoginRequiredMixin, ListView):
 	context_object_name = 'servicio_list'
 	template_name = 'pages/servicios/listado_servicios.html'
 	ordering = ['nombre_serv']
@@ -38,7 +38,7 @@ class ListadoServicio(ListView):
 		context['nombre_estado'] = nombre_estado[estado]
 		return context
 	
-class RegistrarServicio(SuccessMessageMixin, CreateView):
+class RegistrarServicio(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 	template_name = 'pages/servicios/registrar_servicio.html'
 	model = Servicio
 	form_class = ServicioForm
@@ -51,7 +51,7 @@ class RegistrarServicio(SuccessMessageMixin, CreateView):
 		context["sub_title"] = "Registrar servicio"
 		return context
 	
-class EditarServicio(SuccessMessageMixin, UpdateView):
+class EditarServicio(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 	template_name = 'pages/servicios/registrar_servicio.html'
 	model = Servicio
 	form_class = ServicioEditForm
@@ -64,7 +64,7 @@ class EditarServicio(SuccessMessageMixin, UpdateView):
 		context["sub_title"] = "Editar Servicio"
 		return context
 	
-class DetalleServicio(SuccessMessageMixin, DetailView):
+class DetalleServicio(LoginRequiredMixin, SuccessMessageMixin, DetailView):
 	template_name = 'pages/servicios/detalle_servicio.html'
 	model = Servicio
 	context_object_name = 'servicio'
@@ -75,7 +75,7 @@ class DetalleServicio(SuccessMessageMixin, DetailView):
 		context["sub_title"] = "Detalle del Servicio"
 		return context
 
-class CambiarEstadoServicio(SingleObjectMixin, View):
+class CambiarEstadoServicio(LoginRequiredMixin, SingleObjectMixin, View):
 	model = Servicio
 
 	def get(self, request, *args, **kwargs):

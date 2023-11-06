@@ -13,7 +13,7 @@ from django.views.generic import (
 from django.views.generic.detail import SingleObjectMixin
 from ...models import Medico
 
-class ListadoMedico( ListView):
+class ListadoMedico(LoginRequiredMixin, ListView):
 	context_object_name = 'medico_list'
 	template_name = 'pages/medico/listado_medico.html'
 	ordering = ['nombre']
@@ -38,7 +38,7 @@ class ListadoMedico( ListView):
 		context['nombre_estado'] = nombre_estado[estado]
 		return context
 
-class RegistrarMedico(SuccessMessageMixin, CreateView):
+class RegistrarMedico(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 	template_name = 'pages/medico/registrar_medico.html'
 	model = Medico
 	form_class = MedicoForm
@@ -51,7 +51,7 @@ class RegistrarMedico(SuccessMessageMixin, CreateView):
 		context["sub_title"] = "Registrar medico"
 		return context
 
-class EditarMedico(SuccessMessageMixin, UpdateView):
+class EditarMedico(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 	template_name = 'pages/medico/registrar_medico.html'
 	model = Medico
 	form_class = MedicoEditForm
@@ -64,7 +64,7 @@ class EditarMedico(SuccessMessageMixin, UpdateView):
 		context["sub_title"] = "Editar medico"
 		return context
 
-class DetalleMedico(SuccessMessageMixin, DetailView):
+class DetalleMedico(LoginRequiredMixin, SuccessMessageMixin, DetailView):
 	template_name = 'pages/medico/detalle_medico.html'
 	model = Medico
 	context_object_name = 'medico'
@@ -75,7 +75,7 @@ class DetalleMedico(SuccessMessageMixin, DetailView):
 		context["sub_title"] = "Detalle del medico"
 		return context
 	
-class CambiarEstadoMedico(SingleObjectMixin, View):
+class CambiarEstadoMedico(LoginRequiredMixin, SingleObjectMixin, View):
 	model = Medico
 
 	def get(self, request, *args, **kwargs):

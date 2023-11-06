@@ -18,18 +18,25 @@
                                 <option value="DE">Deshabilitados</option>
                             </select> -->
                             
-                            <a href="{% url 'registrar_cita_cliente' %}" class="btn btn-icon btn-primary">
+                            <a href="{% url 'registrar_mi_presupuesto' %}" class="btn btn-icon btn-primary">
                                 Registrar Presupuesto
                             </a>
                         </div>
                     </div>
                     <div class="card-body">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ message }}.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">Cliente</th>
                                         <th scope="col">Metodo de Pago</th>
                                         <th scope="col">Servicio</th>
                                         <th scope="col">Total</th>
@@ -40,7 +47,6 @@
                                     {% for presupuesto in presupuestos %}
                                     <tr>
                                         <th scope="row">{{presupuesto.id}}</th>
-                                        <td>{{presupuesto.cliente}}</td>
                                         <td>{{presupuesto.metodo_pago}}</td>
                                         <td>
                                             
@@ -50,9 +56,9 @@
                                             {% endfor %}
                                                 
                                         </td>
-                                        <td>${{presupuesto.total}}</td>
+                                        <td>${{presupuesto.total|floatformat:2}}</td>
                                         <td>
-                                            <a href="#" class="btn btn-icon btn-sm rounded-pill btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle del presupuesto">
+                                            <a href="{% url 'detalle_mi_presupuesto' presupuesto.pk %}" class="btn btn-icon btn-sm rounded-pill btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle del presupuesto">
                                                 <i class="uil uil-file-alt"></i>
                                             </a>
                                         </td>

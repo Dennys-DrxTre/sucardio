@@ -1,0 +1,81 @@
+{% extends 'landingpage/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+
+{% block link_ladingpage %}
+    <!-- select2 -->
+    <link rel="stylesheet" href="{% static 'assets/css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/select2-bootstrap4.min.css' %}">
+{% endblock link_ladingpage %}
+    
+
+{% block content %}
+    <section class="wrapper bg-soft-primary">
+        <div class="container pt-10 pb-15 pt-md-14 pb-md-20">
+            <div class="col-xl-12">
+                <form action="" method="post">{% csrf_token %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 id="page_title">{{ sub_title }}</h5>
+                            <div class="card-tools d-flex justify-content-end">
+                        
+                                <a href="#" onClick="javascript:history.go(-1);" class="btn btn-icon btn-primary">
+                                    Mis presupuestos
+                                </a>
+                            
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {% if form.errors %}
+                                    {% for field in form %}
+                                        {% for error in field.errors %}
+                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                <strong>{{ field.label }}! </strong> {{ error }}
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+                            {% endif %}
+                            <div class="row mb-2">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="id_metodo_pago">Método de pago</label>
+                                        {{ form.metodo_pago|add_class:'form-control'}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="id_servicio">Servicios</label>
+                                        {{ form.servicio|add_class:'form-control'}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-info mt-2 mb-4">Guardar</button>
+                            <a href="#" class="btn btn-dark mt-2 mb-4" onClick="javascript:history.go(-1);">Cancelar</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.container -->
+    </section>
+{% endblock content %}
+
+
+{% block js_ladingpage %}
+    <script src="{% static 'assets/js/plugins/i18n/es.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/select2.min.js' %}"></script>
+
+    <script>
+
+        $('#id_servicio').select2({
+            theme:'bootstrap4',
+            language: 'es',
+            placeholder: 'Selecionar Servicios',
+        });
+    </script>
+{% endblock js_ladingpage %}
+    

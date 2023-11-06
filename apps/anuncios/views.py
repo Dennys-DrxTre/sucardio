@@ -13,7 +13,7 @@ from django.views.generic import (
 from .models import Anuncios
 from .forms import AnunciosForm
 
-class ListadoAnuncioAdmin(ListView):
+class ListadoAnuncioAdmin(LoginRequiredMixin, ListView):
 	context_object_name = 'anuncio_list'
 	template_name = 'pages/anuncios/lista_de_anuncios.html'
 	model= Anuncios
@@ -39,7 +39,7 @@ class ListadoAnuncios( ListView):
 		context["sub_title"] = "Listado de anuncios"
 		return context
 
-class RegistrarAnuncio(SuccessMessageMixin, CreateView):
+class RegistrarAnuncio(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 	template_name = 'pages/anuncios/crear_anuncio.html'
 	model = Anuncios
 	form_class = AnunciosForm
@@ -52,7 +52,7 @@ class RegistrarAnuncio(SuccessMessageMixin, CreateView):
 		context["sub_title"] = "Registrar anuncio"
 		return context
 
-class EditarAnuncio(SuccessMessageMixin, UpdateView):
+class EditarAnuncio(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 	template_name = 'pages/anuncios/editar_anuncio.html'
 	model = Anuncios
 	form_class = AnunciosForm
@@ -65,7 +65,7 @@ class EditarAnuncio(SuccessMessageMixin, UpdateView):
 		context["sub_title"] = "Editar anuncio"
 		return context
 
-class DetalleAnuncio(DetailView):
+class DetalleAnuncio(LoginRequiredMixin, DetailView):
 	template_name = 'pages/anuncios/detalle_anuncio.html'
 	model = Anuncios
 	context_object_name = 'anuncio'
@@ -87,7 +87,7 @@ class DetalleAnuncioLanding(DetailView):
 		context["sub_title"] = "Detalles del anuncio"
 		return context
 
-class CambiarEstadoAnuncio(SingleObjectMixin, View):
+class CambiarEstadoAnuncio(LoginRequiredMixin, SingleObjectMixin, View):
 	model = Anuncios
 
 	def get(self, request, *args, **kwargs):
