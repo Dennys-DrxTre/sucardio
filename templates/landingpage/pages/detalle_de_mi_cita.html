@@ -1,0 +1,77 @@
+{% extends 'landingpage/base.html' %}
+
+{% block content %}
+    <section class="wrapper bg-soft-primary">
+        <div class="container pb-15 pt-md-14 pb-md-20">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 id="page_title">{{ sub_title }}</h5>
+                        <div class="card-tools d-flex justify-content-end">
+                            <a href="#" onClick="javascript:history.go(-1);" class="btn btn-icon btn-primary">
+                                Mis citas
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        
+                        <div class="row mb-2">
+                            <div class="form-group">
+                                <label class="form-label" for="id_control_pac">Motivo de la consulta</label>
+                                <p>{{cita.motivo_consulta}}</p>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="id_motivo_consulta">¿Está en control?</label>
+                                    <p>{{cita.control_pac|yesno:'Si, No'}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="id_motivo_consulta">Fecha de la cita</label>
+                                    {%  if cita.fecha_cita%}
+                                        <p>{{cita.fecha_cita|date:'d/m/Y'}}</p>
+                                    {% else %}
+                                        <p>En espera</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="id_metodo_pago">Método de pago</label>
+                                    <p>{{cita.metodo_pago}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="id_medico">Estado de la cita</label>
+                                    {% if cita.estado == 'PE' %}
+                                        <p>Pendiente</p>
+                                    {% endif %}
+                                    {% if cita.estado == 'AP' %}
+                                        <p>Aprobada</p>
+                                    {% endif %}
+                                    {% if cita.estado == 'RE' %}
+                                        <p>Rechazada</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="form-group">
+                                <label for="" class="form-label">Médico de la cita</label>
+                                <p>{{cita.medico}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </section>
+{% endblock content %}
+    

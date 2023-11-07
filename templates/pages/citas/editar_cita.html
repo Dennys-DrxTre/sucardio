@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block link %}
+{% endblock link %}
+
+{% block content %}
+<!-- [ Main Content ] start -->
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>{{ sub_title }}</h5>
+                </div>
+                <div class="card-body">
+                    {% if form.errors %}
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>{{ field.label }}! </strong> {{ error }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                    {% endif %}
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="id_fecha_cita">Fecha de la cita (formato d/m/a)</label>
+                                {{ form.fecha_cita|add_class:'form-control'}}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="id_estado">Estado de la cita</label>
+                                {{ form.estado|add_class:'form-control' }}
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-info mt-2 mb-4">Guardar</button>
+                    <a href="#" class="btn btn-dark mt-2 mb-4" onClick="javascript:history.go(-1);">Cancelar</a>
+                </div>
+                
+            </div>
+        </div>
+        <!-- [ form-element ] end -->
+    </div>
+</form>
+
+{% endblock %}
+
+{% block js %}
+{% endblock js %}

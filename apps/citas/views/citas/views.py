@@ -28,29 +28,27 @@ class ListadoCita(ListView):
 		context["sub_title"] = "Listado de citas"
 		return context
 
-
-"""
-class EditarMedico(SuccessMessageMixin, UpdateView):
-	template_name = 'pages/medico/registrar_medico.html'
-	model = Medico
-	form_class = MedicoEditForm
-	success_url = '/listado-de-medicos/'
-	success_message = "Medico editado exitosamente"
+class DetallesCita(SuccessMessageMixin, DetailView):
+	template_name = 'pages/citas/detalles_cita.html'
+	model = Cita
+	context_object_name = 'cita'
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context["title"] = "Medico"
-		context["sub_title"] = "Editar medico"
+		context["title"] = "Cita"
+		context["sub_title"] = "Detalle de cita"
 		return context
+	
 
-class DetalleMedico(SuccessMessageMixin, DetailView):
-	template_name = 'pages/medico/detalle_medico.html'
-	model = Medico
-	context_object_name = 'medico'
+class EditarCita(SuccessMessageMixin, UpdateView):
+	template_name = 'pages/citas/editar_cita.html'
+	model = Cita
+	fields = ['fecha_cita', 'estado']
+	success_url = '/listado-de-citas/'
+	success_message = "Cita editada exitosamente"
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context["title"] = "Medico"
-		context["sub_title"] = "Detalle del medico"
+		context["title"] = "Cita"
+		context["sub_title"] = "Editar cita"
 		return context
-"""

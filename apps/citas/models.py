@@ -16,7 +16,7 @@ class Medico(Persona):
 	horario_final = models.TimeField(null=True, blank=True)
 
 	def __str__(self):
-		return self.cedula
+		return str(f'{self.nombre} {self.apellido} | {self.especialidad}')
 	
 	class Meta:
 		permissions = []

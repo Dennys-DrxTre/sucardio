@@ -1,0 +1,104 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block link %}
+{% endblock link %}
+
+{% block content %}
+
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-sm-12">
+          {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+          {% endif %}
+
+          <div class="tab-content">
+            <div class="tab-pane show active" id="profile-1" role="tabpanel" aria-labelledby="profile-tab-1">
+              <div class="row">
+                <div class="col-lg-12 col-xxl-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5>Datos personales</h5>
+                    </div>
+                    <div class="card-body">
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item px-0 pt-0">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Cédula del cliente</p>
+                              <p class="mb-0">{{ cita.cliente.cedula }}</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Nombres y Apellidos</p>
+                              <p class="mb-0">{{ cita.cliente.nombre }} {{ cita.cliente.apellido }}</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item px-0 pt-0">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Teléfonos</p>
+                              <p class="mb-0">{{ cita.cliente.telefono }} / {{ cita.cliente.telefono2 }}</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Dirección</p>
+                              <p class="mb-0">{{ cita.cliente.direccion }}</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item px-0">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Motivo de la consulta</p>
+                              <p class="mb-0">{{cita.motivo_consulta}}</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Método de pago</p>
+                              <p class="mb-0">{{ cita.metodo_pago }}</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item px-0">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">¿Está en control?</p>
+                              <p class="mb-0">{{cita.control_pac|yesno:'Si, No'}}</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Fecha de la cita</p>
+                              <p class="mb-0">{{ cita.fecha_cita|date:'d/m/Y'}}</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item px-0">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">¿Médico de la cita?</p>
+                              <p class="mb-0">{{cita.medico}}</p>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- [ sample-page ] end -->
+      </div>
+      <!-- [ Main Content ] end -->
+
+{% endblock %}
+
+{% block js %}
+{% endblock js %}

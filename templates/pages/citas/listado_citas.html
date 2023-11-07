@@ -7,7 +7,7 @@
         <!-- <a href="#" id="btn_filter" class="btn btn-icon btn-light-dark ml-10" rel="btn_open_modal_report" data-bs-toggle="tooltip" data-bs-placement="top" title="Reportes">
             <i class="fas fa-file-pdf"></i>
         </a> -->
-        <a href="{% url 'registrar_cita' %}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar cita">
+        <a href="#" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar cita">
             <i class="fas fa-plus"></i>
         </a>
     </div>
@@ -40,21 +40,22 @@
             {% for cita in cita_list %}
                 <tr>
                     <td>{{cita.cliente}}</td>
-                    <td>{{cita.control_pac}}</td>
+                    <td>{{cita.control_pac|yesno:"Si,No"}}</td>
                     <td>{{cita.motivo_consulta}}</td>
                     <td>{{cita.metodo_pago}}</td>
-                    <td>{{cita.medico}}</td>
+                    <td>{{cita.medico|truncatechars:20}}</td>
                     <td>{{cita.estado}}</td>
-                    <td>{{cita.fecha_cita}}</td>
+                    {% if cita.fecha_cita %}
+                        <td>{{cita.fecha_cita|date:'d/m/Y'}}</td>
+                    {% else %}
+                        <td>---</td>
+                    {% endif %}
                     <td>
-                        <a href="#" rel="detail" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle del personal">
+                        <a href="{% url 'detalle_cita' cita.id %}" rel="detail" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle de la cita">
                             <svg class="pc-icon"><use xlink:href="#custom-document-text"></use></svg>
                         </a>
-                        <a href="#" rel="edit" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar personal">
+                        <a href="{% url 'editar_cita' cita.id %}" rel="edit" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar cita">
                             <i class="fas fa-edit"></i>
-                        </a>
-                        <a href="#" rel="status" class="btn btn-icon btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Deshabilitar personal">
-                            <i class="fas fa-eye-slash"></i>
                         </a>
                     </td>
                 </tr>

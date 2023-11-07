@@ -55,7 +55,7 @@
                                         <td>{{cita.medico.nombre}} {{cita.medico.apellido}}</td>
                                         <td>{{cita.estado}}</td>
                                         <td>
-                                            <a href="#" class="btn btn-icon btn-sm rounded-pill btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle de la cita">
+                                            <a href="{% url 'detalle_cita_cliente' cita.id %}" class="btn btn-icon btn-sm rounded-pill btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle de la cita">
                                                 <i class="uil uil-file-alt"></i>
                                             </a>
                                         </td>

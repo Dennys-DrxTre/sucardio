@@ -8,13 +8,13 @@ from .views import (
     SobreNosotros, 
     ListadoMiPresupuesto, 
     DetalleMiPresupuesto,
-    RegistrarMiPresupuesto
+    RegistrarMiPresupuesto,
 )
 
 APP_NAME = 'landingpage'
 
 urlpatterns = [
-    path('', Inicio.as_view(), name=''),
+    path('', Inicio.as_view(), name='inicio_front'),
     path('mis-citas/', MisCitas.as_view(), name='mis_citas'),
     path('solicitar-cita/', RegistrarCita.as_view(), name='registrar_cita_cliente'),
     path('detalle-de-mi-cita/<int:pk>/', DetalleMiCita.as_view(), name='detalle_cita_cliente'),

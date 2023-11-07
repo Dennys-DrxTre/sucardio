@@ -124,8 +124,17 @@ class DetalleMiPresupuesto(LoginRequiredMixin, TemplateView):
 		else:
 			return redirect('mi_presupuesto')
 
-class DetalleMiCita(TemplateView):
+class DetalleMiCita(LoginRequiredMixin, DetailView):
 	template_name = 'landingpage/pages/detalle_de_mi_cita.html'
+	model = Cita
+	context_object_name = 'cita'
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context["title"] = "Citas"
+		context["sub_title"] = "Detalle de cita"
+		return context
+
 
 class Contacto(TemplateView):
 	template_name = 'landingpage/pages/contacto.html'
