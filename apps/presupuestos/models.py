@@ -2,6 +2,7 @@ from django.db import models
 from apps.citas.models import Usuario, ModeloBaseEstado
 from .choices import metodos_pago
 from datetime import date
+from django.urls import reverse
 # Create your models here.
 
 class Servicio(ModeloBaseEstado):
@@ -28,6 +29,12 @@ class Presupuesto(ModeloBaseEstado):
 	def __str__(self):
 		return str(self.id) + ' - ' + str(self.fecha)
 	
+	def get_absolute_url(self):
+		return reverse('detalle_presupuesto', args=[self.id])
+
+	def get_model_name(self):
+		return 'Presupuesto'
+
 	class Meta:
 		permissions = []
 		verbose_name = 'Presupuesto'

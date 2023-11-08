@@ -50,7 +50,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="id_telefono">Telefono</label>
-                                {{ form.telefono|add_class:'form-control'|attr:'placeholder:Introduzca el telefono'|attr:'type:number' }}
+                                {{ form.telefono|add_class:'form-control'|attr:'placeholder:Introduzca el telefono'|attr:'type:text'|attr:'onkeypress:return Solo_Numero(event)' }}
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="id_telefono2">Telefono 2</label>
-                                {{ form.telefono2|add_class:'form-control'|attr:'placeholder:Introduzca el telefono 2'|attr:'type:number' }}
+                                {{ form.telefono2|add_class:'form-control'|attr:'placeholder:Introduzca el telefono 2'|attr:'type:text'|attr:'onkeypress:return Solo_Numero(event)' }}
                             </div>
                         </div>
                         <div class="col-md-6">

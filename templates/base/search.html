@@ -1,0 +1,97 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12 col-md-12">
+      <div class="card">
+        <div class="card-body pb-0">
+          <div class="d-flex align-items-center justify-content-between">
+                <h5 class="mb-4">{{ total_results }} Resultado{{ total_results|pluralize }} de: {{ query }}</h5>
+          </div>
+        </div>
+        <ul class="list-group list-group-flush border-top-0">
+            {% for result in results %}
+                <li class="list-group-item">
+                    <div class="d-flex align-items-start">
+                        {% if result.get_model_name == 'Cita' %}
+                            <!-- Código para mostrar los resultados del Modelo1 -->
+                            <div class="flex-grow-1 me-2">
+                                <a href="{{ result.get_absolute_url }}" class="">
+                                    <h6 class="mb-0"> Motivo de la cita: {{ result.motivo_consulta|truncatechars:20 }} </h6>
+                                </a>
+                                <p class="my-1"><i class="ti ti-folder"></i> ID: {{ result.pk }} | nombre: {{ result.cliente.nombre }} | apellido: {{ result.cliente.cedula }}</p>
+                                <span class="badge bg-info rounded-pill">{{ result.get_model_name }}</span>
+                                </div>
+                                <div class="flex-shrink-0">
+                                <a href="{{ result.get_absolute_url }}" class="avtar avtar-s btn btn-info">
+                                    <i class="ti ti-eye f-18"></i>
+                                </a>
+                            </div>
+                        {% elif result.get_model_name == 'Medico' %}
+                            <!-- Código para mostrar los resultados del Modelo1 -->
+                            <div class="flex-grow-1 me-2">
+                                <a href="{{ result.get_absolute_url }}" class="">
+                                    <h6 class="mb-0">{{ result.nombre|truncatechars:20 }} {{ result.apellido|truncatechars:20 }}</h6>
+                                </a>
+                                <p class="my-1"><i class="ti ti-folder"></i> cedula: {{ result.cedula }} | nombre: {{ result.nombre }} | apellido: {{ result.apellido }}</p>
+                                <span class="badge bg-success rounded-pill">{{ result.get_model_name }}</span>
+                                </div>
+                                <div class="flex-shrink-0">
+                                <a href="{{ result.get_absolute_url }}" class="avtar avtar-s btn btn-info">
+                                    <i class="ti ti-eye f-18"></i>
+                                </a>
+                            </div>
+                        {% elif result.get_model_name == 'Usuario' %}
+                            <!-- Código para mostrar los resultados del Modelo1 -->
+                            <div class="flex-grow-1 me-2">
+                                <a href="#" class="">
+                                    <h6 class="mb-0">{{ result.user.username|truncatechars:20 }}</h6>
+                                </a>                                
+                                <p class="my-1"><i class="ti ti-folder"></i> nombre de usuario: {{ result.user.username }} | nombre: {{ result.nombre }} | apellido: {{ result.apellido }}</p>
+                                <span class="badge bg-dark rounded-pill">{{ result.get_model_name }}</span>
+                                </div>
+                                <div class="flex-shrink-0">
+                                <a href="#" class="avtar avtar-s btn btn-info">
+                                    <i class="ti ti-eye f-18"></i>
+                                </a>
+                            </div>
+                        {% elif result.get_model_name == 'Presupuesto' %}
+                            <!-- Código para mostrar los resultados del Modelo1 -->
+                            <div class="flex-grow-1 me-2">
+                                <a href="{{ result.get_absolute_url }}" class="">
+                                    <h6 class="mb-0">{{ result.cliente|truncatechars:20 }}</h6>
+                                </a>                                
+                                <p class="my-1"><i class="ti ti-folder"></i> ID: {{ result.pk }} | cedula del cliente: {{ result.cliente.cedula }}| nombre del cliente: {{ result.cliente.nombre }} | metodo de pago: {{ result.metodo_pago }}</p>
+                                <span class="badge bg-secondary rounded-pill">{{ result.get_model_name }}</span>
+                                </div>
+                                <div class="flex-shrink-0">
+                                <a href="{{ result.get_absolute_url }}" class="avtar avtar-s btn btn-info">
+                                    <i class="ti ti-eye f-18"></i>
+                                </a>
+                            </div>
+                        {% elif result.get_model_name == 'Anuncio' %}
+                            <!-- Código para mostrar los resultados del Modelo1 -->
+                            <div class="flex-grow-1 me-2">
+                                <a href="{{ result.get_absolute_url }}" class="">
+                                    <h6 class="mb-0">{{ result.titulo|truncatechars:20 }}</h6>
+                                </a>                                
+                                <p class="my-1"><i class="ti ti-folder"></i> autor: {{ result.autor.cedula }} | nombre del autor: {{ result.autor.nombre }} | Descripcion: {{ result.descripcion|truncatechars:20 }}</p>
+                                <span class="badge bg-warning rounded-pill">{{ result.get_model_name }}</span>
+                                </div>
+                                <div class="flex-shrink-0">
+                                <a href="{{ result.get_absolute_url }}" class="avtar avtar-s btn btn-info">
+                                    <i class="ti ti-eye f-18"></i>
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+    

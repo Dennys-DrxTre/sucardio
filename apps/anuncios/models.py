@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.urls import reverse
 # Create your models here.
 
 class Persona(models.Model):
@@ -47,6 +47,12 @@ class Usuario(Persona):
 	def __str__(self):
 		return self.cedula
 	
+	def get_absolute_url(self):
+		return reverse('detalle_usuario', args=[self.id])
+
+	def get_model_name(self):
+		return 'Usuario'
+
 	class Meta:
 		permissions = []
 		verbose_name = 'Usuario'
@@ -63,6 +69,12 @@ class Anuncios(ModeloBaseEstado):
 	def __str__(self):
 		return self.titulo
 	
+	def get_absolute_url(self):
+		return reverse('detalle_anuncio', args=[self.id])
+
+	def get_model_name(self):
+		return 'Anuncio'
+
 	class Meta:
 		permissions = []
 		verbose_name = 'Anuncio'

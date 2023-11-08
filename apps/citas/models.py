@@ -2,6 +2,7 @@ from django.db import models
 from apps.anuncios.models import Usuario, Persona, ModeloBaseEstado
 from .choices import especialidades
 from apps.presupuestos.choices import metodos_pago
+from django.urls import reverse
 
 class Medico(Persona):
 
@@ -18,6 +19,12 @@ class Medico(Persona):
 	def __str__(self):
 		return str(f'{self.nombre} {self.apellido} | {self.especialidad}')
 	
+	def get_absolute_url(self):
+		return reverse('detalle_medico', args=[self.id])
+
+	def get_model_name(self):
+		return 'Medico'
+
 	class Meta:
 		permissions = []
 		verbose_name = 'Medico'
@@ -41,6 +48,12 @@ class Cita(ModeloBaseEstado):
 	def __str__(self):
 		return str(self.id)
 	
+	def get_absolute_url(self):
+		return reverse('detalle_cita', args=[self.id])
+
+	def get_model_name(self):
+		return 'Cita'
+
 	class Meta:
 		permissions = []
 		verbose_name = 'Cita'
