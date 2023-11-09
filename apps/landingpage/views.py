@@ -3,6 +3,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
 from django.views.generic import (
 	UpdateView,
 	ListView,
@@ -19,18 +21,29 @@ from apps.presupuestos.forms import MiPresupuestoForm
 class Inicio(TemplateView):
 	template_name = 'landingpage/pages/inicio.html'
 	
-class MisCitas(LoginRequiredMixin, ListView):
+class MisCitas(LoginRequiredMixin, TemplateView):
 	template_name = 'landingpage/pages/mis_citas.html'
-	model = Cita
-	context_object_name = 'cita_list'
 
-	def get_queryset(self):
-		return Cita.objects.filter(cliente=self.request.user.pk).order_by('-id')
+	def get(self, request, *args, **kwargs):
+		context = {}
+		citas = Cita.objects.filter(cliente=self.request.user.pk).order_by('-id')
+		paginator = Paginator(citas, 8)  # Muestra 10 resultados por página
 
-	def get_context_data(self, **kwargs):
-		context = super().get_context_data(**kwargs)
+		# Obtiene el número de página del parámetro GET 'page'. Si no existe, asume 1.
+		page_number = request.GET.get('page', 1)
+
+		try:
+			page_obj = paginator.page(page_number)
+		except PageNotAnInteger:
+			# Si la página no es un entero, muestra la primera página.
+			page_obj = paginator.page(1)
+		except EmptyPage:
+			# Si la página está fuera de rango (por ejemplo, 9999), muestra la última página de resultados.
+			page_obj = paginator.page(paginator.num_pages)
+
 		context["sub_title"] = "Mis citas"
-		return context  
+		context["cita_list"] = page_obj
+		return render(request, self.template_name, context)
 
 class RegistrarCita(LoginRequiredMixin, SuccessMessageMixin, TemplateView):
 	template_name = 'landingpage/pages/solicitar_cita.html'
@@ -69,10 +82,25 @@ class ListadoMiPresupuesto(LoginRequiredMixin, TemplateView):
 
 	def get(self, request, *args, **kwargs):
 		mi_presupuesto = Presupuesto.objects.filter(cliente=request.user.pk).order_by('-id')
+
+		paginator = Paginator(mi_presupuesto, 8)  # Muestra 10 resultados por página
+
+		# Obtiene el número de página del parámetro GET 'page'. Si no existe, asume 1.
+		page_number = request.GET.get('page', 1)
+
+		try:
+			page_obj = paginator.page(page_number)
+		except PageNotAnInteger:
+			# Si la página no es un entero, muestra la primera página.
+			page_obj = paginator.page(1)
+		except EmptyPage:
+			# Si la página está fuera de rango (por ejemplo, 9999), muestra la última página de resultados.
+			page_obj = paginator.page(paginator.num_pages)
+
 		context = {}
 		context["title"] = "Presupuestos"
 		context["sub_title"] = "Mis presupuestos"
-		context['presupuestos'] = mi_presupuesto
+		context['presupuestos'] = page_obj
 		return render(request, self.template_name, context)
 
 class RegistrarMiPresupuesto(LoginRequiredMixin, TemplateView):

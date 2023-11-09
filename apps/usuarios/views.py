@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from apps.citas.models import Medico, Usuario, Cita
 from apps.presupuestos.models import Presupuesto
@@ -78,7 +79,22 @@ class SearchView(LoginRequiredMixin, View):
 			# combinar los resultados y pasarlos al contexto del template
 			results = list(chain(medicos, usuarios, citas, presupuestos, anuncios))
 			total_results = medicos_count + usuarios_count + citas_count + presupuestos_count + anuncios_count
-			context['results'] = results
+
+			paginator = Paginator(results, 8)  # Muestra 10 resultados por página
+
+			# Obtiene el número de página del parámetro GET 'page'. Si no existe, asume 1.
+			page_number = request.GET.get('page', 1)
+
+			try:
+				page_obj = paginator.page(page_number)
+			except PageNotAnInteger:
+				# Si la página no es un entero, muestra la primera página.
+				page_obj = paginator.page(1)
+			except EmptyPage:
+				# Si la página está fuera de rango (por ejemplo, 9999), muestra la última página de resultados.
+				page_obj = paginator.page(paginator.num_pages)
+
+			context['results'] = page_obj
 			context['total_results'] = total_results
 			context['query'] = query
 		else:

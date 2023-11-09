@@ -67,6 +67,41 @@
                     </div>
                     <!--/.card-body -->
                 </div>
+                <nav class="d-flex pt-5" aria-label="pagination">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            {% if cita_list.has_previous %}
+                                <a class="page-link" href="?page={{ cita_list.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true"><i class="ti ti-arrow-big-left"></i></span>
+                                </a>
+                            {% endif %}
+                        </li>
+                        {% if cita_list.number|add:'-4' > 1 %}
+                            <li class="page-item"><a class="page-link" href="?page={{ cita_list.number|add:'-5' }}">&hellip;</a></li>
+                        {% endif %}
+                        
+                        {% for i in cita_list.paginator.page_range %}
+                            {% if cita_list.number == i %}
+                                <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                            {% elif i > cita_list.number|add:'-5' and i < cita_list.number|add:'5' %}
+                                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        
+                        {% if cita_list.paginator.num_pages > cita_list.number|add:'4' %}
+                            <li class="page-item"><a class="page-link" href="?page={{ cita_list.number|add:'5' }}">&hellip;</a></li>
+                        {% endif %}
+                        <li class="page-item">
+                            {% if cita_list.has_next %}
+                                <a class="page-link" href="?page={{ cita_list.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true"><i class="ti ti-arrow-big-right"></i></span>
+                                </a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                    <!-- /.pagination -->
+                </nav>
             </div>
         </div>
         <!-- /.container -->
