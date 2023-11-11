@@ -8,9 +8,10 @@ from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-from apps.citas.models import Medico, Usuario, Cita
+from apps.citas.models import Medico, Cita
 from apps.presupuestos.models import Presupuesto
-from apps.anuncios.models import Anuncios
+from apps.anuncios.models import Anuncios, Usuario
+from django.contrib.auth.models import User
 
 from .forms import LoginForm, SearchForm
 
@@ -99,4 +100,32 @@ class SearchView(LoginRequiredMixin, View):
 			context['query'] = query
 		else:
 			results = []
+		return render(request, self.template_name, context)
+
+class ListadoUsuarios(LoginRequiredMixin, TemplateView):
+	template_name = 'pages/usuarios/listado_usuarios.html'
+
+	def get(self, request, *args, **kwargs):
+		context = {}
+		context['sub_title'] = 'Listado de usuarios'
+		context['title'] = 'Usuarios'
+
+		usuarios = Usuario.objects.filter(user__is_active=True).order_by('cedula')
+
+		paginator = Paginator(usuarios, 10)  # Muestra 10 resultados por página
+
+		# Obtiene el número de página del parámetro GET 'page'. Si no existe, asume 1.
+		page_number = request.GET.get('page', 1)
+
+		try:
+			page_obj = paginator.page(page_number)
+		except PageNotAnInteger:
+			# Si la página no es un entero, muestra la primera página.
+			page_obj = paginator.page(1)
+		except EmptyPage:
+			# Si la página está fuera de rango (por ejemplo, 9999), muestra la última página de resultados.
+			page_obj = paginator.page(paginator.num_pages)
+
+		context['results'] = page_obj
+
 		return render(request, self.template_name, context)

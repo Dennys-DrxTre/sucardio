@@ -1,0 +1,119 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h5 class="mb-0">{{ sub_title }}</h5>
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <select class="form-select w-auto me-2">
+                            <option>Today</option>
+                            <option>Weekly</option>
+                            <option selected="">Monthly</option>
+                        </select>
+                        <div class="dataTable-search">
+                            <input class="dataTable-input" placeholder="Search..." type="text">
+                        </div>
+                        <a href="{% url 'registrar_servicio' %}" class="ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar usuario">
+                            <div class="avtar avtar-s bg-primary">
+                                <i class="fas fa-plus text-white"></i>
+                              </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <div class="dataTable-wrapper dataTable-loading no-footer searchable fixed-columns">
+                        <div class="dataTable-container">
+                            <table class="table table-hover dataTable-table" id="pc-dt-simple">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 15%;">Cedula</th>
+                                        <th style="width: 20%;">Nombre</th>
+                                        <th style="width: 20%;">Apellido</th>
+                                        <th style="width: 15%;">Permisos</th>
+                                        <th style="width: 10%;">Estado</th>
+                                        <th style="width: 20%;">Opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    {% for usuario in results %}
+                                        <tr>
+                                            <td>
+                                                <p class="mb-2">{{ usuario.get_user.username }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="mb-2">{{ usuario.nombre }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="mb-2">{{ usuario.apellido }}</p>
+                                            </td>                                        
+                                            <td class="f-w-600">
+                                                <span class="f-w-400 badge bg-dark">{{ usuario.get_tipo_usuario_display }}</span>
+                                            </td>
+                                            <td class="f-w-600">
+                                                <span class="f-w-400 badge bg-dark">{{ usuario.get_user.is_active|yesno:'Activado,Desactivado' }}</span>
+                                            </td>
+                                            <td class="f-w-600">
+                                                <a href="#" rel="detail" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle del usuario">
+                                                    <i class="ti ti-file-info"></i>
+                                                </a>
+                                                <a href="#" rel="edit" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar usuario">
+                                                    <i class="ti ti-edit"></i>
+                                                </a>
+                                                <a href="#" rel="status" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Deshabilitar usuario">
+                                                    <i class="ti ti-eye-off"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="d-flex" aria-label="pagination">
+            <ul class="pagination">
+                <li class="page-item">
+                    {% if results.has_previous %}
+                        <a class="page-link" href="?page={{ results.previous_page_number }}&search={{ query }}" aria-label="Previous">
+                            <span aria-hidden="true">Anterior</span>
+                        </a>
+                    {% endif %}
+                </li>
+                {% if results.number|add:'-4' > 1 %}
+                    <li class="page-item"><a class="page-link" href="?page={{ results.number|add:'-5' }}&search={{ query }}">&hellip;</a></li>
+                {% endif %}
+                
+                {% for i in results.paginator.page_range %}
+                    {% if results.number == i %}
+                        <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                    {% elif i > results.number|add:'-5' and i < results.number|add:'5' %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}&search={{ query }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                
+                
+                {% if results.paginator.num_pages > results.number|add:'4' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ results.number|add:'5' }}&search={{ query }}">&hellip;</a></li>
+                {% endif %}
+                <li class="page-item">
+                    {% if results.has_next %}
+                        <a class="page-link" href="?page={{ results.next_page_number }}&search={{ query }}" aria-label="Next">
+                            <span aria-hidden="true">Siguiente</span>
+                        </a>
+                    {% endif %}
+                </li>
+            </ul>
+            <!-- /.pagination -->
+        </nav>
+    </div>
+</div>
+{% endblock content %}

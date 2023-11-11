@@ -1,12 +1,29 @@
 
+(pendientes)
+# Cambiar contraseña (José)
+# Reportes
+  - mostrar listado de citas que tiene el médico el día actual (Jose)
+  
+  # Reportes Generales, y de detalle
+    - medicos (Dennys)
+    - usuarios (Dennys)
+    - citas (Jose)
+    - servicios (Jose)
+    - presupuestos (Dennys)
+ 
+# Paginación (anuncios, buscador, mis citas, mis presupuesto) (Dennys) (LISTO)
+# Seguridad (Dennys)
+# Módulos usuarios (administración) (Dennys)
+# Registro de usuario (landing) (Dennys)
+# Fórmularios del landing page (José)
 
-(Pendientes)
-- cambiar contrasenas
-- paginacion en mis citas y anuncios
-- recuperar contrasena
-- filtrados
-- reportes
-- seguridad
+
+(Correcciones)
+Validar el detalle de citas (José)
+Quitar la imagen del listado de anuncios (José)
+Validar los inputs (José)
+Quitar galeria (José)
+Meter url en el botón de inicio del landing  (José)
 
 
 

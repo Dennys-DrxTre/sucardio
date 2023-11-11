@@ -52,6 +52,12 @@ class Usuario(Persona):
 
 	def get_model_name(self):
 		return 'Usuario'
+	
+	def get_user(self):
+		user = User.objects.filter(username=self.cedula).exists()
+		if user:
+			return User.objects.get(username=self.cedula)
+		return None
 
 	class Meta:
 		permissions = []
