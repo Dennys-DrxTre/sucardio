@@ -25,3 +25,22 @@ function Solo_Numero(e){
 	return true;
 	return /\d/.test(String.fromCharCode(keynum));
 }
+  
+//Solo texto
+function Solo_Texto(e) {
+	var code;
+	if (!e) var e = window.event;
+	if (e.keyCode) code = e.keyCode;
+	else if (e.which) code = e.which;
+	var character = String.fromCharCode(code);
+	var AllowRegex  = /^[\ba-zA-Z\s]$/;
+	if (AllowRegex.test(character)) return true;     
+	return false; 
+}
+  //Solo numeros sin puntos 
+function Solo_Numero_ci(e){
+	var keynum = window.event ? window.event.keyCode : e.which;
+	if ((keynum == 8))
+	return true;
+	return /\d/.test(String.fromCharCode(keynum));
+}

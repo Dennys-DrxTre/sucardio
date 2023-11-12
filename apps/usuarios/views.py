@@ -2,8 +2,9 @@ from itertools import chain
 
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -13,7 +14,7 @@ from apps.presupuestos.models import Presupuesto
 from apps.anuncios.models import Anuncios, Usuario
 from django.contrib.auth.models import User
 
-from .forms import LoginForm, SearchForm
+from .forms import LoginForm, SearchForm, ChangePass
 
 class UserLoginView(TemplateView):
 	template_name = 'registration/login.html'
@@ -26,7 +27,7 @@ class UserLoginView(TemplateView):
 			user = authenticate(username=username, password=password)
 			if user is not None:
 				login(request, user)
-				return redirect('/') # redirige al usuario a la página de inicio después de iniciar sesión
+				return redirect('/inicio/') # redirige al usuario a la página de inicio después de iniciar sesión
 			else:
 				messages.error(request, 'Usuario o contraseña incorrecta.')
 		else:
@@ -38,6 +39,40 @@ class UserLoginView(TemplateView):
 		context['sub_title'] = "Ingresar"
 		context['form'] = LoginForm()
 		return context
+
+class ChangePassword(LoginRequiredMixin, TemplateView):
+	template_name = 'registration/cambiar_clave.html'
+
+	def get_form(self, request):
+		return ChangePass(request.POST or None)
+
+	def post(self, request, *args, **kwargs):
+		form = self.get_form(request)
+		if form.is_valid():
+			pass_actual = form.cleaned_data.get('pass_actual')
+			pass1 = form.cleaned_data.get('nueva_pas1')
+			pass2 = form.cleaned_data.get('nueva_pas2')
+			user = authenticate(username=request.user.username, password=pass_actual)
+			if pass1 != pass2:
+				messages.error(request, 'La nueva contraseña no coincide, intenta de nuevo.')
+			elif user is not None:
+				user.set_password(pass1)
+				user.save()
+				messages.success(request, 'Contraseña actualizada correctamente.')  # Mensaje antes de cerrar sesión
+				logout(request)
+				return redirect('/ingresar/')
+			else:
+				messages.error(request, 'Contraseña actual incorrecta.')
+		else:
+			messages.error(request, 'Por favor, introduce una contaseña válida.')
+		return render(request, self.template_name, {'form': form})
+	
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['sub_title'] = "Cambiar clave"
+		context['form'] = self.get_form(self.request)
+		return context
+
 
 class SearchView(LoginRequiredMixin, View):
 	template_name = 'base/search.html'

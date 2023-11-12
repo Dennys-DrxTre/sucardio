@@ -1,6 +1,6 @@
 
 (pendientes)
-# Cambiar contraseña (José)
+# Cambiar contraseña (José) (LISTO)
 # Reportes
   - mostrar listado de citas que tiene el médico el día actual (Jose)
   
@@ -19,15 +19,8 @@
 
 
 (Correcciones)
-Validar el detalle de citas (José)
-Quitar la imagen del listado de anuncios (José)
-Validar los inputs (José)
-Quitar galeria (José)
-Meter url en el botón de inicio del landing  (José)
-
-
-
-
-
-
-
+Validar el detalle de citas (José) (LISTO)
+Quitar la imagen del listado de anuncios (José) (LISTO)
+Validar los inputs (José) (LANDIND LISTO, FALTA SOLO EL MODULO DE USUARIOS)
+Quitar galeria (José) (LISTO)
+Meter url en el botón de inicio del landing  (José) (LISTO)

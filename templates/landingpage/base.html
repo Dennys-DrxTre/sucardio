@@ -42,6 +42,7 @@
 							<li class="nav-item"><a class="dropdown-item" href="#">Perfil</a></li>
 							<li class="nav-item"><a class="dropdown-item" href="{% url 'mis_citas' %}">Mis Citas</a></li>
 							<li class="nav-item"><a class="dropdown-item" href="{% url 'mi_presupuesto' %}">Mi Presupuesto</a></li>
+							<li class="nav-item"><a class="dropdown-item" href="{% url 'cambiar_clave' %}">Cambiar contraseña</a></li>
 							<li class="nav-item"><a class="dropdown-item" href="{% url 'logout' %}">Salir</a></li>
 							</ul>
 						</li>
@@ -65,7 +66,7 @@
 					  <div class="offcanvas-body d-flex flex-column h-100">
 						<ul class="navbar-nav">
 							<li class="nav-item ">
-								<a class="nav-link" href="#">Inicio</a>
+								<a class="nav-link" href="{% url 'inicio_front' %}">Inicio</a>
 							</li>
 							<li class="nav-item ">
 								<a class="nav-link" href="{% url 'sobre_nosotros' %}">¿Quienes Somos?</a>
