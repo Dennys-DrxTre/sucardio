@@ -1,19 +1,23 @@
 from itertools import chain
+from datetime import date
 
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View, DetailView, UpdateView
+from django.views.generic.detail import SingleObjectMixin
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.urls import reverse
 
 from apps.citas.models import Medico, Cita
 from apps.presupuestos.models import Presupuesto
 from apps.anuncios.models import Anuncios, Usuario
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
+from .perms import permissions_user
 
-from .forms import LoginForm, SearchForm
+from .forms import LoginForm, SearchForm, RegistrarUsuarioAdmin, EditarUsuarioAdmin, EditarPasswordUsuarioForm
 
 class UserLoginView(TemplateView):
 	template_name = 'registration/login.html'
@@ -106,17 +110,28 @@ class ListadoUsuarios(LoginRequiredMixin, TemplateView):
 	template_name = 'pages/usuarios/listado_usuarios.html'
 
 	def get(self, request, *args, **kwargs):
+		usuarios = Usuario.objects.filter().order_by('cedula')
+		filtros = {
+			'True': True,
+			'False': False,
+		}
+		search_term = request.GET.get('search', '')
+		filter_option = request.GET.get('filtros', 'True')
 		context = {}
 		context['sub_title'] = 'Listado de usuarios'
 		context['title'] = 'Usuarios'
 
-		usuarios = Usuario.objects.filter(user__is_active=True).order_by('cedula')
-
-		paginator = Paginator(usuarios, 10)  # Muestra 10 resultados por página
-
+		if search_term or str(filtros[filter_option]):
+			usuarios = Usuario.objects.filter(
+				Q(user__username__icontains=search_term) | 
+				Q(nombre__icontains=search_term) |
+				Q(apellido__icontains=search_term),
+				user__is_superuser=False,
+				user__is_active=filtros[filter_option]
+			).order_by('cedula')
+		paginator = Paginator(usuarios, 15)  # Muestra 10 resultados por página
 		# Obtiene el número de página del parámetro GET 'page'. Si no existe, asume 1.
 		page_number = request.GET.get('page', 1)
-
 		try:
 			page_obj = paginator.page(page_number)
 		except PageNotAnInteger:
@@ -127,5 +142,184 @@ class ListadoUsuarios(LoginRequiredMixin, TemplateView):
 			page_obj = paginator.page(paginator.num_pages)
 
 		context['results'] = page_obj
-
+		context['filtros'] = filtros[filter_option]
+		context['search'] = str(search_term)
 		return render(request, self.template_name, context)
+
+class DetalleUsuario(LoginRequiredMixin, DetailView):
+	template_name = 'pages/usuarios/detalle_usuario.html'
+	model = Usuario
+	context_object_name = 'usuario'
+
+	def get(self, request, *args, **kwargs):
+		usuario_id = self.kwargs.get("pk")
+		try:
+			self.object = Usuario.objects.get(pk=usuario_id)
+		except Usuario.DoesNotExist:
+			return redirect('listado_usuarios')
+		context = self.get_context_data(object=self.object)
+		return self.render_to_response(context)
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context["title"] = "Usuario"
+		context["sub_title"] = "Detalle del usuario"
+		return context
+
+class RegistrarUsuario(LoginRequiredMixin, TemplateView):
+	template_name = 'pages/usuarios/registrar_usuario.html'
+	object = None
+
+	def get_success_url(self):
+		return reverse('detalle_usuario', kwargs={'pk': self.object.pk})
+
+	def post(self, request, *args, **kwargs):
+		form = RegistrarUsuarioAdmin(request.POST)
+		if form.is_valid():
+
+			user = User()
+			user.username = form.cleaned_data['cedula']
+			user.first_name = form.cleaned_data['nombre']
+			user.last_name = form.cleaned_data['apellido']
+			permission = Permission.objects.get(codename=permissions_user[form.cleaned_data['tipo_usuario']])
+			user.save()
+			user.user_permissions.add(permission)
+			user.set_password(form.cleaned_data['password'])
+			user.save()
+
+			self.object = form.save(commit=False)
+			self.object.user = user
+			self.object.fecha_registro = date.today()
+			self.object.save()
+
+			messages.success(request, 'El usuario se ha registrado correctamente')
+			return redirect(self.get_success_url())
+		else:
+			context = self.get_context_data(**kwargs)
+			context["form"] = form
+			return render(request, self.template_name, context)
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context["title"] = "Usuarios"
+		context["sub_title"] = "Registrar usuario"
+		context["form"] = RegistrarUsuarioAdmin()
+		return context
+
+class EditarUsuario(LoginRequiredMixin, UpdateView):
+	template_name = 'pages/usuarios/editar_usuario.html'
+	model = Usuario
+	form_class = EditarUsuarioAdmin
+	object = None
+
+	def get_success_url(self):
+		return reverse('detalle_usuario', kwargs={'pk': self.object.pk})
+
+	def get(self, request, *args, **kwargs):
+		context = {}
+		try:
+			self.object = Usuario.objects.get(pk=kwargs['pk'])
+			form = EditarUsuarioAdmin(instance=self.object)
+			context["title"] = "Usuarios"
+			context["sub_title"] = "Editar usuario"
+			context["form"] = form
+		except Usuario.DoesNotExist:
+			return redirect('listado_usuarios')
+		return render(request, self.template_name, context)
+
+	def post(self, request, *args, **kwargs):
+		try:
+			self.object = Usuario.objects.get(pk=kwargs['pk'])
+			form = EditarUsuarioAdmin(request.POST, instance=self.object)
+			if form.is_valid():
+
+				user = User.objects.filter(username=self.object.cedula).first()
+				user.username = form.cleaned_data['cedula']
+				user.first_name = form.cleaned_data['nombre']
+				user.last_name = form.cleaned_data['apellido']
+				permission = Permission.objects.get(codename=permissions_user[form.cleaned_data['tipo_usuario']])
+				user.save()
+				user.user_permissions.clear()
+				user.user_permissions.add(permission)
+				user.save()
+
+				self.object = form.save(commit=False)
+				self.object.user = user
+				self.object.save()
+
+				messages.success(request, 'El usuario se ha editado correctamente')
+				return redirect(self.get_success_url())
+			else:
+				context = self.get_context_data(**kwargs)
+				self.object = Usuario.objects.get(pk=kwargs['pk'])
+				context["form"] = form
+				context["title"] = "Usuarios"
+				context["sub_title"] = "Editar usuario"
+				return render(request, self.template_name, context)
+		except Usuario.DoesNotExist:
+			return redirect('listado_usuarios')
+
+class EditarContrasenaUsuario(LoginRequiredMixin, UpdateView):
+	template_name = 'pages/usuarios/editar_contrasena_usuario.html'
+	model = Usuario
+	form_class = EditarUsuarioAdmin
+	object = None
+
+	def get_success_url(self):
+		return reverse('detalle_usuario', kwargs={'pk': self.object.pk})
+
+	def get(self, request, *args, **kwargs):
+		context = {}
+		try:
+			self.object = Usuario.objects.get(pk=kwargs['pk'])
+			form = EditarPasswordUsuarioForm(instance=self.object)
+			context["title"] = "Usuarios"
+			context["sub_title"] = "Editar contraseña del usuario"
+			context["form"] = form
+		except Usuario.DoesNotExist:
+			return redirect('listado_usuarios')
+		return render(request, self.template_name, context)
+
+	def post(self, request, *args, **kwargs):
+		try:
+			self.object = Usuario.objects.get(pk=kwargs['pk'])
+			form = EditarPasswordUsuarioForm(request.POST, instance=self.object)
+			if form.is_valid():
+
+				user = User.objects.filter(username=self.object.cedula).first()
+				user.set_password(form.cleaned_data['password'])
+				user.save()
+
+				messages.success(request, 'El usuario se ha editado correctamente')
+				return redirect(self.get_success_url())
+			else:
+				context = self.get_context_data(**kwargs)
+				self.object = Usuario.objects.get(pk=kwargs['pk'])
+				context["form"] = form
+				context["title"] = "Usuarios"
+				context["sub_title"] = "Editar contraseña del usuario"
+				return render(request, self.template_name, context)
+		except Usuario.DoesNotExist:
+			return redirect('listado_usuarios')
+		
+class CambiarEstadoUsuario(LoginRequiredMixin, SingleObjectMixin, View):
+	model = Usuario
+
+	def get(self, request, pk, *args, **kwargs):
+		mensaje = ''
+		self.object = Usuario.objects.filter(pk=pk).first()
+		if self.object is None:
+			return redirect('listado_usuarios')
+		try:
+			usuario = User.objects.get(username=self.object.cedula)
+			if usuario.is_active:
+				usuario.is_active = False
+				mensaje = 'El usuario ha sido deshabilitado correctamente'
+			elif not usuario.is_active:
+				usuario.is_active = True
+				mensaje = 'El usuario ha sido habilitado correctamente'
+			usuario.save(update_fields=('is_active',))
+			messages.success(request, mensaje)
+			return redirect(request.META.get('HTTP_REFERER'))
+		except User.DoesNotExist:
+			return redirect('listado_usuarios')

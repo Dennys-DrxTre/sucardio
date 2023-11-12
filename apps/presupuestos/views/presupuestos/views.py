@@ -76,7 +76,7 @@ class EditarPresupuesto(LoginRequiredMixin, UpdateView):
 		return render(request, self.template_name, context)
 	
 	def post(self, request, *args, **kwargs):
-		self.object = Presupuesto.objects.get(pk=kwargs['pk'])
+		self.object = Presupuesto.objects.filter(pk=kwargs['pk']).first()
 		total = 0.00
 		form = PresupuestoForm(request.POST, instance=self.object)
 		if form.is_valid():
@@ -85,7 +85,6 @@ class EditarPresupuesto(LoginRequiredMixin, UpdateView):
 				self.object.servicio.add(s.pk)
 				total += s.precio_serv
 				self.object.total = total
-				print(self.object.total)
 			self.object.save()
 			messages.success(request, 'El presupuesto se ha editado correctamente')
 			return redirect(self.get_success_url())
@@ -95,7 +94,7 @@ class EditarPresupuesto(LoginRequiredMixin, UpdateView):
 			form = PresupuestoForm(instance=self.object)
 			return render(request, self.template_name, context)
 	
-class DetallePresupuesto(LoginRequiredMixin, SuccessMessageMixin, DetailView):
+class DetallePresupuesto(LoginRequiredMixin, DetailView):
 	template_name = 'pages/presupuestos/detalle_presupuesto.html'
 	model = Presupuesto
 	context_object_name = 'presupuesto'

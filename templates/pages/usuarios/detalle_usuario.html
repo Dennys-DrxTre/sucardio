@@ -1,0 +1,157 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block link %}
+{% endblock link %}
+
+{% block content %}
+
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-sm-12">
+          {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+          {% endif %}
+          <div class="card">
+            <div class="card-body py-0">
+              <ul class="nav nav-tabs profile-tabs">
+                <li class="nav-item">
+                  <a class="nav-link" id="profile-tab-1">
+                    <i class="ti ti-user me-2"></i>Informacion
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-warning" href="{% url 'editar_usuario' usuario.pk %}">
+                    <i class="ti ti-edit-circle me-2"></i>Editar este usuario
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-dark" href="{% url 'editar_contrasena_usuario' usuario.pk %}">
+                    <i class="ti ti-key me-2"></i>Editar la contraseña del usuario
+                  </a>
+                </li>
+                <li class="nav-item">
+                  {% if usuario.get_user.is_active %}
+                    <a class="nav-link text-danger" id="profile-tab-3" href="{% url 'cambiar_estado_usuario' usuario.pk %}">
+                      <i class="ti ti-eye-off me-2"></i>Deshabilitar Usuario
+                    </a>
+                  {% else %}
+                    <a class="nav-link text-info" id="profile-tab-3" href="{% url 'cambiar_estado_usuario' usuario.pk %}">
+                      <i class="ti ti-eye me-2"></i>Habilitar Usuario
+                    </a>
+                  {% endif %}
+                    
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="tab-content">
+            <div class="tab-pane show active" id="profile-1" role="tabpanel" aria-labelledby="profile-tab-1">
+              <div class="row">
+                <div class="col-lg-12 col-xxl-12">
+                <div class="card">
+                        <div class="card-header">
+                          <h5>Datos de usuario</h5>
+                        </div>
+                        <div class="card-body">
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item px-0 pt-0">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <p class="mb-1 text-muted">Fecha de registro</p>
+                                  <p class="mb-0">{{ usuario.fecha_registro|date:'d-m-Y' }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                  <p class="mb-1 text-muted">Tipo de usuario</p>
+                                  <p class="mb-0">{{ usuario.get_tipo_usuario_display }}</p>
+                                </div>
+                              </div>
+                            </li>
+                            <li class="list-group-item px-0">
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <p class="mb-1 text-muted">Estado</p>
+                                  <p class="mb-0">{{ usuario.get_user.is_active|yesno:'Activado,Desactivado' }}</p>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                </div>
+                <div class="card">
+                <div class="card-header">
+                    <h5>Datos personales</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                    <li class="list-group-item px-0 pt-0">
+                        <div class="row">
+                        <div class="col-md-6">
+                            <p class="mb-1 text-muted">Nombre</p>
+                            <p class="mb-0">{{ usuario.nombre }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-1 text-muted">Apellido</p>
+                            <p class="mb-0">{{ usuario.apellido }}</p>
+                        </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item px-0">
+                        <div class="row">
+                        <div class="col-md-6">
+                            <p class="mb-1 text-muted">Cedula  (Nombre de usuario)</p>
+                            <p class="mb-0">{{ usuario.get_user.username }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-1 text-muted">Telefono</p>
+                            <p class="mb-0">{{ usuario.telefono }}</p>
+                        </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item px-0">
+                        <div class="row">
+                        <div class="col-md-6">
+                            <p class="mb-1 text-muted">Telefono 2</p>
+                            <p class="mb-0">
+                            {% if usuario.telefono2 %}
+                                {{ usuario.telefono2 }}
+                            {% else %}
+                                Vacio
+                            {% endif %}
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-1 text-muted">Direccion</p>
+                            <p class="mb-0">
+                                {% if usuario.direccion %}
+                                {{ usuario.direccion }}
+                                {% else %}
+                                Vacio
+                                {% endif %}
+                            </p>
+                            </div>
+                        </div>
+                    </li>
+                    </ul>
+                </div>
+                </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- [ sample-page ] end -->
+      </div>
+      <!-- [ Main Content ] end -->
+
+{% endblock %}
+
+{% block js %}
+{% endblock js %}

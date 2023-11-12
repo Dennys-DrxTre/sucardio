@@ -9,21 +9,25 @@
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <h5 class="mb-0">{{ sub_title }}</h5>
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <select class="form-select w-auto me-2">
-                            <option>Today</option>
-                            <option>Weekly</option>
-                            <option selected="">Monthly</option>
-                        </select>
-                        <div class="dataTable-search">
-                            <input class="dataTable-input" placeholder="Search..." type="text">
-                        </div>
-                        <a href="{% url 'registrar_servicio' %}" class="ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar usuario">
-                            <div class="avtar avtar-s bg-primary">
-                                <i class="fas fa-plus text-white"></i>
+                    <form action="" method="get">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <select class="form-select w-auto me-2 m-0" name="filtros">
+                                <option value="True">Habilitados</option>
+                                <option value="False">Deshabilitados</option>
+                            </select>
+                            <div class="form-group m-0">
+                                <div class="input-group">
+                                    <input class="form-control" name="search" id="search" placeholder="Buscar..." type="text">
+                                    <button class="btn btn-info" type="submit"><i class="ti ti-search"></i></button>
+                                </div>
                               </div>
-                        </a>
-                    </div>
+                            <a href="{% url 'registrar_usuario' %}" class="ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar usuario">
+                                <div class="avtar avtar-s bg-primary">
+                                    <i class="fas fa-plus text-white"></i>
+                                  </div>
+                            </a>
+                        </div>
+                    </form>
                 </div>
                 <div class="table-responsive">
                     <div class="dataTable-wrapper dataTable-loading no-footer searchable fixed-columns">
@@ -59,15 +63,25 @@
                                                 <span class="f-w-400 badge bg-dark">{{ usuario.get_user.is_active|yesno:'Activado,Desactivado' }}</span>
                                             </td>
                                             <td class="f-w-600">
-                                                <a href="#" rel="detail" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle del usuario">
+                                                <a href="{{ usuario.get_absolute_url }}" rel="detail" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle del usuario">
                                                     <i class="ti ti-file-info"></i>
                                                 </a>
-                                                <a href="#" rel="edit" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar usuario">
+                                                <a href="{% url 'editar_usuario' usuario.pk %}" rel="edit" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar usuario">
                                                     <i class="ti ti-edit"></i>
                                                 </a>
-                                                <a href="#" rel="status" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Deshabilitar usuario">
-                                                    <i class="ti ti-eye-off"></i>
+                                                <a href="{% url 'editar_contrasena_usuario' usuario.pk %}" rel="edit" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar contraseña al usuario">
+                                                    <i class="ti ti-key"></i>
                                                 </a>
+                                                {% if usuario.get_user.is_active %}
+                                                    <a href="{% url 'cambiar_estado_usuario' usuario.pk %}" rel="status" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Deshabilitar usuario">
+                                                        <i class="ti ti-eye-off"></i>
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{% url 'cambiar_estado_usuario' usuario.pk %}" rel="status" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Habilitar usuario">
+                                                        <i class="ti ti-eye"></i>
+                                                    </a>    
+                                                {% endif %}
+                                                    
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -83,30 +97,30 @@
             <ul class="pagination">
                 <li class="page-item">
                     {% if results.has_previous %}
-                        <a class="page-link" href="?page={{ results.previous_page_number }}&search={{ query }}" aria-label="Previous">
+                        <a class="page-link" href="?page={{ results.previous_page_number }}&filtros={{ filtros }}&search={{ search }}" aria-label="Previous">
                             <span aria-hidden="true">Anterior</span>
                         </a>
                     {% endif %}
                 </li>
                 {% if results.number|add:'-4' > 1 %}
-                    <li class="page-item"><a class="page-link" href="?page={{ results.number|add:'-5' }}&search={{ query }}">&hellip;</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ results.number|add:'-5' }}&filtros={{ filtros }}&search={{ search }}">&hellip;</a></li>
                 {% endif %}
                 
                 {% for i in results.paginator.page_range %}
                     {% if results.number == i %}
                         <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
                     {% elif i > results.number|add:'-5' and i < results.number|add:'5' %}
-                        <li class="page-item"><a class="page-link" href="?page={{ i }}&search={{ query }}">{{ i }}</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}&filtros={{ filtros }}&search={{ search }}">{{ i }}</a></li>
                     {% endif %}
                 {% endfor %}
                 
                 
                 {% if results.paginator.num_pages > results.number|add:'4' %}
-                    <li class="page-item"><a class="page-link" href="?page={{ results.number|add:'5' }}&search={{ query }}">&hellip;</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ results.number|add:'5' }}&filtros={{ filtros }}&search={{ search }}">&hellip;</a></li>
                 {% endif %}
                 <li class="page-item">
                     {% if results.has_next %}
-                        <a class="page-link" href="?page={{ results.next_page_number }}&search={{ query }}" aria-label="Next">
+                        <a class="page-link" href="?page={{ results.next_page_number }}&filtros={{ filtros }}&search={{ search }}" aria-label="Next">
                             <span aria-hidden="true">Siguiente</span>
                         </a>
                     {% endif %}

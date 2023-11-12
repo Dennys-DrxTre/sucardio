@@ -60,9 +60,13 @@ class Usuario(Persona):
 		return None
 
 	class Meta:
-		permissions = []
 		verbose_name = 'Usuario'
 		verbose_name_plural = 'Usuarios'
+		permissions = [
+			('requiere_usuario', 'requiero nivel usuario'),
+			('requiere_secretria', 'requiero nivel secretaria'),
+			('requiere_admin', 'requiero nivel admin')
+		]
 
 class Anuncios(ModeloBaseEstado):
 	fecha_publicacion = models.DateField(auto_created=True, auto_now=True, null=True, blank=True)
