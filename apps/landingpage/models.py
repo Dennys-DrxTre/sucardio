@@ -26,7 +26,6 @@ class LandingPage(models.Model):
 
 	facebook = models.URLField(max_length=150, null=True, blank=True)
 	email = models.CharField(max_length=50, null=True, blank=True)
-	precio_serv = models.FloatField(default=0.00, null=False, blank=False)
 
 	def __str__(self):
 		return self.nombre
@@ -35,15 +34,3 @@ class LandingPage(models.Model):
 		permissions = []
 		verbose_name = 'Landing Page'
 		verbose_name_plural = 'Landing Page'
-
-class Galeria(models.Model):
-	imagen = models.ImageField(upload_to="galeria", null=True, blank=True)
-	publicado = models.BooleanField(default=True)
-
-	def __str__(self):
-		return self.id
-	
-	class Meta:
-		permissions = []
-		verbose_name = 'Galeria'
-		verbose_name_plural = 'Galeria'

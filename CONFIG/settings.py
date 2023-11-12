@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'apps.presupuestos',
     'apps.landingpage',
     'apps.usuarios',
+    'apps.reportes',
 
     # librerias
     'widget_tweaks',
@@ -127,5 +128,5 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/ingresar/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/inicio/'
 LOGOUT_REDIRECT_URL = '/ingresar/'

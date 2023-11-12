@@ -8,9 +8,10 @@ from django.views.generic import (
 	UpdateView,
 	ListView,
 	CreateView,
-	DetailView
+	DetailView, 
+	TemplateView
 )
-from ...models import Cita
+from ...models import Cita, Usuario
 from ...forms import CitasForm
 
 
@@ -28,6 +29,7 @@ class ListadoCita(ListView):
 		context["sub_title"] = "Listado de citas"
 		return context
 
+"""
 class DetallesCita(SuccessMessageMixin, DetailView):
 	template_name = 'pages/citas/detalles_cita.html'
 	model = Cita
@@ -38,7 +40,22 @@ class DetallesCita(SuccessMessageMixin, DetailView):
 		context["title"] = "Cita"
 		context["sub_title"] = "Detalle de cita"
 		return context
-	
+"""
+
+class DetallesCita(LoginRequiredMixin, TemplateView):
+	template_name = 'pages/citas/detalles_cita.html'
+
+	def get(self, request, pk,*args, **kwargs):
+		context = {}
+
+		usuario = Usuario.objects.filter(user = request.user.pk).first()
+		citas = Cita.objects.filter(pk=pk, cliente__cedula=usuario.cedula).first()
+		if citas:
+			context['cita'] = citas
+			context["sub_title"] = "Detalle de mi cita"
+			return render(request, self.template_name, context)
+		else:
+			return redirect('mis_citas')
 
 class EditarCita(SuccessMessageMixin, UpdateView):
 	template_name = 'pages/citas/editar_cita.html'
