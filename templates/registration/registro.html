@@ -1,0 +1,59 @@
+{% extends 'landingpage/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<section class="wrapper bg-soft-green">
+    <div class="container py-10 py-md-10">
+        <div class="row">
+            <div class="col-lg-7 col-xl-6 col-xxl-5 mx-auto">
+                <div class="card">
+                    <div class="card-body p-11 text-center">
+                        <h2 class="mb-3 text-start">Bienvenido!</h2>
+                        <p class="lead mb-6 text-start">Ingrese los datos necesarios para el registro</p>
+                        
+                        <form class="text-start mb-3" method="post" action="">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {% if 'error' in message.tags %}
+                                        <div class="alert alert-danger alert-icon alert-dismissible fade show" role="alert">
+                                            {{ message }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    {% else %}
+                                        <div class="alert alert-success alert-icon alert-dismissible fade show" role="alert">
+                                            {{ message }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col">
+                                    
+                                </div>
+                            </div>
+                            <div class="form-floating mb-4">
+                                {{ form.username|add_class:'form-control'|attr:'placeholder:Ingrese su cedula.'|attr:'id:id_username'|attr:'name:username'|attr:'maxlength:9' }}
+                                <label for="id_username">Cedula</label>
+                            </div>
+                            <div class="form-floating password-field mb-4">
+                                {{ form.password|add_class:'form-control'|attr:'placeholder:Ingrese la contraseña.'|attr:'id:id_password'|attr:'name:password'|attr:'type:password' }}
+                                <span class="password-toggle"><i class="uil uil-eye"></i></span>
+                                <label for="id_password">Contraseña</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary rounded-pill btn-login w-100 mb-2">Ingresar</button>
+                        </form>
+                        <!--/.social -->
+                    </div>
+                    <!--/.card-body -->
+                </div>
+                <!--/.card -->
+            </div>
+            <!-- /column -->
+        </div>
+    </div>
+</section>
+{% endblock content %}

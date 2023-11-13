@@ -17,6 +17,11 @@ class ValidarUsuario(LoginRequiredMixin, UserPassesTestMixin):
 
 		return super().handle_no_permission()
 
+	def dispatch(self, request, *args, **kwargs):
+		if not self.request.user.is_authenticated:
+			return redirect('/ingresar/')
+		return super().dispatch(request, *args, **kwargs)
+
 # class Perms_Check(LoginRequiredMixin, PermissionRequiredMixin):
 # 	permission_required = ''
 # 	url_redirect = '/'
