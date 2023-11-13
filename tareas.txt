@@ -2,7 +2,7 @@
 (pendientes)
 # Cambiar contraseña (José) (LISTO)
 # Reportes
-  - mostrar listado de citas que tiene el médico el día actual (Jose)
+  - mostrar listado de citas que tiene el médico el día actual (Jose) (LISTO)
   
   # Reportes Generales, y de detalle
     - medicos (Dennys)
@@ -15,7 +15,7 @@
 # Seguridad (Dennys) (LISTO)
 # Módulos usuarios (administración) (Dennys) (LISTO)
 # Registro de usuario (landing) (Dennys)
-# Fórmularios del landing page (José)
+# Fórmularios del landing page (José) (PENDIENTE, OPCIONAL)
 
 
 (Correcciones)
