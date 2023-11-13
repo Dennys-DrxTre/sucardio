@@ -1,5 +1,3 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse
@@ -14,9 +12,12 @@ from django.views.generic import (
 from django.views.generic.detail import SingleObjectMixin
 from ...models import Presupuesto
 
-class ListadoPresupuesto(LoginRequiredMixin, ListView):
+from apps.usuarios.mixins import ValidarUsuario
+
+class ListadoPresupuesto(ValidarUsuario, ListView):
 	context_object_name = 'presupuesto_list'
 	template_name = 'pages/presupuestos/listado_presupuesto.html'
+	permission_required = 'anuncios.requiere_secretria'
 	ordering = ['-id']
 	model = Presupuesto
 
@@ -26,8 +27,9 @@ class ListadoPresupuesto(LoginRequiredMixin, ListView):
 		context["sub_title"] = "Listado de presupuestos"
 		return context
 
-class RegistrarPresupuesto(LoginRequiredMixin, TemplateView):
+class RegistrarPresupuesto(ValidarUsuario, TemplateView):
 	template_name = 'pages/presupuestos/registrar_presupuesto.html'
+	permission_required = 'anuncios.requiere_secretria'
 	object = None
 
 	def get_success_url(self):
@@ -59,8 +61,9 @@ class RegistrarPresupuesto(LoginRequiredMixin, TemplateView):
 		context["form"] = PresupuestoForm
 		return context
 
-class EditarPresupuesto(LoginRequiredMixin, UpdateView):
+class EditarPresupuesto(ValidarUsuario, UpdateView):
 	template_name = 'pages/presupuestos/registrar_presupuesto.html'
+	permission_required = 'anuncios.requiere_secretria'
 	object = None
 
 	def get_success_url(self):
@@ -94,8 +97,9 @@ class EditarPresupuesto(LoginRequiredMixin, UpdateView):
 			form = PresupuestoForm(instance=self.object)
 			return render(request, self.template_name, context)
 	
-class DetallePresupuesto(LoginRequiredMixin, DetailView):
+class DetallePresupuesto(ValidarUsuario, DetailView):
 	template_name = 'pages/presupuestos/detalle_presupuesto.html'
+	permission_required = 'anuncios.requiere_secretria'
 	model = Presupuesto
 	context_object_name = 'presupuesto'
 

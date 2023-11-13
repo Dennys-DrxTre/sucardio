@@ -5,14 +5,13 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 
 class ValidarUsuario(LoginRequiredMixin, UserPassesTestMixin):
-	permission_required = 'anuncios.requiere_secretaria'
+	permission_required = None
 	redirect_url = '/acceso-denegado/'
 
 	def test_func(self):
 		return self.request.user.has_perm(self.permission_required)
 
 	def handle_no_permission(self):
-		print(self.request.user.has_perm(self.permission_required))
 		if not self.request.user.has_perm(self.permission_required):
 			return redirect(self.redirect_url)
 

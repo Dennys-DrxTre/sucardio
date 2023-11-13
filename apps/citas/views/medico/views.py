@@ -1,4 +1,3 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -13,9 +12,12 @@ from django.views.generic import (
 from django.views.generic.detail import SingleObjectMixin
 from ...models import Medico
 
-class ListadoMedico(LoginRequiredMixin, ListView):
+from apps.usuarios.mixins import ValidarUsuario
+
+class ListadoMedico(ValidarUsuario, ListView):
 	context_object_name = 'medico_list'
 	template_name = 'pages/medico/listado_medico.html'
+	permission_required = 'anuncios.requiere_secretria'
 	ordering = ['nombre']
 
 	def get_queryset(self):
@@ -38,8 +40,9 @@ class ListadoMedico(LoginRequiredMixin, ListView):
 		context['nombre_estado'] = nombre_estado[estado]
 		return context
 
-class RegistrarMedico(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class RegistrarMedico(ValidarUsuario, SuccessMessageMixin, CreateView):
 	template_name = 'pages/medico/registrar_medico.html'
+	permission_required = 'anuncios.requiere_secretria'
 	model = Medico
 	form_class = MedicoForm
 	success_url = '/listado-de-medicos/'
@@ -51,8 +54,9 @@ class RegistrarMedico(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 		context["sub_title"] = "Registrar medico"
 		return context
 
-class EditarMedico(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class EditarMedico(ValidarUsuario, SuccessMessageMixin, UpdateView):
 	template_name = 'pages/medico/registrar_medico.html'
+	permission_required = 'anuncios.requiere_secretria'
 	model = Medico
 	form_class = MedicoEditForm
 	success_url = '/listado-de-medicos/'
@@ -64,8 +68,9 @@ class EditarMedico(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 		context["sub_title"] = "Editar medico"
 		return context
 
-class DetalleMedico(LoginRequiredMixin, SuccessMessageMixin, DetailView):
+class DetalleMedico(ValidarUsuario, SuccessMessageMixin, DetailView):
 	template_name = 'pages/medico/detalle_medico.html'
+	permission_required = 'anuncios.requiere_secretria'
 	model = Medico
 	context_object_name = 'medico'
 
@@ -75,9 +80,10 @@ class DetalleMedico(LoginRequiredMixin, SuccessMessageMixin, DetailView):
 		context["sub_title"] = "Detalle del medico"
 		return context
 	
-class CambiarEstadoMedico(LoginRequiredMixin, SingleObjectMixin, View):
+class CambiarEstadoMedico(ValidarUsuario, SingleObjectMixin, View):
 	model = Medico
-
+	permission_required = 'anuncios.requiere_secretria'
+	
 	def get(self, request, *args, **kwargs):
 		mensaje = ''
 		self.object = self.get_object()

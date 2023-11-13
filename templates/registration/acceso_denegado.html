@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- [Head] start -->
+
+<head>
+  <title>Acceso Denegado | SUCARDIO</title>
+  <!-- [Meta] -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- [Favicon] icon -->
+  <link rel="icon" href="{% static 'assets/images/favicon.svg' %}" type="image/x-icon">
+ <!-- [Font] Family -->
+<link rel="stylesheet" href="{% static 'assets/fonts/inter/inter.css' %}" id="main-font-link" />
+
+<!-- [Tabler Icons] https://tablericons.com -->
+<link rel="stylesheet" href="{% static 'assets/fonts/tabler-icons.min.css' %}" />
+<!-- [Feather Icons] https://feathericons.com -->
+<link rel="stylesheet" href="{% static 'assets/fonts/feather.css' %}" />
+<!-- [Font Awesome Icons] https://fontawesome.com/icons -->
+<link rel="stylesheet" href="{% static 'assets/fonts/fontawesome.css' %}" />
+<!-- [Material Icons] https://fonts.google.com/icons -->
+<link rel="stylesheet" href="{% static 'assets/fonts/material.css' %}" />
+<!-- [Template CSS Files] -->
+<link rel="stylesheet" href="{% static 'assets/css/style.css' %}" id="main-style-link" />
+<link rel="stylesheet" href="{% static 'assets/css/style-preset.css' %}" />
+
+</head>
+<!-- [Head] end -->
+<!-- [Body] Start -->
+
+<body>
+  <!-- [ Pre-loader ] start -->
+  <div class="loader-bg">
+    <div class="loader-track">
+      <div class="loader-fill"></div>
+    </div>
+  </div>
+  <!-- [ Pre-loader ] End -->
+
+  <!-- [ Main Content ] start -->
+  <div class="maintenance-block">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card error-card">
+            <div class="card-body">
+              <div class="error-image-block">
+                <div class="row justify-content-center">
+                  <div class="col-10">
+                    <img class="img-fluid" src="{% static 'img/img-error-500.svg' %}" alt="img">
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <h1 class="mt-4"><b>ACCESO DENEGADO</b></h1>
+                <p class="mt-2 mb-4 text-sm text-muted">No tiene los permisos necesarios para realizar esta accion.</p>
+                
+                {% if perms.anuncios.requiere_secretria %}
+                    <a href="{% url 'listado_citas' %}" class="btn btn-primary mb-3">Listado de citas</a>
+                {% elif perms.anuncios.requiere_usuario %}
+                    <a href="{% url 'inicio_front' %}" class="btn btn-primary mb-3">Inicio</a>
+                {% elif perms.anuncios.requiere_admin %}
+                    <a href="{% url 'inicio_front' %}" class="btn btn-primary mb-3">Listado de citas</a>
+                {% endif %}
+                    
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- [ Main Content ] end -->
+  <!-- Required Js -->
+  <script src="{% static 'assets/js/plugins/popper.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/simplebar.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/bootstrap.min.js' %}"></script>
+  <script src="{% static 'assets/js/fonts/custom-font.js' %}"></script>
+  <script src="{% static 'assets/js/config.js' %}"></script>
+  <script src="{% static 'assets/js/pcoded.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/feather.min.js' %}"></script>
+
+</body>
+<!-- [Body] end -->
+
+</html>

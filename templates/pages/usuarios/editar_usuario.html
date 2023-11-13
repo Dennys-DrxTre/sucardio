@@ -29,8 +29,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-label" for="id_nombre">Nombre</label>
-                                {{ form.nombre|add_class:'form-control'|attr:'placeholder:Introduzca el nombre' }}
+                                <label class="form-label" for="id_cedula">Cedula (Nombre de Usuario)</label>
+                                {{ form.cedula|add_class:'form-control'|attr:'placeholder:Introduzca la cedula'|attr:'maxlength:8' }}
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -43,8 +43,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-label" for="id_cedula">Cedula (Nombre de Usuario)</label>
-                                {{ form.cedula|add_class:'form-control'|attr:'placeholder:Introduzca la cedula'|attr:'maxlength:8' }}
+                                <label class="form-label" for="id_nombre">Nombre</label>
+                                {{ form.nombre|add_class:'form-control'|attr:'placeholder:Introduzca el nombre' }}
                             </div>
                         </div>
                         <div class="col-md-6">
