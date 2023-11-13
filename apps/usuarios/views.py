@@ -6,9 +6,7 @@ from django.views.generic import TemplateView, View, DetailView, UpdateView
 from django.views.generic.detail import SingleObjectMixin
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.urls import reverse
 
@@ -17,6 +15,8 @@ from apps.presupuestos.models import Presupuesto
 from apps.anuncios.models import Anuncios, Usuario
 from django.contrib.auth.models import User, Permission
 from .perms import permissions_user
+
+from .mixins import ValidarUsuario
 
 from .forms import LoginForm, SearchForm, RegistrarUsuarioAdmin, EditarUsuarioAdmin, EditarPasswordUsuarioForm,ChangePass
 
@@ -31,7 +31,7 @@ class UserLoginView(TemplateView):
 			user = authenticate(username=username, password=password)
 			if user is not None:
 				login(request, user)
-				return redirect('/inicio/') # redirige al usuario a la página de inicio después de iniciar sesión
+				return redirect('/') # redirige al usuario a la página de inicio después de iniciar sesión
 			else:
 				messages.error(request, 'Usuario o contraseña incorrecta.')
 		else:
@@ -44,8 +44,9 @@ class UserLoginView(TemplateView):
 		context['form'] = LoginForm()
 		return context
 
-class ChangePassword(LoginRequiredMixin, TemplateView):
+class ChangePassword(ValidarUsuario, TemplateView):
 	template_name = 'registration/cambiar_clave.html'
+	permission_required = 'anuncios.requiere_usuario'
 
 	def get_form(self, request):
 		return ChangePass(request.POST or None)
@@ -77,9 +78,9 @@ class ChangePassword(LoginRequiredMixin, TemplateView):
 		context['form'] = self.get_form(self.request)
 		return context
 
-
-class SearchView(LoginRequiredMixin, View):
+class SearchView(ValidarUsuario, View):
 	template_name = 'base/search.html'
+	permission_required = 'anuncios.requiere_secretria'
 	form_class = SearchForm
 
 	def get(self, request, *args, **kwargs):
@@ -141,8 +142,10 @@ class SearchView(LoginRequiredMixin, View):
 			results = []
 		return render(request, self.template_name, context)
 
-class ListadoUsuarios(LoginRequiredMixin, TemplateView):
+class ListadoUsuarios(ValidarUsuario, TemplateView):
 	template_name = 'pages/usuarios/listado_usuarios.html'
+	permission_required = 'anuncios.requiere_secretria'
+	login_url = '/acceso-denegado/'
 
 	def get(self, request, *args, **kwargs):
 		usuarios = Usuario.objects.filter().order_by('cedula')
@@ -181,8 +184,9 @@ class ListadoUsuarios(LoginRequiredMixin, TemplateView):
 		context['search'] = str(search_term)
 		return render(request, self.template_name, context)
 
-class DetalleUsuario(LoginRequiredMixin, DetailView):
+class DetalleUsuario(ValidarUsuario, DetailView):
 	template_name = 'pages/usuarios/detalle_usuario.html'
+	permission_required = 'anuncios.requiere_secretria'
 	model = Usuario
 	context_object_name = 'usuario'
 
@@ -201,8 +205,9 @@ class DetalleUsuario(LoginRequiredMixin, DetailView):
 		context["sub_title"] = "Detalle del usuario"
 		return context
 
-class RegistrarUsuario(LoginRequiredMixin, TemplateView):
+class RegistrarUsuario(ValidarUsuario, TemplateView):
 	template_name = 'pages/usuarios/registrar_usuario.html'
+	permission_required = 'anuncios.requiere_admin'
 	object = None
 
 	def get_success_url(self):
@@ -216,10 +221,11 @@ class RegistrarUsuario(LoginRequiredMixin, TemplateView):
 			user.username = form.cleaned_data['cedula']
 			user.first_name = form.cleaned_data['nombre']
 			user.last_name = form.cleaned_data['apellido']
-			permission = Permission.objects.get(codename=permissions_user[form.cleaned_data['tipo_usuario']])
-			user.save()
-			user.user_permissions.add(permission)
 			user.set_password(form.cleaned_data['password'])
+			user.save()
+			permissions = Permission.objects.filter(codename__in=permissions_user[form.cleaned_data['tipo_usuario']])
+			for permission in permissions:
+				user.user_permissions.add(permission)
 			user.save()
 
 			self.object = form.save(commit=False)
@@ -241,8 +247,9 @@ class RegistrarUsuario(LoginRequiredMixin, TemplateView):
 		context["form"] = RegistrarUsuarioAdmin()
 		return context
 
-class EditarUsuario(LoginRequiredMixin, UpdateView):
+class EditarUsuario(ValidarUsuario, UpdateView):
 	template_name = 'pages/usuarios/editar_usuario.html'
+	permission_required = 'anuncios.requiere_admin'
 	model = Usuario
 	form_class = EditarUsuarioAdmin
 	object = None
@@ -272,10 +279,10 @@ class EditarUsuario(LoginRequiredMixin, UpdateView):
 				user.username = form.cleaned_data['cedula']
 				user.first_name = form.cleaned_data['nombre']
 				user.last_name = form.cleaned_data['apellido']
-				permission = Permission.objects.get(codename=permissions_user[form.cleaned_data['tipo_usuario']])
-				user.save()
 				user.user_permissions.clear()
-				user.user_permissions.add(permission)
+				permissions = Permission.objects.filter(codename__in=permissions_user[form.cleaned_data['tipo_usuario']])
+				for permission in permissions:
+					user.user_permissions.add(permission)
 				user.save()
 
 				self.object = form.save(commit=False)
@@ -294,8 +301,9 @@ class EditarUsuario(LoginRequiredMixin, UpdateView):
 		except Usuario.DoesNotExist:
 			return redirect('listado_usuarios')
 
-class EditarContrasenaUsuario(LoginRequiredMixin, UpdateView):
+class EditarContrasenaUsuario(ValidarUsuario, UpdateView):
 	template_name = 'pages/usuarios/editar_contrasena_usuario.html'
+	permission_required = 'anuncios.requiere_admin'
 	model = Usuario
 	form_class = EditarUsuarioAdmin
 	object = None
@@ -337,8 +345,9 @@ class EditarContrasenaUsuario(LoginRequiredMixin, UpdateView):
 		except Usuario.DoesNotExist:
 			return redirect('listado_usuarios')
 		
-class CambiarEstadoUsuario(LoginRequiredMixin, SingleObjectMixin, View):
+class CambiarEstadoUsuario(ValidarUsuario, SingleObjectMixin, View):
 	model = Usuario
+	permission_required = 'anuncios.requiere_admin'
 
 	def get(self, request, pk, *args, **kwargs):
 		mensaje = ''
@@ -358,3 +367,6 @@ class CambiarEstadoUsuario(LoginRequiredMixin, SingleObjectMixin, View):
 			return redirect(request.META.get('HTTP_REFERER'))
 		except User.DoesNotExist:
 			return redirect('listado_usuarios')
+
+class AccessoDenegadoView(TemplateView):
+	template_name = 'registration/acceso_denegado.html'

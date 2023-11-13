@@ -8,7 +8,8 @@ from .views import (
     EditarUsuario,
     EditarContrasenaUsuario,
     CambiarEstadoUsuario,
-    ChangePassword
+    ChangePassword,
+    AccessoDenegadoView
 )
 
 APP_NAME = 'usuarios'
@@ -16,6 +17,9 @@ APP_NAME = 'usuarios'
 urlpatterns = [
 	path('ingresar/', UserLoginView.as_view(), name='ingresar'),
 	path('cambiar-clave/', ChangePassword.as_view(), name='cambiar_clave'),
+
+    # SEGURIDAD
+    path('acceso-denegado/', AccessoDenegadoView.as_view(), name='acceso_denegado'),
 
 	# motor de busqueda
 	path('search/', SearchView.as_view(), name='search'),

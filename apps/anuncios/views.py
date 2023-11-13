@@ -1,4 +1,3 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.detail import SingleObjectMixin
 from django.shortcuts import redirect
@@ -13,9 +12,12 @@ from django.views.generic import (
 from .models import Anuncios
 from .forms import AnunciosForm
 
-class ListadoAnuncioAdmin(LoginRequiredMixin, ListView):
+from apps.usuarios.mixins import ValidarUsuario
+
+class ListadoAnuncioAdmin(ValidarUsuario, ListView):
 	context_object_name = 'anuncio_list'
 	template_name = 'pages/anuncios/lista_de_anuncios.html'
+	permission_required = 'anuncios.requiere_secretria'
 	model= Anuncios
 	ordering = ['-id']
 	
@@ -25,8 +27,10 @@ class ListadoAnuncioAdmin(LoginRequiredMixin, ListView):
 		context["sub_title"] = "Listado de anuncios"
 		return context
 
-class ListadoAnuncios( ListView):
+class ListadoAnuncios(ListView):
 	context_object_name = 'anuncio_list'
+	permission_required = 'anuncios.requiere_usuario'
+
 	template_name = 'landingpage/pages/listado_de_anuncios.html'
 	model= Anuncios
 	
@@ -39,8 +43,9 @@ class ListadoAnuncios( ListView):
 		context["sub_title"] = "Listado de anuncios"
 		return context
 
-class RegistrarAnuncio(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class RegistrarAnuncio(ValidarUsuario, SuccessMessageMixin, CreateView):
 	template_name = 'pages/anuncios/crear_anuncio.html'
+	permission_required = 'anuncios.requiere_secretria'
 	model = Anuncios
 	form_class = AnunciosForm
 	success_url = '/listado-de-anuncios/'
@@ -52,8 +57,9 @@ class RegistrarAnuncio(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 		context["sub_title"] = "Registrar anuncio"
 		return context
 
-class EditarAnuncio(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class EditarAnuncio(ValidarUsuario, SuccessMessageMixin, UpdateView):
 	template_name = 'pages/anuncios/editar_anuncio.html'
+	permission_required = 'anuncios.requiere_secretria'
 	model = Anuncios
 	form_class = AnunciosForm
 	success_url = '/listado-de-anuncios/'
@@ -65,8 +71,9 @@ class EditarAnuncio(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 		context["sub_title"] = "Editar anuncio"
 		return context
 
-class DetalleAnuncio(LoginRequiredMixin, DetailView):
+class DetalleAnuncio(ValidarUsuario, DetailView):
 	template_name = 'pages/anuncios/detalle_anuncio.html'
+	permission_required = 'anuncios.requiere_secretria'
 	model = Anuncios
 	context_object_name = 'anuncio'
 
@@ -78,6 +85,7 @@ class DetalleAnuncio(LoginRequiredMixin, DetailView):
 
 class DetalleAnuncioLanding(DetailView):
 	template_name = 'landingpage/pages/detalle_anuncio.html'
+	permission_required = 'anuncios.requiere_usuario'
 	model = Anuncios
 	context_object_name = 'anuncio'
 
@@ -87,7 +95,8 @@ class DetalleAnuncioLanding(DetailView):
 		context["sub_title"] = "Detalles del anuncio"
 		return context
 
-class CambiarEstadoAnuncio(LoginRequiredMixin, SingleObjectMixin, View):
+class CambiarEstadoAnuncio(ValidarUsuario, SingleObjectMixin, View):
+	permission_required = 'anuncios.requiere_secretria'
 	model = Anuncios
 
 	def get(self, request, *args, **kwargs):

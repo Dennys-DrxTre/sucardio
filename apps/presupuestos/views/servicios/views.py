@@ -1,4 +1,3 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -13,9 +12,12 @@ from django.views.generic import (
 from django.views.generic.detail import SingleObjectMixin
 from ...models import Servicio
 
-class ListadoServicio(LoginRequiredMixin, ListView):
+from apps.usuarios.mixins import ValidarUsuario
+
+class ListadoServicio(ValidarUsuario, ListView):
 	context_object_name = 'servicio_list'
 	template_name = 'pages/servicios/listado_servicios.html'
+	permission_required = 'anuncios.requiere_secretria'
 	ordering = ['nombre_serv']
 
 	def get_queryset(self):
@@ -38,8 +40,9 @@ class ListadoServicio(LoginRequiredMixin, ListView):
 		context['nombre_estado'] = nombre_estado[estado]
 		return context
 	
-class RegistrarServicio(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class RegistrarServicio(ValidarUsuario, SuccessMessageMixin, CreateView):
 	template_name = 'pages/servicios/registrar_servicio.html'
+	permission_required = 'anuncios.requiere_secretria'
 	model = Servicio
 	form_class = ServicioForm
 	success_url = '/listado-de-servicios/'
@@ -51,8 +54,9 @@ class RegistrarServicio(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 		context["sub_title"] = "Registrar servicio"
 		return context
 	
-class EditarServicio(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class EditarServicio(ValidarUsuario, SuccessMessageMixin, UpdateView):
 	template_name = 'pages/servicios/registrar_servicio.html'
+	permission_required = 'anuncios.requiere_secretria'
 	model = Servicio
 	form_class = ServicioEditForm
 	success_url = '/listado-de-servicios/'
@@ -64,8 +68,9 @@ class EditarServicio(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 		context["sub_title"] = "Editar Servicio"
 		return context
 	
-class DetalleServicio(LoginRequiredMixin, SuccessMessageMixin, DetailView):
+class DetalleServicio(ValidarUsuario, SuccessMessageMixin, DetailView):
 	template_name = 'pages/servicios/detalle_servicio.html'
+	permission_required = 'anuncios.requiere_secretria'
 	model = Servicio
 	context_object_name = 'servicio'
 
@@ -75,9 +80,10 @@ class DetalleServicio(LoginRequiredMixin, SuccessMessageMixin, DetailView):
 		context["sub_title"] = "Detalle del Servicio"
 		return context
 
-class CambiarEstadoServicio(LoginRequiredMixin, SingleObjectMixin, View):
+class CambiarEstadoServicio(ValidarUsuario, SingleObjectMixin, View):
 	model = Servicio
-
+	permission_required = 'anuncios.requiere_secretria'
+	
 	def get(self, request, *args, **kwargs):
 		mensaje = ''
 		self.object = self.get_object()

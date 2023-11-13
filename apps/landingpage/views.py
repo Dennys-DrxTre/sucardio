@@ -1,4 +1,3 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -18,11 +17,14 @@ from apps.citas.forms import CitasForm
 from apps.presupuestos.models import Presupuesto
 from apps.presupuestos.forms import MiPresupuestoForm
 
+from apps.usuarios.mixins import ValidarUsuario
+
 class Inicio(TemplateView):
 	template_name = 'landingpage/pages/inicio.html'
 	
-class MisCitas(LoginRequiredMixin, TemplateView):
+class MisCitas(ValidarUsuario, TemplateView):
 	template_name = 'landingpage/pages/mis_citas.html'
+	permission_required = 'anuncios.requiere_usuario'
 
 	def get(self, request, *args, **kwargs):
 		context = {}
@@ -45,8 +47,9 @@ class MisCitas(LoginRequiredMixin, TemplateView):
 		context["cita_list"] = page_obj
 		return render(request, self.template_name, context)
 
-class RegistrarCita(LoginRequiredMixin, SuccessMessageMixin, TemplateView):
+class RegistrarCita(ValidarUsuario, SuccessMessageMixin, TemplateView):
 	template_name = 'landingpage/pages/solicitar_cita.html'
+	permission_required = 'anuncios.requiere_usuario'
 	success_url = '/mis-citas/'
 	success_message = "Solicitud para cita creada exitosamente, se le estará notificando el estado de la misma"
 
@@ -76,9 +79,10 @@ class RegistrarCita(LoginRequiredMixin, SuccessMessageMixin, TemplateView):
 		context['form'] = CitasForm()
 		return context  
 
-class ListadoMiPresupuesto(LoginRequiredMixin, TemplateView):
+class ListadoMiPresupuesto(ValidarUsuario, TemplateView):
 	context_object_name = 'presupuesto_list'
 	template_name = 'landingpage/pages/presupuesto/mi_presupuesto.html'
+	permission_required = 'anuncios.requiere_usuario'
 
 	def get(self, request, *args, **kwargs):
 		mi_presupuesto = Presupuesto.objects.filter(cliente=request.user.pk).order_by('-id')
@@ -103,8 +107,9 @@ class ListadoMiPresupuesto(LoginRequiredMixin, TemplateView):
 		context['presupuestos'] = page_obj
 		return render(request, self.template_name, context)
 
-class RegistrarMiPresupuesto(LoginRequiredMixin, TemplateView):
+class RegistrarMiPresupuesto(ValidarUsuario, TemplateView):
 	template_name = 'landingpage/pages/presupuesto/registrar_mi_presupuesto.html'
+	permission_required = 'anuncios.requiere_usuario'
 	object = None
 
 	def get_success_url(self):
@@ -137,8 +142,9 @@ class RegistrarMiPresupuesto(LoginRequiredMixin, TemplateView):
 		context["form"] = MiPresupuestoForm()
 		return context
 
-class DetalleMiPresupuesto(LoginRequiredMixin, TemplateView):
+class DetalleMiPresupuesto(ValidarUsuario, TemplateView):
 	template_name = 'landingpage/pages/presupuesto/detalle_mi_presupuesto.html'
+	permission_required = 'anuncios.requiere_usuario'
 
 	def get(self, request, pk,*args, **kwargs):
 		context = {}
@@ -152,8 +158,9 @@ class DetalleMiPresupuesto(LoginRequiredMixin, TemplateView):
 		else:
 			return redirect('mi_presupuesto')
 
-class DetalleMiCita(LoginRequiredMixin, DetailView):
+class DetalleMiCita(ValidarUsuario, DetailView):
 	template_name = 'landingpage/pages/detalle_de_mi_cita.html'
+	permission_required = 'anuncios.requiere_usuario'
 	model = Cita
 	context_object_name = 'cita'
 

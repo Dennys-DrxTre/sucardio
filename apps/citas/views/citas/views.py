@@ -1,4 +1,3 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -14,10 +13,12 @@ from django.views.generic import (
 from ...models import Cita, Usuario, Medico
 from ...forms import CitasForm
 
+from apps.usuarios.mixins import ValidarUsuario
 
-class ListadoCita(ListView):
+class ListadoCita(ValidarUsuario, ListView):
 	context_object_name = 'cita_list'
 	template_name = 'pages/citas/listado_citas.html'
+	permission_required = 'anuncios.requiere_secretria'
 	ordering = ['-id']
 
 	def get_queryset(self):
@@ -43,8 +44,9 @@ class DetallesCita(SuccessMessageMixin, DetailView):
 		return context
 """
 
-class DetallesCita(LoginRequiredMixin, TemplateView):
+class DetallesCita(ValidarUsuario, TemplateView):
 	template_name = 'pages/citas/detalles_cita.html'
+	permission_required = 'anuncios.requiere_secretria'
 
 	def get(self, request, pk,*args, **kwargs):
 		context = {}
@@ -58,8 +60,9 @@ class DetallesCita(LoginRequiredMixin, TemplateView):
 		else:
 			return redirect('mis_citas')
 
-class EditarCita(SuccessMessageMixin, UpdateView):
+class EditarCita(ValidarUsuario, SuccessMessageMixin, UpdateView):
 	template_name = 'pages/citas/editar_cita.html'
+	permission_required = 'anuncios.requiere_secretria'
 	model = Cita
 	fields = ['fecha_cita', 'estado']
 	success_url = '/listado-de-citas/'

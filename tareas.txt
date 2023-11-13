@@ -12,8 +12,8 @@
     - presupuestos (Dennys)
  
 # Paginación (anuncios, buscador, mis citas, mis presupuesto) (Dennys) (LISTO)
-# Seguridad (Dennys)
-# Módulos usuarios (administración) (Dennys)
+# Seguridad (Dennys) (LISTO)
+# Módulos usuarios (administración) (Dennys) (LISTO)
 # Registro de usuario (landing) (Dennys)
 # Fórmularios del landing page (José)
 
@@ -24,3 +24,11 @@ Quitar la imagen del listado de anuncios (José) (LISTO)
 Validar los inputs (José) (LANDIND LISTO, FALTA SOLO EL MODULO DE USUARIOS)
 Quitar galeria (José) (LISTO)
 Meter url en el botón de inicio del landing  (José) (LISTO)
+registrar campo de fecha_emision en presupuesto con 15 dias mas en el campo de fecha_vencimiento (Dennys)
+favi icon (dennys)
+
+permission_required = 'anuncios.requiere_usuario'
+
+permission_required = 'anuncios.requiere_admin'
+
+permission_required = 'anuncios.requiere_secretria'
