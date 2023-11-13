@@ -31,7 +31,7 @@ class UserLoginView(TemplateView):
 			user = authenticate(username=username, password=password)
 			if user is not None:
 				login(request, user)
-				return redirect('/inicio/') # redirige al usuario a la página de inicio después de iniciar sesión
+				return redirect('/') # redirige al usuario a la página de inicio después de iniciar sesión
 			else:
 				messages.error(request, 'Usuario o contraseña incorrecta.')
 		else:

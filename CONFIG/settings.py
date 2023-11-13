@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'apps.usuarios.middleware.TemplateErrorMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -128,5 +129,5 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/ingresar/'
-LOGIN_REDIRECT_URL = '/inicio/'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/ingresar/'

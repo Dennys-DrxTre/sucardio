@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	{% comment %}
-	<link rel="icon" href="../assets/images/favicon.svg" type="image/x-icon" />
+	<link rel="icon" href="{% static 'img/logo2.png' %}" type="image" />
 	{% endcomment %}
 	<link rel="stylesheet" href="{% static 'assets/fonts/inter/inter.css' %}" id="main-font-link" />
 	<link rel="stylesheet" href="{% static 'assets/fonts/tabler-icons.min.css' %}" />
@@ -149,33 +149,21 @@
 							</span>
 							<span class="pc-mtext">Usuarios</span></a>
 					</li>
-					<li class="pc-item pc-caption">
-						<label>SECCION PAGINA FRONTAL</label>
-						<i class="ti ti-chart-arcs"></i>
-					</li>
-					<li class="pc-item">
-						<a href="#" class="pc-link">
-							<span class="pc-micon">
-								<svg class="pc-icon">
-									<use xlink:href="#custom-setting-2"></use>
-								</svg>
-							</span>
-							<span class="pc-mtext">Configuracion</span></a>
-					</li>
-
-					<li class="pc-item pc-caption">
-						<label>SECCION SISTEMA</label>
-						<i class="ti ti-chart-arcs"></i>
-					</li>
-					<li class="pc-item">
-						<a href="#" class="pc-link">
-							<span class="pc-micon">
-								<svg class="pc-icon">
-									<use xlink:href="#custom-setting-outline"></use>
-								</svg>
-							</span>
-							<span class="pc-mtext">Configuracion</span></a>
-					</li>
+					{% if perms.anuncios.requiere_admin %}
+						<!-- <li class="pc-item pc-caption">
+							<label>SECCION PAGINA FRONTAL</label>
+							<i class="ti ti-chart-arcs"></i>
+						</li>
+						<li class="pc-item">
+							<a href="#" class="pc-link">
+								<span class="pc-micon">
+									<svg class="pc-icon">
+										<use xlink:href="#custom-setting-2"></use>
+									</svg>
+								</span>
+								<span class="pc-mtext">Configuracion</span></a>
+						</li> -->
+					{% endif %}
 				</ul>
 			</div>
 		</div>

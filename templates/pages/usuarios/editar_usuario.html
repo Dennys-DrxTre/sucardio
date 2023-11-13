@@ -30,7 +30,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="id_cedula">Cedula (Nombre de Usuario)</label>
-                                {{ form.cedula|add_class:'form-control'|attr:'placeholder:Introduzca la cedula'|attr:'maxlength:8' }}
+                                {{ form.cedula|add_class:'form-control'|attr:'placeholder:Introduzca la cedula'|attr:'maxlength:8'|attr:'onkeypress:return Solo_Numero_ci(event)' }}
                             </div>
                         </div>
                         <div class="col-md-6">

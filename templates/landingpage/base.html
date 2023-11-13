@@ -88,10 +88,10 @@
 								</li>
 							{% endif %}
 
-							{% if user.is_superuser %}
-							<li class="nav-item ">
-								<a class="nav-link" href="{% url 'listado_citas' %}">Administración</a>
-							</li>
+							{% if perms.anuncios.requiere_secretria %}
+								<li class="nav-item ">
+									<a class="nav-link" href="{% url 'listado_citas' %}">Administración</a>
+								</li>
 							{% endif %}
 								
 							
