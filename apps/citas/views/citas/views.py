@@ -11,7 +11,7 @@ from django.views.generic import (
 	DetailView, 
 	TemplateView
 )
-from ...models import Cita, Usuario
+from ...models import Cita, Usuario, Medico
 from ...forms import CitasForm
 
 
@@ -27,6 +27,7 @@ class ListadoCita(ListView):
 		context = super().get_context_data(**kwargs)
 		context["title"] = "Citas"
 		context["sub_title"] = "Listado de citas"
+		context['medicos'] = Medico.objects.all()
 		return context
 
 """

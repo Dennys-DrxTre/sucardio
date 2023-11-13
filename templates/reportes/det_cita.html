@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{{report_title}}</title>
+	<style>
+		@page{
+			size: a4 portrait;
+			@frame logo_frame {
+				-pdf-frame-content: report_header;
+				left: 30pt;
+				width: 110pt;
+				top: 20pt;
+				height: 90pt;
+			}
+			@frame title_frame {
+				-pdf-frame-content: title_header;
+				left: -450pt; width: 420pt; top: 10pt; height: 90pt;
+			}
+			@frame report_body {
+				left: 15pt;
+				width: 560pt;
+				top: 85pt;
+				height: 670pt;
+			}
+			@frame footer_frame {
+				-pdf-frame-content: report_footer;
+				right: 30pt;
+				width: 150pt;
+				top: 800pt;
+				height: 20pt;
+			}
+            @frame emicion_frame {
+				-pdf-frame-content: fecha_frame;
+				left: -110pt;
+				width: 100pt;
+				top: 90pt;
+				height: 30pt;
+			}
+            
+		}
+		.title{
+			padding-top: 1.5rem;
+			text-align: center;
+			width: 100%;
+		}
+		.report_info{
+			width: 100%;
+			padding-top: 1.5rem;
+		}
+		.report_body{
+			width: 100%;
+		}
+		.footer{
+			text-align: right;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="logo" id="report_header">
+		{% if logo_img %}
+		<img src="{{logo_img}}" alt="logo" width="180px" height="120px">
+		{% endif %}
+	</div>
+	<div class="title" id="title_header">
+		<p style="font-size: 14px;">
+			<span>UNIDAD CARDIOVASCULAR DEL ESTE </span> <br>
+			<span style="font-size: 12px;">Av. 23 de Enero al lado del Hospital Clinico del Este </span> <br>
+			<span style="font-size: 12px;">Guanre - Portuguesa. Teléfono 0257-4161639 </span> <br>
+            <span style="font-size: 12px;">RIF: V100530488</span>
+		</p>
+	</div>
+    <div class="fecha_frame" id="fecha_frame">
+        <span>ID: 000-{{cita.id}}</span> <br>
+        <span style="border: 1px solid black;">EMICION: {{date}}</span>
+    </div>
+	<div class="report_body" id="content">
+		<div class="report_info" id="info">
+			<p style="font-size: 12px;">
+				<span style="font-weight: 700;">{{report_title|upper}}</span> <br>
+				
+				<span style="font-size: 12px;">C.I: {{cita.cliente.cedula}}</span> <br>
+                <span style="font-size: 12px;">Paciente: {{cita.cliente.nombre}} {{cita.cliente.apellido}}</span> <br>
+                <span style="font-size: 12px;">Domicilio Fiscal: {{cita.cliente.direccion}}</span> <br>
+                <span style="font-size: 12px;">Teléfono: {{cita.cliente.telefono}} {% if cita.cliente.telefono2 %}/ {{cita.cliente.telefono2}} {% endif %}</span>
+			</p >
+		</div>
+		<br><br>
+		<table style="font-size: 12px;">
+			<thead style="padding: 5px;">
+				<th style="width: 65%; text-align: left;">Motivo de la consulta</th>
+				<th style="text-align: left; padding-left: 5px;">¿En control?</th>
+				<th style="text-align: left;">Método de pago</th>
+			</thead>
+			<tbody>
+				<tr>
+					<th  style="text-align: left; font-weight: 200;"><p>{{cita.motivo_consulta}}</p></th>
+					<th  style="text-align: left; font-weight: 200; padding-left: 5px;"><p>{{cita.control_pac|yesno:'Sí, No'}}</p></th>
+					<th  style="text-align: left; font-weight: 200;"><p>{{cita.metodo_pago}}</p></th>
+				</tr>
+			</tbody>
+		</table>
+		<br> <br> 
+		<table style="font-size: 12px;">
+			<thead>
+				<th  style="text-align: left;">Médico a consultar</th>
+				<th  style="text-align: left;">Estado de la cita</th>
+				<th  style="text-align: left;">Fecha de la cita</th>
+			</thead>
+			<tbody>
+				<tr>
+					<th  style="text-align: left; font-weight: 200;"><p>{{cita.medico}}</p></th>
+					{% if cita.estado == 'PE' %}
+						<th  style="text-align: left; font-weight: 200;"><p>Pendiente</p></th>
+					{% elif cita.estado == 'AP' %}
+						<th  style="text-align: left; font-weight: 200;"><p>Aprobado</p></th>
+					{% else %}
+						<th  style="text-align: left; font-weight: 200;"><p>{{cita.Rechazada}}</p></th>
+					{% endif %}
+					{% if cita.fecha_cita %}
+						<th  style="text-align: left; font-weight: 200;"><p>{{cita.fecha_cita}}</p></th>
+					{% else %}
+						<th  style="text-align: left; font-weight: 200;"><p>Pendiente</p></th>
+					{% endif %}
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+	<div class="footer" id="report_footer">
+		<p>Pág. <pdf:pagenumber> de <pdf:pagecount> </p>
+	</div>
+
+</body>
+
+</html>

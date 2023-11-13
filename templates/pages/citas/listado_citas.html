@@ -4,9 +4,10 @@
 {% block head_datatable %}
     <h5 id="page_title">{{ sub_title }}</h5>
     <div class="cart-tools">
-        <!-- <a href="#" id="btn_filter" class="btn btn-icon btn-light-dark ml-10" rel="btn_open_modal_report" data-bs-toggle="tooltip" data-bs-placement="top" title="Reportes">
-            <i class="fas fa-file-pdf"></i>
-        </a> -->
+
+        <button type="button"class="btn btn-icon btn-light-dark ml-10" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Reporte de citas del dia">
+          <i class="fas fa-file-pdf"></i>
+        </button>
         <!-- <a href="#" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar cita">
             <i class="fas fa-plus"></i>
         </a> -->
@@ -41,7 +42,7 @@
                 <tr>
                     <td>{{cita.cliente}}</td>
                     <td>{{cita.control_pac|yesno:"Si,No"}}</td>
-                    <td>{{cita.motivo_consulta}}</td>
+                    <td>{{cita.motivo_consulta|truncatechars:30}}</td>
                     <td>{{cita.metodo_pago}}</td>
                     <td>{{cita.medico|truncatechars:20}}</td>
                     <td>{{cita.estado}}</td>
@@ -56,6 +57,9 @@
                         </a>
                         <a href="{% url 'editar_cita' cita.id %}" rel="edit" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar cita">
                             <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="{% url 'det_cita' cita.id %}" target="_blank" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar PDF">
+                            <i class="fas fa-file-pdf"></i>
                         </a>
                     </td>
                 </tr>
@@ -75,6 +79,34 @@
         </tfoot>
     </table>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reporte de las citas del dia</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label for="" class="form-label">Medicos</label>
+        <select name="medico_dia" id="id_report" required class="form-control">
+            <option value="">-- Seleccione --</option>
+            {% for x in medicos %}
+                <option value="{{x.cedula}}">{{x.nombre}} {{x.apellido}}| {{x.especialidad}}</option>
+            {% endfor %}
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    document.getElementById('id_report').addEventListener('change', function() {
+      var selectedValue = this.value;
+      window.open(`/reportes/citas-del-dia/${selectedValue}`);
+      
+    });
+  </script>
 {% endblock content_datatable %}
-
-    
