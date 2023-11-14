@@ -14,6 +14,7 @@ from django.views.generic import (
 )
 from apps.citas.models import Cita, Usuario
 from apps.citas.forms import CitasForm
+from apps.anuncios.models import Anuncios
 from apps.presupuestos.models import Presupuesto
 from apps.presupuestos.forms import MiPresupuestoForm
 
@@ -21,6 +22,11 @@ from apps.usuarios.mixins import ValidarUsuario
 
 class Inicio(TemplateView):
 	template_name = 'landingpage/pages/inicio.html'
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['anuncio'] = Anuncios.objects.filter(estado = 'AC')[:5]
+		return context  
 	
 class MisCitas(ValidarUsuario, TemplateView):
 	template_name = 'landingpage/pages/mis_citas.html'
