@@ -1,8 +1,6 @@
 
 (pendientes)
-# Cambiar contraseña (José) (LISTO)
 # Reportes
-  - mostrar listado de citas que tiene el médico el día actual (Jose) (LISTO)
   
   # Reportes Generales, y de detalle
     - medicos (Dennys) (LISTO)
@@ -10,16 +8,9 @@
     - citas (Jose)
     - servicios (Jose)
     - presupuestos (Dennys)
- 
-# Fórmularios del landing page (José) (PENDIENTE, OPCIONAL)
 
 
 (Correcciones)
-Validar el detalle de citas (José) (LISTO)
-Quitar la imagen del listado de anuncios (José) (LISTO)
-Validar los inputs (José) (LANDIND LISTO, FALTA SOLO EL MODULO DE USUARIOS)
-Quitar galeria (José) (LISTO)
-Meter url en el botón de inicio del landing  (José) (LISTO)
 registrar campo de fecha_emision en presupuesto con 15 dias mas en el campo de fecha_vencimiento (Dennys)
 favi icon (dennys)
 
