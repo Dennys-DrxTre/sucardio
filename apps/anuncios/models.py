@@ -14,7 +14,7 @@ class Persona(models.Model):
 	direccion = models.TextField(null=True, blank=True)
 
 	def __str__(self):
-		return self.cedula
+		return str(f'{self.cedula} | {self.nombre} | {self.apellido}')
 
 	class Meta:
 		abstract = True
