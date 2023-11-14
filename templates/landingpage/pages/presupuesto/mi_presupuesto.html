@@ -61,6 +61,9 @@
                                             <a href="{% url 'detalle_mi_presupuesto' presupuesto.pk %}" class="btn btn-icon btn-sm rounded-pill btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle del presupuesto">
                                                 <i class="uil uil-file-alt"></i>
                                             </a>
+                                            <a href="{% url 'reporte_detalle_mi_presupuesto' presupuesto.id %}" target="_blank" class="btn btn-icon btn-sm rounded-pill btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar PDF">
+                                                <i class="uil uil-file-export"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                     {% endfor %}

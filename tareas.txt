@@ -3,12 +3,11 @@
 # Reportes
   
   # Reportes Generales, y de detalle
-    - medicos (Dennys) (LISTO)
-    - usuarios (Dennys) (LISTO)
     - citas (Jose)
     - servicios (Jose)
     - presupuestos (Dennys)
 
+# Fórmularios del landing page (José) (PENDIENTE, OPCIONAL)
 
 (Correcciones)
 registrar campo de fecha_emision en presupuesto con 15 dias mas en el campo de fecha_vencimiento (Dennys)
