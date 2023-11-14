@@ -5,11 +5,8 @@
   - mostrar listado de citas que tiene el médico el día actual (Jose) (LISTO)
   
   # Reportes Generales, y de detalle
-    - medicos (Dennys) (LISTO)
-    - usuarios (Dennys) (LISTO)
     - citas (Jose)
     - servicios (Jose)
-    - presupuestos (Dennys)
  
 # Fórmularios del landing page (José) (PENDIENTE, OPCIONAL)
 

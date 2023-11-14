@@ -2,7 +2,7 @@ from django.urls import path
 from .views.citas.views import ReportePrueba, DetalleCita, CitasDelDia
 from .views.medicos.views import ReporteMedicos,ReporteDetalleMedico
 from .views.usuarios.views import ReporteUsuarios, ReporteDetalleUsuario
-from .views.presupuesto.views import ReportePresupuestos, ReporteDetallePresupuesto
+from .views.presupuesto.views import ReportePresupuestos, ReporteDetallePresupuesto,ReporteDetalleMiPresupuesto
 
 APP_NAME = 'reportes'
 
@@ -19,4 +19,5 @@ urlpatterns = [
     # PRESUPUESTO
     path('listado-de-presupuestos/', ReportePresupuestos.as_view(), name='reporte_presupuestos'),
     path('detalle-de-presupuesto/<int:pk>/', ReporteDetallePresupuesto.as_view(), name='reporte_detalle_presupuesto'),
+    path('detalle-de-mi-presupuesto/<int:pk>/', ReporteDetalleMiPresupuesto.as_view(), name='reporte_detalle_mi_presupuesto'),
 ]

@@ -33,19 +33,22 @@
 			
 					<div class="navbar-other ms-auto">
 					  <ul class="navbar-nav flex-row align-items-center">
+						{% if user.is_authenticated %}
+							<p class="text-uppercase pt-4 mx-4">{{ request.user.get_full_name }}</p>
+						{% endif %}
 						<li class="nav-item"><a class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-info"><i class="uil uil-info-circle"></i></a></li>
 						
 						{% if user.is_authenticated %}
-						<li class="nav-item dropdown language-select text-uppercase">
-							<a class="nav-link dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil uil-user"></i></a>
-							<ul class="dropdown-menu">
-							<li class="nav-item"><a class="dropdown-item" href="#">Perfil</a></li>
-							<li class="nav-item"><a class="dropdown-item" href="{% url 'mis_citas' %}">Mis Citas</a></li>
-							<li class="nav-item"><a class="dropdown-item" href="{% url 'mi_presupuesto' %}">Mi Presupuesto</a></li>
-							<li class="nav-item"><a class="dropdown-item" href="{% url 'cambiar_clave' %}">Cambiar contraseña</a></li>
-							<li class="nav-item"><a class="dropdown-item" href="{% url 'logout' %}">Salir</a></li>
-							</ul>
-						</li>
+							<li class="nav-item dropdown language-select text-uppercase">
+								<a class="nav-link dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil uil-user"></i></a>
+								<ul class="dropdown-menu">
+								<!-- <li class="nav-item"><a class="dropdown-item" href="#">Perfil</a></li> -->
+								<li class="nav-item"><a class="dropdown-item" href="{% url 'mis_citas' %}">Mis Citas</a></li>
+								<li class="nav-item"><a class="dropdown-item" href="{% url 'mi_presupuesto' %}">Mi Presupuesto</a></li>
+								<li class="nav-item"><a class="dropdown-item" href="{% url 'cambiar_clave' %}">Cambiar contraseña</a></li>
+								<li class="nav-item"><a class="dropdown-item" href="{% url 'logout' %}">Salir</a></li>
+								</ul>
+							</li>
 						{% endif %}
 						  
 						<li class="nav-item d-lg-none">

@@ -133,18 +133,22 @@
 			<tbody>
 				{% for x in datos %}
 					<tr>
-						<td class="cosa">{{ x.pk }}</td>
-						<td class="cosa">{{ x.cliente }}</td>
-						<td class="cosa">{{ x.get_metodo_pago_display }}</td>
-                        <td class="cosa">{{ x.total|floatformat:'2' }}</td>
-						<td class="cosa">
+						<td class="cosa" style="width: 10%;">{{ x.pk }}</td>
+						<td class="cosa" style="width: 20%;">{{ x.cliente }}</td>
+						<td class="cosa" style="width: 20%;">{{ x.get_metodo_pago_display }}</td>
+                        <td class="cosa" style="width: 10%;">{{ x.total|floatformat:'2' }}</td>
+						<td class="cosa" style="width: 10%;">
                             {% if x.fecha %}
                                 {{ x.fecha|date:'d/m/Y' }}
 							{% else %}
 								Vacio 
                             {% endif %}
                         </td>
-                        <td class="cosa">{{ x.get_tipo_usuario_display }}</td>
+                        <td class="cosa" style="width: 30%;">
+							{% for s in x.servicio.all %}
+								{{ s }}{% if not forloop.last %},{% endif %}
+							{% endfor %}
+						</td>
 					</tr>
 				{% empty %}
 					<tr>

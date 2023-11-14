@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-floating mb-4">
-                                        {{ form.nombre|add_class:'form-control'|attr:'placeholder:Ingrese su nombre.'|attr:'maxlength:50' }}
+                                        {{ form.nombre|add_class:'form-control'|attr:'placeholder:Ingrese su nombre.'|attr:'maxlength:50'|attr:'onkeypress:return Solo_Texto(event)' }}
                                         <label for="id_nombre">Nombre</label>
                                     </div>
                                 </div>
@@ -42,13 +42,13 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-floating mb-4">
-                                        {{ form.apellido|add_class:'form-control'|attr:'placeholder:Ingrese su apellido.'|attr:'maxlength:50' }}
+                                        {{ form.apellido|add_class:'form-control'|attr:'placeholder:Ingrese su apellido.'|attr:'maxlength:50'|attr:'onkeypress:return Solo_Texto(event)' }}
                                         <label for="id_apellido">Apellido</label>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-floating mb-4">
-                                        {{ form.telefono|add_class:'form-control'|attr:'placeholder:Ingrese su telefono.'|attr:'maxlength:11' }}
+                                        {{ form.telefono|add_class:'form-control'|attr:'placeholder:Ingrese su telefono.'|attr:'maxlength:11'|attr:'onkeypress:return Solo_Numero_ci(event)' }}
                                         <label for="id_telefono">Telefono</label>
                                     </div>
                                 </div>

@@ -36,7 +36,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="id_nombre">Nombre</label>
-                                {{ form.nombre|add_class:'form-control'|attr:'placeholder:Introduzca el nombre' }}
+                                {{ form.nombre|add_class:'form-control'|attr:'placeholder:Introduzca el nombre'|attr:'onkeypress:return Solo_Texto(event)' }}
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="id_apellido">Apellido</label>
-                                {{ form.apellido|add_class:'form-control'|attr:'placeholder:Introduzca el apellido' }}
+                                {{ form.apellido|add_class:'form-control'|attr:'placeholder:Introduzca el apellido'|attr:'onkeypress:return Solo_Texto(event)' }}
                             </div>
                         </div>
                         <div class="col-md-6">

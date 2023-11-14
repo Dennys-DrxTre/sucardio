@@ -45,8 +45,8 @@ class Usuario(Persona):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
 
 	def __str__(self):
-		return self.cedula
-	
+		return str(f'{self.cedula} | {self.nombre} | {self.apellido}')
+
 	def get_absolute_url(self):
 		return reverse('detalle_usuario', args=[self.id])
 
