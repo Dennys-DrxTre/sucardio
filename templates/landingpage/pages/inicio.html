@@ -101,22 +101,13 @@
             <div class="swiper-container grid-view nav-bottom nav-color mb-14" data-margin="30" data-dots="false" data-nav="true" data-items-md="2" data-items-xs="1">
             <div class="swiper overflow-visible">
                 <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <figure class="rounded"><img style="width: 500px;" src="{% static 'img/anuncio1.jpg' %}" alt="" /><a class="item-link" href="#"><i class="uil uil-link"></i></a></figure>
-                </div>
-                <!--/.swiper-slide -->
-                <div class="swiper-slide">
-                    <figure class="rounded"><img style="width: 500px;" src="{% static 'img/anuncio2.jpg' %}" alt="" /><a class="item-link" href="#"><i class="uil uil-link"></i></a></figure>
-                </div>
-                <!--/.swiper-slide -->
-                <div class="swiper-slide">
-                    <figure class="rounded"><img style="width: 500px;" src="{% static 'img/anuncio3.jpg' %}" alt="" /><a class="item-link" href="#"><i class="uil uil-link"></i></a></figure>
-                </div>
-                <!--/.swiper-slide -->
-                <div class="swiper-slide">
-                    <figure class="rounded"><img style="width: 500px;" src="{% static 'img/anuncio4.jpg' %}" alt="" /><a class="item-link" href="#"><i class="uil uil-link"></i></a></figure>
-                </div>
-                <!--/.swiper-slide -->
+                    {% for x in anuncio %}
+                    {% if x.imagen %}
+                    <div class="swiper-slide">
+                        <figure class="rounded"><img src="{{x.imagen.url}}" alt="" /><a class="item-link" href="{% url 'detalle_anuncio_landing' x.pk %}"><i class="uil uil-link"></i></a></figure>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
                 <!--/.swiper-wrapper -->
             </div>
@@ -129,94 +120,37 @@
         <!-- /.swiper-container -->
     </section>
     <!-- /section -->
+
     <section class="wrapper bg-light mb-6">
         <div class="swiper-container dots-closer blog grid-view mb-8" data-margin="0" data-dots="true" data-items-md="2" data-items-xs="1">
-        <div class="swiper">
-            <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <div class="item-inner">
-                <article>
-                    <div class="card">
-                    <div class="card-header">
-                        fecha de publicacion: 18/10/23 
-                    </div>
-                    <div class="card-body pb-4">
-                        5k carrera caminata. Inscripciones al 0000-0000000. Dia 01/11/23
-                    </div>
-                    <!--/.card-body -->
-                    </div>
-                    <!-- /.card -->
-                </article>
-                <!-- /article -->
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    {% for x in anuncio %}
+                        {% if not x.imagen %}
+                        <div class="swiper-slide">
+                            <div class="item-inner">
+                                <article>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <p>{{x.titulo}}</p>
+                                        </div>
+                                        <div class="card-body pb-4">
+                                            <p>{{x.descripcion}}</p>
+                                            <p>Fecha de publicacion: {{x.fecha_publicacion|date:'d/m/Y'}}</p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
-                <!-- /.item-inner -->
+                <!--/.swiper-wrapper -->
             </div>
-            <!--/.swiper-slide -->
-            <div class="swiper-slide">
-                <div class="item-inner">
-                <article>
-                    <div class="card">
-                    <div class="card-header">
-                        fecha de publicacion: 10/10/23 
-                    </div>
-                    <div class="card-body">
-                        Jornada Medica. Dia 23/10/23 a las 8:00 am
-                    </div>
-                    <!--/.card-body -->
-                    </div>
-                    <!-- /.card -->
-                </article>
-                <!-- /article -->
-                </div>
-                <!-- /.item-inner -->
-            </div>
-            <!--/.swiper-slide -->
-            <div class="swiper-slide">
-                <div class="item-inner">
-                <article>
-                    <div class="card">
-                    <div class="card-header">
-                        fecha de publicacion: 01/5/23 
-                    </div>
-                    <div class="card-body">
-                        Felizar dia del trabajador
-                    </div>
-                    <!--/.card-body -->
-                    </div>
-                    <!-- /.card -->
-                </article>
-                <!-- /article -->
-                </div>
-                <!-- /.item-inner -->
-            </div>
-            <!--/.swiper-slide -->
-            <div class="swiper-slide">
-                <div class="item-inner">
-                <article>
-                    <div class="card">
-                    <div class="card-header">
-                        fecha de publicacion: 01/5/23 
-                    </div>
-                    <div class="card-body">
-                        Estamos de aniversario, gracias por confiar en nosotros para proteger lo que mas valoras.
-                    </div>
-                    <!--/.card-body -->
-                    </div>
-                    <!-- /.card -->
-                </article>
-                <!-- /article -->
-                </div>
-                <!-- /.item-inner -->
-            </div>
-            <!--/.swiper-slide -->
-            </div>
-            <!--/.swiper-wrapper -->
-        </div>
         <!-- /.swiper -->
         </div>
         <!-- /.container -->
     </section>
-    <!-- /section -->
 
 {% endblock content %}
     
