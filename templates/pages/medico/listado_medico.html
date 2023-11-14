@@ -11,7 +11,9 @@
             <option value="AC">Habilitados</option>
             <option value="DE">Deshabilitados</option>
         </select>
-        
+        <a href="{% url 'reporte_medicos' %}" class="btn btn-icon btn-info me-2" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Reporte de medicos">
+            <i class="fas fa-file-pdf"></i>
+        </a>
         <a href="{% url 'registrar_medico' %}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar medico">
             <i class="fas fa-plus"></i>
         </a>
@@ -64,6 +66,9 @@
                                 <i class="ti ti-eye"></i>
                             </a>
                         {% endif %}
+                        <a href="{% url 'reporte_detalle_medico' medico.pk %}" target="_blank" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar PDF">
+                            <i class="fas fa-file-pdf"></i>
+                        </a>
                             
                     </td>
                 </tr>

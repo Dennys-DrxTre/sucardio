@@ -9,7 +9,8 @@ from .views import (
     EditarContrasenaUsuario,
     CambiarEstadoUsuario,
     ChangePassword,
-    AccessoDenegadoView
+    AccessoDenegadoView,
+    RegistrarMiUsuario
 )
 
 APP_NAME = 'usuarios'
@@ -17,6 +18,7 @@ APP_NAME = 'usuarios'
 urlpatterns = [
 	path('ingresar/', UserLoginView.as_view(), name='ingresar'),
 	path('cambiar-clave/', ChangePassword.as_view(), name='cambiar_clave'),
+    path('registrar-mi-usuario/', RegistrarMiUsuario.as_view(), name='registrar_mi_usuario'),
 
     # SEGURIDAD
     path('acceso-denegado/', AccessoDenegadoView.as_view(), name='acceso_denegado'),
@@ -31,4 +33,5 @@ urlpatterns = [
     path('editar-usuario/<int:pk>/', EditarUsuario.as_view(), name='editar_usuario'),
     path('editar-contrasena-usuario/<int:pk>/', EditarContrasenaUsuario.as_view(), name='editar_contrasena_usuario'),
     path('cambiar-estado-usuario/<int:pk>/', CambiarEstadoUsuario.as_view(), name='cambiar_estado_usuario'),
+
 ]

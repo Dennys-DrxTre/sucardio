@@ -28,7 +28,7 @@ class MisCitas(ValidarUsuario, TemplateView):
 
 	def get(self, request, *args, **kwargs):
 		context = {}
-		citas = Cita.objects.filter(cliente=self.request.user.pk).order_by('-id')
+		citas = Cita.objects.filter(cliente__cedula=self.request.user.username).order_by('-id')
 		paginator = Paginator(citas, 8)  # Muestra 10 resultados por página
 
 		# Obtiene el número de página del parámetro GET 'page'. Si no existe, asume 1.
@@ -85,7 +85,7 @@ class ListadoMiPresupuesto(ValidarUsuario, TemplateView):
 	permission_required = 'anuncios.requiere_usuario'
 
 	def get(self, request, *args, **kwargs):
-		mi_presupuesto = Presupuesto.objects.filter(cliente=request.user.pk).order_by('-id')
+		mi_presupuesto = Presupuesto.objects.filter(cliente__cedula=request.user.username).order_by('-id')
 
 		paginator = Paginator(mi_presupuesto, 8)  # Muestra 10 resultados por página
 

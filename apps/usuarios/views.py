@@ -18,7 +18,7 @@ from .perms import permissions_user
 
 from .mixins import ValidarUsuario
 
-from .forms import LoginForm, SearchForm, RegistrarUsuarioAdmin, EditarUsuarioAdmin, EditarPasswordUsuarioForm,ChangePass
+from .forms import LoginForm, SearchForm, RegistrarUsuarioAdmin, EditarUsuarioAdmin, EditarPasswordUsuarioForm, ChangePass, RegistrarMiUsuarioForm
 
 class UserLoginView(TemplateView):
 	template_name = 'registration/login.html'
@@ -370,3 +370,49 @@ class CambiarEstadoUsuario(ValidarUsuario, SingleObjectMixin, View):
 
 class AccessoDenegadoView(TemplateView):
 	template_name = 'registration/acceso_denegado.html'
+
+class RegistrarMiUsuario(TemplateView):
+	template_name = 'registration/registro.html'
+	object = None
+
+	def get_success_url(self):
+		return reverse('inicio_front')
+
+	def post(self, request, *args, **kwargs):
+		form = RegistrarMiUsuarioForm(request.POST)
+		if form.is_valid():
+
+			user = User()
+			user.username = form.cleaned_data['cedula']
+			user.first_name = form.cleaned_data['nombre']
+			user.last_name = form.cleaned_data['apellido']
+			user.set_password(form.cleaned_data['password'])
+			user.save()
+			permissions = Permission.objects.filter(codename__in=permissions_user['CL'])
+			for permission in permissions:
+				user.user_permissions.add(permission)
+			user.save()
+
+			self.object = form.save(commit=False)
+			self.object.user = user
+			self.object.tipo_usuario = Usuario.Permission.CLIENTE
+			self.object.fecha_registro = date.today()
+			self.object.save()
+
+			user_autenticar = authenticate(username=form.cleaned_data['cedula'], password=form.cleaned_data['password'])
+			if user_autenticar is not None:
+				login(request, user)
+				return redirect('/')
+
+			return redirect(self.get_success_url())
+		else:
+			context = self.get_context_data(**kwargs)
+			context["form"] = form
+			return render(request, self.template_name, context)
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context["title"] = "Usuarios"
+		context["sub_title"] = "Registrar usuario"
+		context["form"] = RegistrarMiUsuarioForm()
+		return context

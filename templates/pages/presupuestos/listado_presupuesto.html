@@ -4,7 +4,11 @@
 {% block head_datatable %}
     <h5 id="page_title">{{ sub_title }}</h5>
     <div class="card-tools d-flex justify-content-end">
-
+        <a href="{% url 'reporte_presupuestos' %}" class="ms-2" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Reporte de medicos">
+            <div class="avtar avtar-s bg-primary">
+                <i class="fas fa-file-pdf text-white"></i>
+            </div>
+        </a>
         <a href="{% url 'registrar_presupuesto' %}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar presupuesto">
             <i class="fas fa-plus"></i>
         </a>
@@ -46,7 +50,10 @@
                         </a>
                         <a href="{% url 'editar_presupuesto' presupuesto.pk %}" rel="edit" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar servicio">
                             <i class="ti ti-edit"></i>
-                        </a>   
+                        </a> 
+                        <a href="{% url 'reporte_detalle_presupuesto' presupuesto.pk %}" target="_blank" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar PDF">
+                            <i class="fas fa-file-pdf"></i>
+                        </a>  
                     </td>
                 </tr>
             {% endfor %}

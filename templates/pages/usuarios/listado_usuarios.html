@@ -11,16 +11,21 @@
                     <h5 class="mb-0">{{ sub_title }}</h5>
                     <form action="" method="get">
                         <div class="d-flex align-items-center justify-content-between mb-3">
-                            <select class="form-select w-auto me-2 m-0" name="filtros">
+                            <select class="form-select form-select-sm w-auto me-2 m-0" name="filtros">
                                 <option value="True">Habilitados</option>
                                 <option value="False">Deshabilitados</option>
                             </select>
                             <div class="form-group m-0">
                                 <div class="input-group">
-                                    <input class="form-control" name="search" id="search" placeholder="Buscar..." type="text">
+                                    <input class="form-control form-control-sm" name="search" id="search" placeholder="Buscar..." type="text">
                                     <button class="btn btn-info" type="submit"><i class="ti ti-search"></i></button>
                                 </div>
-                              </div>
+                            </div>
+                            <a href="{% url 'reporte_usuarios' %}" class="ms-2" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Reporte de medicos">
+                                <div class="avtar avtar-s bg-primary">
+                                    <i class="fas fa-file-pdf text-white"></i>
+                                </div>
+                            </a>
                             <a href="{% url 'registrar_usuario' %}" class="ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar usuario">
                                 <div class="avtar avtar-s bg-primary">
                                     <i class="fas fa-plus text-white"></i>
@@ -81,6 +86,9 @@
                                                         <i class="ti ti-eye"></i>
                                                     </a>    
                                                 {% endif %}
+                                                <a href="{% url 'reporte_detalle_usuario' usuario.pk %}" target="_blank" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar PDF">
+                                                    <i class="fas fa-file-pdf"></i>
+                                                </a>
                                                     
                                             </td>
                                         </tr>

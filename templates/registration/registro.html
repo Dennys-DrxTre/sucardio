@@ -6,44 +6,70 @@
 <section class="wrapper bg-soft-green">
     <div class="container py-10 py-md-10">
         <div class="row">
-            <div class="col-lg-7 col-xl-6 col-xxl-5 mx-auto">
+            <div class="col-lg-10 col-xl-9 col-xxl-8 mx-auto">
                 <div class="card">
                     <div class="card-body p-11 text-center">
                         <h2 class="mb-3 text-start">Bienvenido!</h2>
                         <p class="lead mb-6 text-start">Ingrese los datos necesarios para el registro</p>
                         
                         <form class="text-start mb-3" method="post" action="">
-                            {% if messages %}
-                                {% for message in messages %}
-                                    {% if 'error' in message.tags %}
-                                        <div class="alert alert-danger alert-icon alert-dismissible fade show" role="alert">
-                                            {{ message }}
+                            {% if form.errors %}
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>{{ field.label }}! </strong> {{ error }}
                                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                         </div>
-                                    {% else %}
-                                        <div class="alert alert-success alert-icon alert-dismissible fade show" role="alert">
-                                            {{ message }}
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                        </div>
-                                    {% endif %}
+                                    {% endfor %}
                                 {% endfor %}
                             {% endif %}
 
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col">
-                                    
+                                    <div class="form-floating mb-4">
+                                        {{ form.cedula|add_class:'form-control'|attr:'placeholder:Ingrese su cedula.'|attr:'maxlength:8'|attr:'onkeypress:return Solo_Numero_ci(event)' }}
+                                        <label for="id_cedula">Cedula (Nombre de usuario)</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating mb-4">
+                                        {{ form.nombre|add_class:'form-control'|attr:'placeholder:Ingrese su nombre.'|attr:'maxlength:50' }}
+                                        <label for="id_nombre">Nombre</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-floating mb-4">
-                                {{ form.username|add_class:'form-control'|attr:'placeholder:Ingrese su cedula.'|attr:'id:id_username'|attr:'name:username'|attr:'maxlength:9' }}
-                                <label for="id_username">Cedula</label>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-4">
+                                        {{ form.apellido|add_class:'form-control'|attr:'placeholder:Ingrese su apellido.'|attr:'maxlength:50' }}
+                                        <label for="id_apellido">Apellido</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating mb-4">
+                                        {{ form.telefono|add_class:'form-control'|attr:'placeholder:Ingrese su telefono.'|attr:'maxlength:11' }}
+                                        <label for="id_telefono">Telefono</label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-floating password-field mb-4">
-                                {{ form.password|add_class:'form-control'|attr:'placeholder:Ingrese la contraseña.'|attr:'id:id_password'|attr:'name:password'|attr:'type:password' }}
-                                <span class="password-toggle"><i class="uil uil-eye"></i></span>
-                                <label for="id_password">Contraseña</label>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating password-field mb-4">
+                                        {{ form.password|add_class:'form-control'|attr:'placeholder:Ingrese la contraseña.'|attr:'id:id_password'|attr:'name:password'|attr:'type:password'|attr:'required'|attr:'minlength:8' }}
+                                        <span class="password-toggle"><i class="uil uil-eye"></i></span>
+                                        <label for="id_password">Contraseña</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating password-field mb-4">
+                                        {{ form.password2|add_class:'form-control'|attr:'placeholder:Confirme la contraseña.'|attr:'id:id_password2'|attr:'name:password2'|attr:'type:password'|attr:'required'|attr:'minlength:8' }}
+                                        <span class="password-toggle"><i class="uil uil-eye"></i></span>
+                                        <label for="id_password2">Confirme la Contraseña</label>
+                                    </div>
+                                </div>
                             </div>
+
                             <button type="submit" class="btn btn-primary rounded-pill btn-login w-100 mb-2">Ingresar</button>
                         </form>
                         <!--/.social -->

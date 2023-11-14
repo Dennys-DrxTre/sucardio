@@ -19,10 +19,9 @@ class ListadoCita(ValidarUsuario, ListView):
 	context_object_name = 'cita_list'
 	template_name = 'pages/citas/listado_citas.html'
 	permission_required = 'anuncios.requiere_secretria'
-	ordering = ['-id']
 
 	def get_queryset(self):
-		return Cita.objects.all()
+		return Cita.objects.all().order_by('-id')
 	
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
@@ -51,8 +50,7 @@ class DetallesCita(ValidarUsuario, TemplateView):
 	def get(self, request, pk,*args, **kwargs):
 		context = {}
 
-		usuario = Usuario.objects.filter(user = request.user.pk).first()
-		citas = Cita.objects.filter(pk=pk, cliente__cedula=usuario.cedula).first()
+		citas = Cita.objects.filter(pk=pk).first()
 		if citas:
 			context['cita'] = citas
 			context["sub_title"] = "Detalle de mi cita"

@@ -1,11 +1,22 @@
 from django.urls import path
-from .views import ReportePrueba, DetalleCita, CitasDelDia
+from .views.citas.views import ReportePrueba, DetalleCita, CitasDelDia
+from .views.medicos.views import ReporteMedicos,ReporteDetalleMedico
+from .views.usuarios.views import ReporteUsuarios, ReporteDetalleUsuario
+from .views.presupuesto.views import ReportePresupuestos, ReporteDetallePresupuesto
 
 APP_NAME = 'reportes'
 
 urlpatterns = [
     # PRUEBA
-    path('prueba/', ReportePrueba.as_view(), name='prueba'),
     path('detalle-de-cita/<int:pk>/', DetalleCita.as_view(), name='det_cita'),
     path('citas-del-dia/<int:pk>/', CitasDelDia.as_view(), name='citas_dia'),
+    # MEDICOS
+    path('listado-de-medicos/', ReporteMedicos.as_view(), name='reporte_medicos'),
+    path('detalle-de-medico/<int:pk>/', ReporteDetalleMedico.as_view(), name='reporte_detalle_medico'),
+    # USUARIOS
+    path('listado-de-usuarios/', ReporteUsuarios.as_view(), name='reporte_usuarios'),
+    path('detalle-de-usuario/<int:pk>/', ReporteDetalleUsuario.as_view(), name='reporte_detalle_usuario'),
+    # PRESUPUESTO
+    path('listado-de-presupuestos/', ReportePresupuestos.as_view(), name='reporte_presupuestos'),
+    path('detalle-de-presupuesto/<int:pk>/', ReporteDetallePresupuesto.as_view(), name='reporte_detalle_presupuesto'),
 ]

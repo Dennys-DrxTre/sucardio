@@ -67,3 +67,25 @@ class EditarPasswordUsuarioForm(forms.ModelForm):
       # Verificar si las contraseñas son iguales
       if password != password2:
          self.add_error('password', 'Las contraseñas no coinciden.')
+
+class RegistrarMiUsuarioForm(forms.ModelForm):
+   password = forms.CharField(max_length=63, widget=forms.PasswordInput)
+   password2 = forms.CharField(max_length=63, widget=forms.PasswordInput)
+
+   class Meta:
+      model = Usuario
+      fields = ['cedula','nombre', 'apellido','telefono']
+
+   def clean(self):
+      cleaned_data = super().clean()
+      cedula = cleaned_data.get("cedula")
+      password = cleaned_data.get("password")
+      password2 = cleaned_data.get("password2")
+
+      # Verificar si el usuario ya existe
+      if User.objects.filter(username=cedula).exists():
+         self.add_error('cedula', 'Un usuario con esta cedula de usuario ya existe.')
+
+      # Verificar si las contraseñas son iguales
+      if password != password2:
+         self.add_error('password', 'Las contraseñas no coinciden.')
