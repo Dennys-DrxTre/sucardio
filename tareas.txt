@@ -4,17 +4,37 @@
   
   # Reportes Generales, y de detalle
     - citas (Jose)
-    - servicios (Jose)
-    - presupuestos (Dennys)
+
+# BUSCADOR ASINCRONICO EN EL MOTOR DE BUSQUEDA (DENNYS)
+# mi perfil (DENNYS)
 
 # Fórmularios del landing page (José) (PENDIENTE, OPCIONAL)
 
 (Correcciones)
-registrar campo de fecha_emision en presupuesto con 15 dias mas en el campo de fecha_vencimiento (Dennys)
+#registrar campo de fecha_emision en presupuesto con 15 dias mas en el campo de fecha_vencimiento (Dennys)
 favi icon (dennys)
+# en los selects de los formulario que filtren segun el tipo de usuario (JOSE)
+# mejorar colores en el landing (JOSE)
+# generar citas solo si estan aprobados o rechazados (DENNYS)
+# poner la url en el cambiar contrasena (JOSE)
+# quitar (nombre de usuario en registro de usuario en el campo de cedula), agregar campo de direccion (DENNYS) el segundo numero no
+# por required en todo los formularios de medico (DENNYS)
+# quitar mi cuenta en el template admin (JOSE)
+# agegar permisos en reportes (JOSE)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 permission_required = 'anuncios.requiere_usuario'
-
 permission_required = 'anuncios.requiere_admin'
-
 permission_required = 'anuncios.requiere_secretria'
