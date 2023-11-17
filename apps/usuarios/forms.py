@@ -27,10 +27,14 @@ class RegistrarUsuarioAdmin(forms.ModelForm):
       cedula = cleaned_data.get("cedula")
       password = cleaned_data.get("password")
       password2 = cleaned_data.get("password2")
+      telefono = cleaned_data.get("telefono")
 
       # Verificar si el usuario ya existe
       if User.objects.filter(username=cedula).exists():
          self.add_error('cedula', 'Un usuario con esta cedula de usuario ya existe.')
+
+      if Usuario.objects.filter(telefono=telefono).exists():
+         self.add_error('telefono', 'El numero telefonico ya esta registrado.')
 
       # Verificar si las contraseñas son iguales
       if password != password2:
@@ -46,7 +50,10 @@ class EditarUsuarioAdmin(forms.ModelForm):
    def clean(self):
       cleaned_data = super().clean()
       cedula = cleaned_data.get("cedula")
+      telefono = cleaned_data.get("telefono")
 
+      if Usuario.objects.exclude(pk=self.instance.pk).filter(telefono=telefono).exists():
+         self.add_error('telefono', 'El numero telefonico ya esta registrado.')
       # Verificar si el usuario ya existe
       if Usuario.objects.exclude(pk=self.instance.pk).filter(cedula=cedula).exists():
          self.add_error('cedula', 'Un usuario con esta cedula de usuario ya existe.')
@@ -74,17 +81,21 @@ class RegistrarMiUsuarioForm(forms.ModelForm):
 
    class Meta:
       model = Usuario
-      fields = ['cedula','nombre', 'apellido','telefono']
+      fields = ['cedula','nombre', 'apellido','telefono', 'direccion']
 
    def clean(self):
       cleaned_data = super().clean()
       cedula = cleaned_data.get("cedula")
       password = cleaned_data.get("password")
       password2 = cleaned_data.get("password2")
+      telefono = cleaned_data.get("telefono")
 
       # Verificar si el usuario ya existe
       if User.objects.filter(username=cedula).exists():
          self.add_error('cedula', 'Un usuario con esta cedula de usuario ya existe.')
+
+      if Usuario.objects.filter(telefono=telefono).exists():
+         self.add_error('telefono', 'El numero telefonico ya esta registrado.')
 
       # Verificar si las contraseñas son iguales
       if password != password2:

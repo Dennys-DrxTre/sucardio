@@ -17,7 +17,7 @@ favi icon (dennys)
 # mejorar colores en el landing (JOSE)
 # generar reporte cita solo si estan aprobados o rechazados (DENNYS) ------------ (LISTO)
 # poner la url en el cambiar contrasena (JOSE)
-# quitar (nombre de usuario en registro de usuario en el campo de cedula), agregar campo de direccion (DENNYS) el segundo numero no
+# quitar (nombre de usuario en registro de usuario en el campo de cedula), agregar campo de direccion (DENNYS) ------------ (LISTO)
 # por required en todo los formularios de medico (DENNYS) ------------ (LISTO)
 # quitar mi cuenta en el template admin (JOSE)
 # agegar permisos en reportes (JOSE)

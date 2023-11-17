@@ -70,6 +70,15 @@
                                 </div>
                             </div>
 
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-4">
+                                        {{ form.direccion|add_class:'form-control'|attr:'placeholder:Ingrese la direccion.'|attr:'required'|attr:'rows:4' }}
+                                        <label for="id_direccion">Ingrese la direccion</label>
+                                    </div>
+                                </div>
+                            </div>
+
                             <button type="submit" class="btn btn-primary rounded-pill btn-login w-100 mb-2">Ingresar</button>
                         </form>
                         <!--/.social -->
