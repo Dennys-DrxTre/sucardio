@@ -1,5 +1,5 @@
 from django.urls import path
-from .views.citas.views import ReportePrueba, DetalleCita, CitasDelDia
+from .views.citas.views import ReportePrueba, DetalleCita, CitasDelDia, DetalleMiCita
 from .views.medicos.views import ReporteMedicos,ReporteDetalleMedico
 from .views.usuarios.views import ReporteUsuarios, ReporteDetalleUsuario
 from .views.presupuesto.views import ReportePresupuestos, ReporteDetallePresupuesto,ReporteDetalleMiPresupuesto
@@ -9,6 +9,7 @@ APP_NAME = 'reportes'
 urlpatterns = [
     # PRUEBA
     path('detalle-de-cita/<int:pk>/', DetalleCita.as_view(), name='det_cita'),
+    path('detalle-de-mi-cita/<int:pk>/', DetalleMiCita.as_view(), name='det_mi_cita'),
     path('citas-del-dia/<int:pk>/', CitasDelDia.as_view(), name='citas_dia'),
     # MEDICOS
     path('listado-de-medicos/', ReporteMedicos.as_view(), name='reporte_medicos'),

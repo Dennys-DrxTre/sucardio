@@ -64,7 +64,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="id_fecha_ingreso">Fecha de ingreso</label>
-                                {{ form.fecha_ingreso|add_class:'form-control'|attr:'type:date' }}
+                                {{ form.fecha_ingreso|add_class:'form-control'|attr:'type:date'|attr:'required' }}
                             </div>
                         </div>
                     </div>
@@ -72,13 +72,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="id_horario_inicio">Horario inicial</label>
-                                {{ form.horario_inicio|add_class:'form-control'|attr:'type:time' }}
+                                {{ form.horario_inicio|add_class:'form-control'|attr:'type:time'|attr:'required' }}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="id_horario_final">Horario final</label>
-                                {{ form.horario_final|add_class:'form-control'|attr:'type:time' }}
+                                {{ form.horario_final|add_class:'form-control'|attr:'type:time'|attr:'required' }}
                             </div>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="id_direccion">Direccion</label>
-                                {{ form.direccion|add_class:'form-control'|attr:'placeholder:Introduzca la direccion'|attr:'rows:4' }}
+                                {{ form.direccion|add_class:'form-control'|attr:'placeholder:Introduzca la direccion'|attr:'rows:4'|attr:'required' }}
                             </div>
                         </div>
                     </div>

@@ -16,6 +16,12 @@ class MedicoEditForm(forms.ModelForm):
 	class Meta:
 		model = Medico
 		fields = '__all__'
+		widgets = {
+			'fecha_ingreso': forms.DateInput(
+				format=('%Y-%m-%d'), 
+				attrs={'type': 'date'}
+			)
+		}
 
 	def clean_cedula(self):
 		data = self.cleaned_data['cedula']

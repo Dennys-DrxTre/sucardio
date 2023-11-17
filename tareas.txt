@@ -15,10 +15,10 @@
 favi icon (dennys)
 # en los selects de los formulario que filtren segun el tipo de usuario (JOSE)
 # mejorar colores en el landing (JOSE)
-# generar citas solo si estan aprobados o rechazados (DENNYS)
+# generar reporte cita solo si estan aprobados o rechazados (DENNYS) ------------ (LISTO)
 # poner la url en el cambiar contrasena (JOSE)
 # quitar (nombre de usuario en registro de usuario en el campo de cedula), agregar campo de direccion (DENNYS) el segundo numero no
-# por required en todo los formularios de medico (DENNYS)
+# por required en todo los formularios de medico (DENNYS) ------------ (LISTO)
 # quitar mi cuenta en el template admin (JOSE)
 # agegar permisos en reportes (JOSE)
 
