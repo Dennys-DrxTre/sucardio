@@ -9,6 +9,7 @@ from .views import (
     ListadoMiPresupuesto, 
     DetalleMiPresupuesto,
     RegistrarMiPresupuesto,
+    MiPerfil
 )
 
 APP_NAME = 'landingpage'
@@ -25,4 +26,7 @@ urlpatterns = [
     path('registrar-mi-presupuesto/', RegistrarMiPresupuesto.as_view(), name='registrar_mi_presupuesto'),
     path('mi-presupuesto/', ListadoMiPresupuesto.as_view(), name='mi_presupuesto'),
     path('detalle-de-mi-presupuesto/<int:pk>/', DetalleMiPresupuesto.as_view(), name='detalle_mi_presupuesto'),
+
+    # Mi Perfil
+    path('mi-perfil/', MiPerfil.as_view(), name='mi_perfil'),
 ]

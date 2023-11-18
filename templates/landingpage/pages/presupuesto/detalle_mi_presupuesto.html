@@ -38,7 +38,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-2">
                             <div class="col">
                                 <h5 class="card-title">Metodo de Pago</h5>
                                 <p class="card-text">
@@ -49,6 +49,20 @@
                                 <h5 class="card-title">Total</h5>
                                 <p class="card-text">
                                     ${{ presupuesto.total|floatformat:2 }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title">Fecha de registro</h5>
+                                <p class="card-text">
+                                    {{ presupuesto.fecha|date:"d/m/Y" }}
+                                </p>
+                            </div>
+                            <div class="col">
+                                <h5 class="card-title">Fecha de vencimiento</h5>
+                                <p class="card-text">
+                                    {{ presupuesto.fecha_vencimiento|date:"d/m/Y" }}
                                 </p>
                             </div>
                         </div>

@@ -9,7 +9,7 @@
 	<meta name="keywords" content="sucardio, clinica, medicos, medicina, guanare">
 	<meta name="author" content="anonimo">
 	<title>{{ sub_title }} | SUCARDIO</title>
-	<link rel="shortcut icon" href="{% static 'assets_landing_page/img/favicon.png' %}">
+	<link rel="icon" href="{% static 'img/favicon.ico' %}"/>
 	<link rel="stylesheet" href="{% static 'assets_landing_page/css/plugins.css' %}">
 	<link rel="stylesheet" href="{% static 'assets_landing_page/css/style.css' %}">
 	<link rel="stylesheet" href="{% static 'assets_landing_page/css/colors/green.css' %}">
@@ -42,7 +42,7 @@
 							<li class="nav-item dropdown language-select text-uppercase">
 								<a class="nav-link dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil uil-user"></i></a>
 								<ul class="dropdown-menu">
-								<!-- <li class="nav-item"><a class="dropdown-item" href="#">Perfil</a></li> -->
+								<li class="nav-item"><a class="dropdown-item" href="{% url 'mi_perfil' %}">Perfil</a></li>
 								<li class="nav-item"><a class="dropdown-item" href="{% url 'mis_citas' %}">Mis Citas</a></li>
 								<li class="nav-item"><a class="dropdown-item" href="{% url 'mi_presupuesto' %}">Mi Presupuesto</a></li>
 								<li class="nav-item"><a class="dropdown-item" href="{% url 'cambiar_clave' %}">Cambiar contraseña</a></li>

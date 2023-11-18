@@ -1,9 +1,12 @@
 from django.db import models
 from apps.citas.models import Usuario, ModeloBaseEstado
 from .choices import metodos_pago
-from datetime import date
+from datetime import date, timedelta
 from django.urls import reverse
 # Create your models here.
+
+def obtener_fecha_vencimiento():
+    return date.today() + timedelta(days=15)
 
 class Servicio(ModeloBaseEstado):
 	nombre_serv = models.CharField(max_length=50, null=False, blank=False)
@@ -24,6 +27,7 @@ class Presupuesto(ModeloBaseEstado):
 	metodo_pago = models.CharField(max_length=50, choices=metodos_pago, null=False, blank=False, default='Pago móvil')
 	total = models.FloatField(default=0.00, null=True, blank=True)
 	fecha = models.DateField(auto_now=False, auto_now_add=False, default=date.today, null=True, blank=True)
+	fecha_vencimiento = models.DateField(auto_now=False, auto_now_add=False, default=obtener_fecha_vencimiento, null=True, blank=True)
 	servicio = models.ManyToManyField(Servicio)
 
 	def __str__(self):

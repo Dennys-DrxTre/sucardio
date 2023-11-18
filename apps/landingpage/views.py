@@ -177,6 +177,22 @@ class DetalleMiCita(ValidarUsuario, DetailView):
 		return context
 
 
+class MiPerfil(ValidarUsuario, TemplateView):
+	template_name = 'landingpage/pages/mi_perfil.html'
+	permission_required = 'anuncios.requiere_usuario'
+
+	def get(self, request,*args, **kwargs):
+		context = {}
+		
+		try:
+			usuario = Usuario.objects.get(user = request.user.pk)
+			context['usuario'] = usuario
+			context["sub_title"] = "Mi perfil"
+		except Usuario.DoesNotExist:
+			return redirect('inicio_front')
+		
+		return render(request, self.template_name, context)
+
 class Contacto(TemplateView):
 	template_name = 'landingpage/pages/contacto.html'
 
