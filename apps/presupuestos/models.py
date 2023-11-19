@@ -1,5 +1,5 @@
 from django.db import models
-from apps.citas.models import Usuario, ModeloBaseEstado
+from apps.citas.models import Usuario, ModeloBaseEstado, Medico
 from .choices import metodos_pago
 from datetime import date, timedelta
 from django.urls import reverse
@@ -12,7 +12,7 @@ class Servicio(ModeloBaseEstado):
 	nombre_serv = models.CharField(max_length=50, null=False, blank=False)
 	descripcion = models.TextField(null=True, blank=True)
 	precio_serv = models.FloatField(default=0.00, null=False, blank=False)
-	medico = models.ForeignKey(Usuario, on_delete=models.PROTECT)
+	medico = models.ForeignKey(Medico, on_delete=models.PROTECT)
 
 	def __str__(self):
 		return self.nombre_serv

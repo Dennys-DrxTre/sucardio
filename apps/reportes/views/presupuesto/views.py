@@ -11,8 +11,10 @@ from django.shortcuts import redirect
 from ...utils import link_callback
 from apps.presupuestos.models import Presupuesto
 from apps.anuncios.models import Usuario
+from apps.usuarios.mixins import ValidarUsuario
 
-class ReportePresupuestos(View):
+class ReportePresupuestos(ValidarUsuario, View):
+	permission_required = 'anuncios.requiere_secretria'
 
 	@method_decorator(login_required)
 	def dispatch(self, request, *args, **kwargs):
@@ -39,7 +41,8 @@ class ReportePresupuestos(View):
 		except Exception as e:
 			return JsonResponse({'error': str(e)}, safe=False)
 
-class ReporteDetallePresupuesto(View):
+class ReporteDetallePresupuesto(ValidarUsuario, View):
+	permission_required = 'anuncios.requiere_secretria'
 
 	@method_decorator(login_required)
 	def dispatch(self, request, *args, **kwargs):
@@ -67,8 +70,9 @@ class ReporteDetallePresupuesto(View):
 		except Exception as e:
 			return JsonResponse({'error': str(e)}, safe=False)
 		
-class ReporteDetalleMiPresupuesto(View):
-
+class ReporteDetalleMiPresupuesto(ValidarUsuario, View):
+	permission_required = 'anuncios.requiere_usuario'
+	
 	@method_decorator(login_required)
 	def dispatch(self, request, *args, **kwargs):
 		return super().dispatch(request, *args, **kwargs)

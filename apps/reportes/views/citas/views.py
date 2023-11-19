@@ -12,8 +12,10 @@ from django.shortcuts import redirect
 
 from ...utils import link_callback
 from apps.citas.models import Cita, Medico, Usuario
+from apps.usuarios.mixins import ValidarUsuario
 
-class ReportePrueba(View):
+class TodasLasCitas(ValidarUsuario, View):
+	permission_required = 'anuncios.requiere_secretria'
 
 	@method_decorator(login_required)
 	def dispatch(self, request, *args, **kwargs):
@@ -21,24 +23,28 @@ class ReportePrueba(View):
 	
 	def get(self, request, *args, **kwargs):
 		try:
+			cita = Cita.objects.all().order_by('-id')
 			formato_fecha = datetime.datetime.now().strftime("%d/%m/%Y")
 			context = {
-				'report_title': 'Reporte de prueba',
+				'report_title': 'Listado de citas',
 				'logo_img': '{}'.format('static/img/uce_logo.png'),
 				'user': f'{request.user.get_full_name()}',
+				'cita': cita,
 				'date': formato_fecha,
 				'request':request,
 			}
-			template_path= get_template('reportes/prueba.html')
+			template_path= get_template('reportes/todas_citas.html')
 			html = template_path.render(context)
 			response = HttpResponse(content_type='application/pdf')
 			pisa.CreatePDF(html, dest=response, link_callback=link_callback)
 			return response
-		
+		except Cita.DoesNotExist:
+			return redirect('listado_citas')
 		except Exception as e:
 			return JsonResponse({'error': str(e)}, safe=False)
 
-class DetalleCita(View):
+class DetalleCita(ValidarUsuario, View):
+	permission_required = 'anuncios.requiere_secretria'
 
 	@method_decorator(login_required)
 	def dispatch(self, request, *args, **kwargs):
@@ -66,7 +72,8 @@ class DetalleCita(View):
 		except Exception as e:
 			return JsonResponse({'error': str(e)}, safe=False)
 		
-class DetalleMiCita(View):
+class DetalleMiCita(ValidarUsuario, View):
+	permission_required = 'anuncios.requiere_usuario'
 
 	@method_decorator(login_required)
 	def dispatch(self, request, *args, **kwargs):
@@ -100,7 +107,8 @@ class DetalleMiCita(View):
 		except Exception as e:
 			return JsonResponse({'error': str(e)}, safe=False)
 
-class CitasDelDia(View):
+class CitasDelDia(ValidarUsuario, View):
+	permission_required = 'anuncios.requiere_secretria'
 
 	@method_decorator(login_required)
 	def dispatch(self, request, *args, **kwargs):

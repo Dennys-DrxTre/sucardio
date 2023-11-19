@@ -12,8 +12,10 @@ from django.shortcuts import redirect
 
 from ...utils import link_callback
 from apps.citas.models import Medico
+from apps.usuarios.mixins import ValidarUsuario
 
-class ReporteMedicos(View):
+class ReporteMedicos(ValidarUsuario, View):
+	permission_required = 'anuncios.requiere_secretria'
 
 	@method_decorator(login_required)
 	def dispatch(self, request, *args, **kwargs):
@@ -40,7 +42,8 @@ class ReporteMedicos(View):
 		except Exception as e:
 			return JsonResponse({'error': str(e)}, safe=False)
 
-class ReporteDetalleMedico(View):
+class ReporteDetalleMedico(ValidarUsuario, View):
+	permission_required = 'anuncios.requiere_secretria'
 
 	@method_decorator(login_required)
 	def dispatch(self, request, *args, **kwargs):
