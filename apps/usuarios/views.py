@@ -9,6 +9,9 @@ from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.urls import reverse
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 from apps.citas.models import Medico, Cita
 from apps.presupuestos.models import Presupuesto
@@ -83,64 +86,78 @@ class SearchView(ValidarUsuario, View):
 	permission_required = 'anuncios.requiere_secretria'
 	form_class = SearchForm
 
+	@method_decorator(csrf_exempt)
+	def dispatch(self, request, *args, **kwargs):
+		return super().dispatch(request, *args, **kwargs)
+
 	def get(self, request, *args, **kwargs):
-		context = {}
-		context['sub_title'] = 'Resultados de busquedas'
-		context['title'] = 'Buscador'
+		data = {}
+		query = request.GET.get('search', '')
+		medicos = Medico.objects.filter(
+			Q(cedula__icontains=query) | 
+			Q(nombre__icontains=query)| 
+			Q(apellido__icontains=query))
+		usuarios = Usuario.objects.filter(
+			Q(user__username__icontains=query) | 
+			Q(nombre__icontains=query))
+		citas = Cita.objects.filter(
+			Q(id__icontains=query) | 
+			Q(medico__nombre__icontains=query)| 
+			Q(medico__cedula__icontains=query))
+		presupuestos = Presupuesto.objects.filter(
+			Q(id__icontains=query) | 
+			Q(cliente__cedula__icontains=query)|
+			Q(cliente__nombre__icontains=query)|  
+			Q(metodo_pago__icontains=query))
+		anuncios = Anuncios.objects.filter(
+			Q(descripcion__icontains=query) | 
+			Q(titulo__icontains=query)| 
+			Q(autor__cedula__icontains=query))
 
-		form = self.form_class(request.GET)
-		if form.is_valid():
-			query = form.cleaned_data['search']
-			medicos = Medico.objects.filter(
-				Q(cedula__icontains=query) | 
-				Q(nombre__icontains=query)| 
-				Q(apellido__icontains=query))
-			usuarios = Usuario.objects.filter(
-				Q(user__username__icontains=query) | 
-				Q(nombre__icontains=query))
-			citas = Cita.objects.filter(
-				Q(id__icontains=query) | 
-				Q(medico__nombre__icontains=query)| 
-				Q(medico__cedula__icontains=query))
-			presupuestos = Presupuesto.objects.filter(
-				Q(id__icontains=query) | 
-				Q(cliente__cedula__icontains=query)|
-				Q(cliente__nombre__icontains=query)|  
-				Q(metodo_pago__icontains=query))
-			anuncios = Anuncios.objects.filter(
-				Q(descripcion__icontains=query) | 
-				Q(titulo__icontains=query)| 
-				Q(autor__cedula__icontains=query))
+		medicos_count = medicos.count()
+		usuarios_count = usuarios.count()
+		citas_count = citas.count()
+		presupuestos_count = presupuestos.count()
+		anuncios_count = anuncios.count()
 
-			medicos_count = medicos.count()
-			usuarios_count = usuarios.count()
-			citas_count = citas.count()
-			presupuestos_count = presupuestos.count()
-			anuncios_count = anuncios.count()
-			# combinar los resultados y pasarlos al contexto del template
-			results = list(chain(medicos, usuarios, citas, presupuestos, anuncios))
-			total_results = medicos_count + usuarios_count + citas_count + presupuestos_count + anuncios_count
+		medicos = [medico.toJSON() for medico in medicos]
+		usuarios = [usuario.toJSON() for usuario in usuarios]
+		citas = [cita.toJSON() for cita in citas]
+		presupuestos = [presupuesto.toJSON() for presupuesto in presupuestos]
+		anuncios = [anuncio.toJSON() for anuncio in anuncios]
+		# combinar los resultados y pasarlos al contexto del template
+		results = list(chain(medicos, usuarios, citas, presupuestos, anuncios))
+		total_results = medicos_count + usuarios_count + citas_count + presupuestos_count + anuncios_count
+		paginator = Paginator(results, 10)  # Muestra 10 resultados por página
 
-			paginator = Paginator(results, 8)  # Muestra 10 resultados por página
+		# Obtiene el número de página del parámetro GET 'page'. Si no existe, asume 1.
+		page_number = request.GET.get('page', 1)
 
-			# Obtiene el número de página del parámetro GET 'page'. Si no existe, asume 1.
-			page_number = request.GET.get('page', 1)
-
-			try:
-				page_obj = paginator.page(page_number)
-			except PageNotAnInteger:
-				# Si la página no es un entero, muestra la primera página.
-				page_obj = paginator.page(1)
-			except EmptyPage:
-				# Si la página está fuera de rango (por ejemplo, 9999), muestra la última página de resultados.
-				page_obj = paginator.page(paginator.num_pages)
-
-			context['results'] = page_obj
-			context['total_results'] = total_results
-			context['query'] = query
+		try:
+			page_obj = paginator.page(page_number)
+		except PageNotAnInteger:
+			# Si la página no es un entero, muestra la primera página.
+			page_obj = paginator.page(1)
+		except EmptyPage:
+			# Si la página está fuera de rango (por ejemplo, 9999), muestra la última página de resultados.
+			page_obj = paginator.page(paginator.num_pages)
+		page_dict = [obj for obj in page_obj.object_list]
+		next_page_number = page_obj.next_page_number() if page_obj.has_next() else None
+		previous_page_number = page_obj.previous_page_number() if page_obj.has_previous() else None
+		if page_dict:
+			data['results'] = page_dict
+			data['total_results'] = total_results
+			data['query'] = query
+			data['message'] = 'success'
+			data['current_page'] = page_obj.number,
+			data['total_pages'] = paginator.num_pages,
+			data['next_page'] = next_page_number,
+			data['previous_page'] = previous_page_number,
 		else:
-			results = []
-		return render(request, self.template_name, context)
+			data['results'] = []
+			data['message'] = 'error'
+
+		return JsonResponse(data, safe=False)
 
 class ListadoUsuarios(ValidarUsuario, TemplateView):
 	template_name = 'pages/usuarios/listado_usuarios.html'

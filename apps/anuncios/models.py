@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.forms import model_to_dict
+from datetime import date
 # Create your models here.
 
 class Persona(models.Model):
@@ -47,6 +49,13 @@ class Usuario(Persona):
 	def __str__(self):
 		return str(f'{self.cedula} | {self.nombre} | {self.apellido}')
 
+	def toJSON(self):
+		item = model_to_dict(self)
+		item['model'] = 'Usuario'
+		item['url'] = self.get_absolute_url()
+		item['fecha_registro'] = date.strftime(self.fecha_registro, '%d/%m/%Y')
+		return item
+
 	def get_absolute_url(self):
 		return reverse('detalle_usuario', args=[self.id])
 
@@ -79,6 +88,14 @@ class Anuncios(ModeloBaseEstado):
 	def __str__(self):
 		return self.titulo
 	
+	def toJSON(self):
+		item = model_to_dict(self)
+		item['model'] = 'Anuncio'
+		item['url'] = self.get_absolute_url()
+		item['imagen'] = ''
+		item['autor'] = {'pk':self.autor.pk, 'cedula':self.autor.cedula, 'nombre':self.autor.nombre, 'apellido':self.autor.apellido}
+		return item
+
 	def get_absolute_url(self):
 		return reverse('detalle_anuncio', args=[self.id])
 

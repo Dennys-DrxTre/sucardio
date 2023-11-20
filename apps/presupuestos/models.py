@@ -3,6 +3,8 @@ from apps.citas.models import Usuario, ModeloBaseEstado
 from .choices import metodos_pago
 from datetime import date, timedelta
 from django.urls import reverse
+from django.forms import model_to_dict
+
 # Create your models here.
 
 def obtener_fecha_vencimiento():
@@ -33,6 +35,16 @@ class Presupuesto(ModeloBaseEstado):
 	def __str__(self):
 		return str(self.id) + ' - ' + str(self.fecha)
 	
+	def toJSON(self):
+		item = model_to_dict(self)
+		item['model'] = 'Presupuesto'
+		item['servicio'] = ''
+		item['url'] = self.get_absolute_url()
+		item['cliente'] = {'pk':self.cliente.pk, 'cedula':self.cliente.cedula, 'nombre':self.cliente.nombre, 'apellido':self.cliente.apellido}
+		item['fecha'] = date.strftime(self.fecha, '%d/%m/%Y')
+		item['fecha_vencimiento'] = date.strftime(self.fecha_vencimiento, '%d/%m/%Y')
+		return item
+
 	def get_absolute_url(self):
 		return reverse('detalle_presupuesto', args=[self.id])
 

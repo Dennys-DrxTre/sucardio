@@ -3,6 +3,8 @@ from apps.anuncios.models import Usuario, Persona, ModeloBaseEstado
 from .choices import especialidades
 from apps.presupuestos.choices import metodos_pago
 from django.urls import reverse
+from django.forms import model_to_dict
+from datetime import date
 
 class Medico(Persona):
 
@@ -19,6 +21,13 @@ class Medico(Persona):
 	def __str__(self):
 		return str(f'{self.nombre} {self.apellido} | {self.especialidad}')
 	
+	def toJSON(self):
+		item = model_to_dict(self)
+		item['model'] = 'Medico'
+		item['url'] = self.get_absolute_url()
+		item['fecha_ingreso'] = date.strftime(self.fecha_ingreso, '%d/%m/%Y')
+		return item
+
 	def get_absolute_url(self):
 		return reverse('detalle_medico', args=[self.id])
 
@@ -47,7 +56,17 @@ class Cita(ModeloBaseEstado):
 
 	def __str__(self):
 		return str(self.id)
-	
+
+	def toJSON(self):
+		item = model_to_dict(self)
+		item['model'] = 'Cita'
+		item['url'] = self.get_absolute_url()
+		item['medico'] = {'pk':self.medico.pk, 'cedula':self.medico.cedula, 'nombre':self.medico.nombre, 'apellido':self.medico.apellido}
+		item['cliente'] = {'pk':self.cliente.pk, 'cedula':self.cliente.cedula, 'nombre':self.cliente.nombre, 'apellido':self.cliente.apellido}
+		if self.fecha_cita:
+			item['fecha_cita'] = date.strftime(self.fecha_cita, '%d/%m/%Y')
+		return item
+
 	def get_absolute_url(self):
 		return reverse('detalle_cita', args=[self.id])
 

@@ -15,7 +15,9 @@
 	<link rel="stylesheet" href="{% static 'assets_landing_page/css/colors/green.css' %}">
 	<link rel="stylesheet" href="{% static 'assets/css/jquery-ui.min.css' %}" />
 	<link rel="stylesheet" href="{% static 'assets/fonts/tabler-icons.min.css' %}" />
-
+    <!-- select2 -->
+    <link rel="stylesheet" href="{% static 'assets/css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/select2-bootstrap4.min.css' %}">
 	{% block link_ladingpage %}
 	{% endblock link_ladingpage %}
 		
@@ -213,10 +215,13 @@
 			<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
 		</svg>
 	</div>
+
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 	<script src="{% static 'assets_landing_page/js/plugins.js' %}"></script>
 	<script src="{% static 'assets_landing_page/js/theme.js' %}"></script>
 	<script src="{% static 'js/base.js' %}"></script>
+	<script src="{% static 'assets/js/plugins/i18n/es.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/select2.min.js' %}"></script>
 	{% block js_ladingpage %}
 	{% endblock js_ladingpage %}
 </body>
