@@ -30,19 +30,6 @@ class ListadoCita(ValidarUsuario, ListView):
 		context['medicos'] = Medico.objects.all()
 		return context
 
-"""
-class DetallesCita(SuccessMessageMixin, DetailView):
-	template_name = 'pages/citas/detalles_cita.html'
-	model = Cita
-	context_object_name = 'cita'
-
-	def get_context_data(self, **kwargs):
-		context = super().get_context_data(**kwargs)
-		context["title"] = "Cita"
-		context["sub_title"] = "Detalle de cita"
-		return context
-"""
-
 class DetallesCita(ValidarUsuario, TemplateView):
 	template_name = 'pages/citas/detalles_cita.html'
 	permission_required = 'anuncios.requiere_secretria'

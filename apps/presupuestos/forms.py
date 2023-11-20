@@ -1,10 +1,15 @@
 from django import forms
 from .models import Servicio, Presupuesto
+from apps.citas.models import Medico
 
 class ServicioForm(forms.ModelForm):
 	class Meta:
 		model = Servicio
 		fields = '__all__'
+
+	def __init__(self, *args, **kwargs):
+		super(ServicioForm, self).__init__(*args, **kwargs)
+		self.fields['medico'].queryset = Medico.objects.filter(estado='AC')
 
 	def clean_nombre_serv(self):
 		data = self.cleaned_data['nombre_serv']

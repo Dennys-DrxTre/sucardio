@@ -11,8 +11,10 @@ from django.shortcuts import redirect
 from ...utils import link_callback
 from apps.anuncios.models import Usuario
 from django.contrib.auth.models import User
+from apps.usuarios.mixins import ValidarUsuario
 
-class ReporteUsuarios(View):
+class ReporteUsuarios(ValidarUsuario, View):
+	permission_required = 'anuncios.requiere_secretria'
 
 	@method_decorator(login_required)
 	def dispatch(self, request, *args, **kwargs):
@@ -39,7 +41,8 @@ class ReporteUsuarios(View):
 		except Exception as e:
 			return JsonResponse({'error': str(e)}, safe=False)
 
-class ReporteDetalleUsuario(View):
+class ReporteDetalleUsuario(ValidarUsuario, View):
+	permission_required = 'anuncios.requiere_secretria'
 
 	@method_decorator(login_required)
 	def dispatch(self, request, *args, **kwargs):

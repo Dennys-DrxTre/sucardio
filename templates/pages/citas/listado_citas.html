@@ -8,9 +8,9 @@
         <button type="button"class="btn btn-icon btn-light-dark ml-10" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Reporte de citas del dia">
           <i class="fas fa-file-pdf"></i>
         </button>
-        <!-- <a href="#" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar cita">
-            <i class="fas fa-plus"></i>
-        </a> -->
+        <a href="{% url 'todas_citas' %}" target="_blank" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Todas las citas">
+            <i class="fas fa-file-pdf"></i>
+        </a>
     </div>
 
 {% endblock head_datatable %}
