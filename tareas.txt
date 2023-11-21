@@ -5,19 +5,10 @@
   # Reportes Generales, y de detalle
     - citas (Jose) (LISTO)
 
-# BUSCADOR ASINCRONICO EN EL MOTOR DE BUSQUEDA (DENNYS) ------------ (LISTO)
-# mi perfil (DENNYS) ------------ (LISTO)
-
-
 (Correcciones)
-#registrar campo de fecha_emision en presupuesto con 15 dias mas en el campo de fecha_vencimiento (Dennys) ------------ (LISTO)
-favi icon (dennys) ------------ (LISTO)
 # en los selects de los formulario que filtren segun el tipo de usuario (JOSE) (LISTO)
 # mejorar colores en el landing (JOSE)
-# generar reporte cita solo si estan aprobados o rechazados (DENNYS) ------------ (LISTO)
 # poner la url en el cambiar contrasena (JOSE) (LISTO)
-# quitar (nombre de usuario en registro de usuario en el campo de cedula), agregar campo de direccion (DENNYS) ------------ (LISTO)
-# por required en todo los formularios de medico (DENNYS) ------------ (LISTO)
 # quitar mi cuenta en el template admin (JOSE) (LISTO)
 # agegar permisos en reportes (JOSE) (LISTO)
 
