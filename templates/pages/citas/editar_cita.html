@@ -31,7 +31,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="id_fecha_cita">Fecha de la cita (formato d/m/a)</label>
-                                {{ form.fecha_cita|add_class:'form-control'}}
+                                {{ form.fecha_cita|add_class:'form-control'|attr:'type:date'}}
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -54,4 +54,14 @@
 {% endblock %}
 
 {% block js %}
+    <script>
+    var dateControl = document.getElementById('id_fecha_cita');
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+    dateControl.min = today;
+    </script>
 {% endblock js %}

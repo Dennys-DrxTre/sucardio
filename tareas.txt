@@ -5,7 +5,7 @@
   # Reportes Generales, y de detalle
     - citas (Jose) (LISTO)
 
-# BUSCADOR ASINCRONICO EN EL MOTOR DE BUSQUEDA (DENNYS)
+# BUSCADOR ASINCRONICO EN EL MOTOR DE BUSQUEDA (DENNYS) ------------ (LISTO)
 # mi perfil (DENNYS) ------------ (LISTO)
 
 

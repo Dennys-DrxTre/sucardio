@@ -40,7 +40,7 @@
         <tbody>
             {% for cita in cita_list %}
                 <tr>
-                    <td>{{cita.cliente}}</td>
+                    <td>{{cita.cliente.cedula}}</td>
                     <td>{{cita.control_pac|yesno:"Si,No"}}</td>
                     <td>{{cita.motivo_consulta|truncatechars:30}}</td>
                     <td>{{cita.metodo_pago}}</td>
