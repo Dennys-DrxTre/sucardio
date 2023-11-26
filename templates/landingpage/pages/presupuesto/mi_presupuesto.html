@@ -45,27 +45,33 @@
                                 </thead>
                                 <tbody>
                                     {% for presupuesto in presupuestos %}
-                                    <tr>
-                                        <th scope="row">{{presupuesto.id}}</th>
-                                        <td>{{presupuesto.metodo_pago}}</td>
-                                        <td>
-                                            
-                                            {% for servicio in presupuesto.servicio.all %}
-                                                <span class="badge bg-dark rounded-pill mr-2">{{ servicio }}</span>
-
-                                            {% endfor %}
+                                        <tr>
+                                            <th scope="row">{{presupuesto.id}}</th>
+                                            <td>{{presupuesto.metodo_pago}}</td>
+                                            <td>
                                                 
-                                        </td>
-                                        <td>${{presupuesto.total|floatformat:2}}</td>
-                                        <td>
-                                            <a href="{% url 'detalle_mi_presupuesto' presupuesto.pk %}" class="btn btn-icon btn-sm rounded-pill btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle del presupuesto">
-                                                <i class="uil uil-file-alt"></i>
-                                            </a>
-                                            <a href="{% url 'reporte_detalle_mi_presupuesto' presupuesto.id %}" target="_blank" class="btn btn-icon btn-sm rounded-pill btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar PDF">
-                                                <i class="uil uil-file-export"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
+                                                {% for servicio in presupuesto.servicio.all %}
+                                                    <span class="badge bg-dark rounded-pill mr-2">{{ servicio }}</span>
+
+                                                {% endfor %}
+                                                    
+                                            </td>
+                                            <td>${{presupuesto.total|floatformat:2}}</td>
+                                            <td>
+                                                <a href="{% url 'detalle_mi_presupuesto' presupuesto.pk %}" class="btn btn-icon btn-sm rounded-pill btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Detalle del presupuesto">
+                                                    <i class="uil uil-file-alt"></i>
+                                                </a>
+                                                <a href="{% url 'reporte_detalle_mi_presupuesto' presupuesto.id %}" target="_blank" class="btn btn-icon btn-sm rounded-pill btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar PDF">
+                                                    <i class="uil uil-file-export"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td>
+                                                Sin resultados
+                                            </td>
+                                        </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>

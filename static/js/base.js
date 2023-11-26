@@ -83,7 +83,7 @@ let content_count = document.getElementById('content_count_result');
 let btn_next_page = document.getElementById('btn_next_page');
 let btn_previous_page = document.getElementById('btn_previous_page');
 // URL de tu vista
-let url = 'http://localhost:8000/search/';
+let url = '/search/';
 // Número de página
 let page_number = 1;
 

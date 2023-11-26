@@ -35,6 +35,16 @@ class CitasForm(forms.ModelForm):
 		model = Cita
 		exclude = ('fecha_cita', 'estado', 'cliente')
 
+class CitasAdminForm(forms.ModelForm):
+	class Meta:
+		model = Cita
+		fields = ('fecha_cita', 'estado')
+		widgets = {
+			'fecha_cita': forms.DateInput(
+				format=('%Y-%m-%d'), 
+				attrs={'type': 'date'}
+			)
+		}
 # class PersonalForm(forms.ModelForm):
 #     class Meta:
 #         model = Usuario

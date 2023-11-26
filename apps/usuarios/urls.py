@@ -10,7 +10,8 @@ from .views import (
     CambiarEstadoUsuario,
     ChangePassword,
     AccessoDenegadoView,
-    RegistrarMiUsuario
+    RegistrarMiUsuario,
+    VerificarNotificaciones
 )
 
 APP_NAME = 'usuarios'
@@ -25,6 +26,7 @@ urlpatterns = [
 
 	# motor de busqueda
 	path('search/', SearchView.as_view(), name='search'),
+	path('verificar-notificacion/<int:pk>/', VerificarNotificaciones.as_view(), name='verificar-notificacion'),
 
     # listado de usuarios
     path('listado-de-usuarios/', ListadoUsuarios.as_view(), name='listado_usuarios'),

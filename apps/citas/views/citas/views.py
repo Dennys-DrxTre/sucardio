@@ -11,7 +11,7 @@ from django.views.generic import (
 	TemplateView
 )
 from ...models import Cita, Usuario, Medico
-from ...forms import CitasForm
+from ...forms import CitasAdminForm
 
 from apps.usuarios.mixins import ValidarUsuario
 
@@ -49,7 +49,7 @@ class EditarCita(ValidarUsuario, SuccessMessageMixin, UpdateView):
 	template_name = 'pages/citas/editar_cita.html'
 	permission_required = 'anuncios.requiere_secretria'
 	model = Cita
-	fields = ['fecha_cita', 'estado']
+	form_class = CitasAdminForm
 	success_url = '/listado-de-citas/'
 	success_message = "Cita editada exitosamente"
 

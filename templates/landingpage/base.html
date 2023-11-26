@@ -1,10 +1,13 @@
 {% load static %}
+{% load notification_tags %}
+{% get_notifications request.user as notifications %}
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="description" content="Clinica sucardio">
 	<meta name="keywords" content="sucardio, clinica, medicos, medicina, guanare">
 	<meta name="author" content="anonimo">
@@ -42,7 +45,29 @@
 						
 						{% if user.is_authenticated %}
 							<li class="nav-item dropdown language-select text-uppercase">
-								<a class="nav-link dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil uil-user"></i></a>
+								<a class="nav-link dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="p-0 uil uil-bell"></i>
+									<span class="m-0 badge badge-sm bg-success pc-h-badge count_notificacion">{{ notifications.count }}</span>
+								</a>
+								<ul class="dropdown-menu content_notificacion">
+									
+									{% for notification in notifications.notificaciones %}
+										<li class="nav-item">
+											<a class="dropdown-item" href="{{ notification.get_absolute_url }}">{{ notification.titulo }}</a>
+										</li>
+									{% empty %}
+										<li class="nav-item">
+											<a class="dropdown-item" href="#">Sin notificationes</a>
+										</li>
+									{% endfor %}
+										
+
+								</ul>
+							</li>
+							<li class="nav-item dropdown language-select text-uppercase">
+								<a class="nav-link dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="uil uil uil-user"></i>
+								</a>
 								<ul class="dropdown-menu">
 								<li class="nav-item"><a class="dropdown-item" href="{% url 'mi_perfil' %}">Perfil</a></li>
 								<li class="nav-item"><a class="dropdown-item" href="{% url 'mis_citas' %}">Mis Citas</a></li>
@@ -119,7 +144,6 @@
 							  <a href="#"><i class="uil uil-facebook-f"></i></a>
 							  <a href="#"><i class="uil uil-dribbble"></i></a> -->
 							  <a href="https://instagram.com/clinicasucardio?igshid=MW5sMTBxbDFyemQyNQ==" target="_blank"><i class="uil uil-instagram"></i></a>
-							  <!-- <a href="#"><i class="uil uil-youtube"></i></a> -->
 							</nav>
 							<!-- /.social -->
 						  </div>
@@ -219,9 +243,9 @@
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 	<script src="{% static 'assets_landing_page/js/plugins.js' %}"></script>
 	<script src="{% static 'assets_landing_page/js/theme.js' %}"></script>
-	<script src="{% static 'js/base.js' %}"></script>
-	<script src="{% static 'assets/js/plugins/i18n/es.js' %}"></script>
+	<script src="{% static 'assets_landing_page/js/base_front.js' %}"></script>
     <script src="{% static 'assets/js/plugins/select2.min.js' %}"></script>
+	<script src="{% static 'assets/js/plugins/i18n/es.js' %}"></script>
 	{% block js_ladingpage %}
 	{% endblock js_ladingpage %}
 </body>

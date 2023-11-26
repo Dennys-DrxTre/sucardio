@@ -18,6 +18,7 @@ from apps.presupuestos.models import Presupuesto
 from apps.anuncios.models import Anuncios, Usuario
 from django.contrib.auth.models import User, Permission
 from .perms import permissions_user
+from .models import Notificacion
 
 from .mixins import ValidarUsuario
 
@@ -433,3 +434,16 @@ class RegistrarMiUsuario(TemplateView):
 		context["sub_title"] = "Registrar usuario"
 		context["form"] = RegistrarMiUsuarioForm()
 		return context
+
+class VerificarNotificaciones(ValidarUsuario, View):
+	permission_required = 'anuncios.requiere_usuario'
+
+	def get(self, request,pk, *args, **kwargs):
+		try:
+			query = Notificacion.objects.get(pk=pk)
+			query.leido = True
+			query.save()
+
+		except Notificacion.DoesNotExist:
+			return redirect('/')
+		return redirect(f'/detalle-de-mi-cita/{query.cita.pk}/')

@@ -53,6 +53,7 @@ class Cita(ModeloBaseEstado):
 	estado = models.CharField(max_length=20, null=False, blank=False, choices=Estado.choices, default=Estado.PENDIENTE)
 	cliente = models.ForeignKey(Usuario, on_delete=models.PROTECT, null=False, blank=False)
 	medico = models.ForeignKey(Medico ,on_delete=models.PROTECT, blank=False, null=False)
+	notificado = models.BooleanField(default=False)
 
 	def __str__(self):
 		return str(self.id)

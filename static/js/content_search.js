@@ -10,7 +10,7 @@ const content_html = (title, description,model, color, url) => {
                     <span class="badge ${color} rounded-pill">${model}</span>
                 </div>
                 <div class="flex-shrink-0">
-                    <a href="http://localhost:8000${url}" class="avtar avtar-s btn btn-info">
+                    <a href="${url}" class="avtar avtar-s btn btn-info">
                         <i class="ti ti-eye f-18"></i>
                     </a>
                 </div>

@@ -25,6 +25,7 @@ class Inicio(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
+		context['sub_title'] = 'Inicio'
 		context['anuncio'] = Anuncios.objects.filter(estado = 'AC')[:5]
 		return context  
 	
