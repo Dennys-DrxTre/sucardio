@@ -37,6 +37,14 @@
                 <div class="table-responsive">
                     <div class="dataTable-wrapper dataTable-loading no-footer searchable fixed-columns">
                         <div class="dataTable-container">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        {{ message }}.
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
                             <table class="table table-hover dataTable-table" id="pc-dt-simple">
                                 <thead>
                                     <tr>

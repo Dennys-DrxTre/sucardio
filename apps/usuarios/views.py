@@ -32,10 +32,17 @@ class UserLoginView(TemplateView):
 		if form.is_valid():
 			username = form.cleaned_data['username']
 			password = form.cleaned_data['password']
-			user = authenticate(username=username, password=password)
-			if user is not None:
-				login(request, user)
-				return redirect('/') # redirige al usuario a la página de inicio después de iniciar sesión
+			user = User.objects.filter(username=username).first()
+			if user:
+				if user.is_active:
+					user = authenticate(username=username, password=password)
+					if user:
+						login(request, user)
+						return redirect('/') # redirige al usuario a la página de inicio después de iniciar sesión
+					else:
+						messages.error(request, 'Usuario o contraseña incorrecta.')
+				else:
+					messages.error(request, 'Este usuario está desactivado.')
 			else:
 				messages.error(request, 'Usuario o contraseña incorrecta.')
 		else:

@@ -8,8 +8,8 @@ from datetime import date
 class Persona(models.Model):
 
 	class Nacionalidad(models.TextChoices):
-		EXTRANJERO = 'E-', 'E-'
-		VENEZOLANO = 'V-', 'V-'
+		EXTRANJERO = 'E', 'E'
+		VENEZOLANO = 'V', 'V'
 
 	# DATOS GENERALES
 	nombre = models.CharField(max_length=50, null=False, blank=False)
