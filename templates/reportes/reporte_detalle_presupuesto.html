@@ -118,7 +118,7 @@
 			<p style="font-size: 12px;">
 				<span style="font-weight: 700;">{{report_title|upper}}</span> <br>
 				
-				<span style="font-size: 10px;">C.I: {{ datos.cliente.cedula }}</span> <br>
+				<span style="font-size: 10px;">C.I: {{ datos.cliente.nacionalidad }}{{ datos.cliente.cedula }}</span> <br>
                 <span style="font-size: 10px;">Paciente: {{ datos.cliente.nombre }} {{ datos.cliente.apellido }}</span> <br>
                 <span style="font-size: 10px;">Domicilio Fiscal: {{ datos.cliente.direccion }}</span> <br>
                 <span style="font-size: 10px;">Teléfono: {{ datos.cliente.telefono }}</span>
@@ -136,7 +136,7 @@
 			<tbody>
 				<tr>
 					<td class="cosa">{{ datos.pk }}</td>
-					<td class="cosa">{{ datos.cliente.cedula }}</td>
+					<td class="cosa">{{ datos.cliente.nacionalidad }}{{ datos.cliente.cedula }}</td>
 					<td class="cosa">{{ datos.metodo_pago }}</td>
 					<td class="cosa">{{ datos.total|floatformat:'2' }}</td>
 				</tr>

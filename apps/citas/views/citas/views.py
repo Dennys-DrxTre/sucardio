@@ -36,14 +36,13 @@ class DetallesCita(ValidarUsuario, TemplateView):
 
 	def get(self, request, pk,*args, **kwargs):
 		context = {}
-
-		citas = Cita.objects.filter(pk=pk).first()
-		if citas:
+		try:
+			citas = Cita.objects.get(pk=pk)
 			context['cita'] = citas
 			context["sub_title"] = "Detalle de mi cita"
 			return render(request, self.template_name, context)
-		else:
-			return redirect('mis_citas')
+		except Cita.DoesNotExist:
+			return redirect('/listado-de-citas/')
 
 class EditarCita(ValidarUsuario, SuccessMessageMixin, UpdateView):
 	template_name = 'pages/citas/editar_cita.html'

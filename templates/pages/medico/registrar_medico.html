@@ -42,10 +42,21 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label" for="id_cedula">Cedula</label>
-                                {{ form.cedula|add_class:'form-control'|attr:'placeholder:Introduzca la cedula'|attr:'maxlength:8'|attr:'type:text'|attr:'onkeypress:return Solo_Numero_ci(event)' }}
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label" for="id_cedula">Tipo N.</label>
+                                        {{ form.nacionalidad|add_class:'form-control'|attr:'required' }}
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label class="form-label" for="id_cedula">Cedula</label>
+                                        {{ form.cedula|add_class:'form-control'|attr:'placeholder:Introduzca la cedula'|attr:'maxlength:8'|attr:'type:text'|attr:'onkeypress:return Solo_Numero_ci(event)' }}
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">

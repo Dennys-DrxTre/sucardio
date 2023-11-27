@@ -137,7 +137,7 @@
 						<td class="cosa">{{x.motivo_consulta}}</td>
 						<td class="cosa">{{x.control_pac|yesno:'Si, No'}}</td>
 						<td class="cosa">{{x.metodo_pago}}</td>
-						<td class="cosa">{{x.cliente.cedula}}| {{x.cliente.nombre}} {{x.cliente.apellido}}</td>
+						<td class="cosa">{{x.cliente.nacionalidad}}{{x.cliente.cedula}} | {{x.cliente.nombre}} {{x.cliente.apellido}}</td>
 					</tr>
 				{% empty %}
 					<tr>

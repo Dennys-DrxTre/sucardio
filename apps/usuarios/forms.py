@@ -81,7 +81,7 @@ class RegistrarMiUsuarioForm(forms.ModelForm):
 
    class Meta:
       model = Usuario
-      fields = ['cedula','nombre', 'apellido','telefono', 'direccion']
+      fields = ['cedula','nombre', 'apellido','telefono', 'direccion', 'nacionalidad']
 
    def clean(self):
       cleaned_data = super().clean()

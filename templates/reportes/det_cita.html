@@ -82,7 +82,7 @@
 			<p style="font-size: 12px;">
 				<span style="font-weight: 700;">{{report_title|upper}}</span> <br>
 				
-				<span style="font-size: 12px;">C.I: {{cita.cliente.cedula}}</span> <br>
+				<span style="font-size: 12px;">C.I: {{ cita.cliente.nacionalidad }}{{cita.cliente.cedula}}</span> <br>
                 <span style="font-size: 12px;">Paciente: {{cita.cliente.nombre}} {{cita.cliente.apellido}}</span> <br>
                 <span style="font-size: 12px;">Domicilio Fiscal: {{cita.cliente.direccion}}</span> <br>
                 <span style="font-size: 12px;">Teléfono: {{cita.cliente.telefono}} {% if cita.cliente.telefono2 %}/ {{cita.cliente.telefono2}} {% endif %}</span>

@@ -134,7 +134,7 @@
 				{% for x in datos %}
 					<tr>
 						<td class="cosa" style="width: 10%;">{{ x.pk }}</td>
-						<td class="cosa" style="width: 20%;">{{ x.cliente }}</td>
+						<td class="cosa" style="width: 20%;">{{ x.cliente.nacionalidad }}{{ x.cliente.cedula }}</td>
 						<td class="cosa" style="width: 20%;">{{ x.get_metodo_pago_display }}</td>
                         <td class="cosa" style="width: 10%;">{{ x.total|floatformat:'2' }}</td>
 						<td class="cosa" style="width: 10%;">

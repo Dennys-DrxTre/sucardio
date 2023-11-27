@@ -401,6 +401,7 @@ class RegistrarMiUsuario(TemplateView):
 		if form.is_valid():
 
 			user = User()
+			user.nacionalidad = form.cleaned_data['nacionalidad']
 			user.username = form.cleaned_data['cedula']
 			user.first_name = form.cleaned_data['nombre']
 			user.last_name = form.cleaned_data['apellido']

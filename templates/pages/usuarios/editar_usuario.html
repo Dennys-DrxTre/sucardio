@@ -27,7 +27,13 @@
                             {% endfor %}
                     {% endif %}
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="form-label" for="id_nacionalidad">Tipo N.</label>
+                                {{ form.nacionalidad|add_class:'form-control'|attr:'required' }}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label" for="id_cedula">Cedula</label>
                                 {{ form.cedula|add_class:'form-control'|attr:'placeholder:Introduzca la cedula'|attr:'maxlength:8'|attr:'onkeypress:return Solo_Numero_ci(event)' }}

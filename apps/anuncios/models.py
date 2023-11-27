@@ -7,6 +7,10 @@ from datetime import date
 
 class Persona(models.Model):
 
+	class Nacionalidad(models.TextChoices):
+		EXTRANJERO = 'E-', 'E-'
+		VENEZOLANO = 'V-', 'V-'
+
 	# DATOS GENERALES
 	nombre = models.CharField(max_length=50, null=False, blank=False)
 	apellido = models.CharField(max_length=50, null=False, blank=False)
@@ -14,6 +18,7 @@ class Persona(models.Model):
 	telefono = models.CharField(max_length=11, null=False, blank=False)
 	telefono2 = models.CharField(max_length=11, null=True, blank=True)
 	direccion = models.TextField(null=True, blank=True)
+	nacionalidad = models.CharField(max_length=2, choices=Nacionalidad.choices, default=Nacionalidad.VENEZOLANO, null=True, blank=True)
 
 	def __str__(self):
 		return str(f'{self.cedula} | {self.nombre} | {self.apellido}')

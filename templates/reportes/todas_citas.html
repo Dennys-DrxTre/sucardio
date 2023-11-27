@@ -135,7 +135,7 @@
 			<tbody>
 				{% for x in cita %}
 					<tr>
-						<td class="cosa">{{ x.cliente.cedula }}</td>
+						<td class="cosa">{{ x.cliente.nacionalidad }}{{ x.cliente.cedula }}</td>
 						<td class="cosa">{{x.cliente.nombre}} {{x.cliente.apellido}}</td>
 						<td class="cosa">{{x.motivo_consulta|truncatechars:30}}</td>
                         <td class="cosa">{{ x.metodo_pago }}</td>
@@ -149,11 +149,11 @@
 						<td class="cosa">{{ x.medico.cedula}}| {{x.medico.nombre}} {{x.medico.apellido}}</td>
 						<td class="cosa">
 							{% if x.estado == 'PE' %}
-							<td class="cosa">Pendiente</td>
+								Pendiente
 							{% elif x.estado == 'AP' %}
-							<td class="cosa">Aprobado</td>
+								Aprobado
 							{% else %}
-							<td class="cosa">Rechazada</td>
+								Rechazada
 							{% endif %}
 						</td>
 					</tr>
