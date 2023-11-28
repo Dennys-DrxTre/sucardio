@@ -80,33 +80,76 @@
     </table>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal modal-lg fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Reporte de las citas del dia</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Reportes</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <label for="" class="form-label">Medicos</label>
-        <select name="medico_dia" id="id_report" required class="form-control">
-            <option value="">-- Seleccione --</option>
-            {% for x in medicos %}
-                <option value="{{x.cedula}}">{{x.nombre}} {{x.apellido}}| {{x.especialidad}}</option>
-            {% endfor %}
-        </select>
+        <div class="row">
+            <div class="form-group mb-4">
+                <label for="" class="form-label">Reporte de las citas del dia</label>
+                <select name="medico_dia" id="id_report" required class="form-control">
+                    <option value="">-- Seleccione --</option>
+                    {% for x in medicos %}
+                        <option value="{{x.cedula}}">{{x.nombre}} {{x.apellido}}| {{x.especialidad}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group m-0">
+                    <label for="" class="form-label">Reporte Dinamico</label>
+                    <input class="form-control" name="search_cita" id="search_cita" placeholder="Buscar..." type="text">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="form-label" for="example-datemin">F.Inicio</label>
+                    <input type="date" class="form-control" id="input_date_start" min="2023-01-01">
+                  </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="form-label" for="example-datemin">F.Final</label>
+                    <input type="date" class="form-control" id="input_date_end" min="2023-01-01">
+                  </div>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary mt-3" id="btn_generar_pdf">Generar PDF</button>
+            </div>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
 </div>
 <script>
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+
+    let search_cita = document.getElementById('search_cita');
+    let input_date_start = document.getElementById('input_date_start');   
+    let input_date_end = document.getElementById('input_date_end');
+
     document.getElementById('id_report').addEventListener('change', function() {
       var selectedValue = this.value;
       window.open(`/reportes/citas-del-dia/${selectedValue}`);
       
+    });
+
+    document.getElementById('btn_generar_pdf').addEventListener('click', function() {
+        input_date_start.value = (!(input_date_start.value == '')) ? input_date_start.value : today;
+        input_date_end.value = (!(input_date_end.value == '')) ? input_date_end.value : today;
+        window.open(`/reportes/reporte-dinamico-citas/?search=${search_cita.value}&date1=${input_date_start.value}&date2=${input_date_end.value}`);
     });
   </script>
 {% endblock content_datatable %}

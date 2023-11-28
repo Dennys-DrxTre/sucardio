@@ -1,8 +1,8 @@
 from django.urls import path
-from .views.citas.views import DetalleCita, CitasDelDia, DetalleMiCita, TodasLasCitas
+from .views.citas.views import DetalleCita, CitasDelDia, DetalleMiCita, TodasLasCitas, ReporteDinamicoCitas
 from .views.medicos.views import ReporteMedicos,ReporteDetalleMedico
 from .views.usuarios.views import ReporteUsuarios, ReporteDetalleUsuario
-from .views.presupuesto.views import ReportePresupuestos, ReporteDetallePresupuesto,ReporteDetalleMiPresupuesto
+from .views.presupuesto.views import ReportePresupuestos, ReporteDetallePresupuesto,ReporteDetalleMiPresupuesto, ReporteDinamicoPresupuesto
 
 APP_NAME = 'reportes'
 
@@ -11,6 +11,7 @@ urlpatterns = [
     path('detalle-de-cita/<int:pk>/', DetalleCita.as_view(), name='det_cita'),
     path('detalle-de-mi-cita/<int:pk>/', DetalleMiCita.as_view(), name='det_mi_cita'),
     path('citas-del-dia/<int:pk>/', CitasDelDia.as_view(), name='citas_dia'),
+    path('reporte-dinamico-citas/', ReporteDinamicoCitas.as_view(), name='reporte_dinamico_citas'),
     # MEDICOS
     path('listado-de-medicos/', ReporteMedicos.as_view(), name='reporte_medicos'),
     path('detalle-de-medico/<int:pk>/', ReporteDetalleMedico.as_view(), name='reporte_detalle_medico'),
@@ -21,4 +22,6 @@ urlpatterns = [
     path('listado-de-presupuestos/', ReportePresupuestos.as_view(), name='reporte_presupuestos'),
     path('detalle-de-presupuesto/<int:pk>/', ReporteDetallePresupuesto.as_view(), name='reporte_detalle_presupuesto'),
     path('detalle-de-mi-presupuesto/<int:pk>/', ReporteDetalleMiPresupuesto.as_view(), name='reporte_detalle_mi_presupuesto'),
+    path('reporte-dinamico-presupuestos/', ReporteDinamicoPresupuesto.as_view(), name='reporte_dinamico_presupuestos'),
+
 ]
