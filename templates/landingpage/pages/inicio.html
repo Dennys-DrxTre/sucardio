@@ -7,7 +7,7 @@
         <div class="container pt-10 pb-15 pt-md-14 pb-md-20">
         <div class="row gx-lg-8 gx-xl-12 gy-10 mb-5 align-items-center">
             <div class="col-md-10 offset-md-1 offset-lg-0 col-lg-5 text-center text-lg-start order-2 order-lg-0" data-cues="slideInDown" data-group="page-title" data-delay="600">
-            <h1 class="display-1 mb-5 mx-md-n5 mx-lg-0">SUCARDIO</h1>
+            <h1 class="display-1 mb-5 mx-md-n5 mx-lg-0 text-danger">SUCARDIO</h1>
             <p>Atencion médica especializada 24 horas al dia</p>
 
             <div class="d-flex justify-content-center justify-content-lg-start" data-cues="slideInDown" data-group="page-title-buttons" data-delay="900">
@@ -93,7 +93,7 @@
         <div class="container pb-9 pb-md-14">
             <div class="row">
             <div class="col-lg-9 col-xl-8 col-xxl-7 mx-auto text-center">
-                <h3 class="display-4 mb-8">Anuncios</h3>
+                <h3 class="display-4 mb-8 text-danger">Anuncios</h3>
             </div>
             <!-- /column -->
             </div>
@@ -104,7 +104,9 @@
                     {% for x in anuncio %}
                     {% if x.imagen %}
                     <div class="swiper-slide">
-                        <figure class="rounded"><img src="{{x.imagen.url}}" alt="" /><a class="item-link" href="{% url 'detalle_anuncio_landing' x.pk %}"><i class="uil uil-link"></i></a></figure>
+                        <figure class="rounded">
+                            <img src="{{x.imagen.url}}" alt="" /><a class="item-link" href="{% url 'detalle_anuncio_landing' x.pk %}"><i class="uil uil-link"></i></a> 
+                        </figure>
                     </div>
                     {% endif %}
                     {% endfor %}

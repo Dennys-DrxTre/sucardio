@@ -23,6 +23,11 @@
                             <div class="post-content">
                                 <p>Fecha de publicación: {{anuncio.fecha_publicacion|date:'d/m/Y'}}</p>
                             </div>
+                            {% if anuncio.url %}
+                                <div class="post-content">
+                                    <a href="{{anuncio.url}}" target="__blank" class="link-dark">Ver publicación</a>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                     

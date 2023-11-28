@@ -88,6 +88,7 @@ class Anuncios(ModeloBaseEstado):
 	titulo = models.CharField(max_length=150, null=True, blank=True)
 	imagen = models.ImageField(upload_to="anuncios", null=True, blank=True)
 	descripcion = models.TextField(null=True, blank=True)
+	url = models.URLField(null=True, blank=True)
 	autor = models.ForeignKey(Usuario, on_delete=models.PROTECT, blank=False, null=False)
 
 	def __str__(self):
