@@ -31,7 +31,7 @@
                     <div class="card-body">
                       <h3 class="card-title">{{anuncio.titulo}}</h3>
                       <p class="card-text">{{anuncio.descripcion}}</p>
-                      <a class="link-dark" href="{{anuncio.url}}" target="__blank">Ver publicación</a>
+                      <p><a class="link-primary" href="{{anuncio.url}}" target="__blank">Ver publicación</a></p>
                       <p class="card-text">Autor: {{anuncio.autor.nombre}} {{anuncio.autor.apellido}}</p>
                       <p class="card-text">Estado: <strong class="text-muted">{{anuncio.estado}}</strong></p>
                       <p class="card-text">Fecha de publicación: <strong class="text-muted">{{anuncio.fecha_publicacion|date:'d-m-Y'}}</strong></p>
